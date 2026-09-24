@@ -13,6 +13,7 @@ DccEditorItem {
     topPadding: topInset
     bottomPadding: bottomInset
     activeFocusOnTab: false
+    Accessible.id: model.item.accessibleId
     rightItem: RowLayout {
         spacing: 8
         DccLoader {
