@@ -48,6 +48,7 @@ DccObject {
 
             Button {
                 id: button
+                Accessible.id: "LangAndFormat_Button"
                 checkable: true
                 visible: langRepeater.count > 1
                 font.pixelSize: DTK.fontManager.t8.pixelSize
@@ -108,6 +109,7 @@ DccObject {
                     enabled: dccData.langState === 0 // language set finished
                     page: ItemDelegate {
                         id: itemDelegate
+                        Accessible.id: "LangAndFormat_ItemDelegate"
                         property bool isCurrentLang: dccData.currentLang === dccObj.displayName
                         property bool isLoading: itemDelegate.isCurrentLang && !dccObj.enabled
                                                 && (dccData.langState & langAndFormat.localeStateSetLang)
@@ -253,6 +255,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: Button {
+                Accessible.id: "LangAndFormat_Button_2"
                 implicitWidth: fm.advanceWidth(text) + fm.averageCharacterWidth * 2
                 implicitHeight: 30
                 text: qsTr("add")

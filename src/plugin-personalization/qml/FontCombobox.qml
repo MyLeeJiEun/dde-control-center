@@ -6,6 +6,7 @@ import org.deepin.dtk.style 1.0 as DS
 
 D.ComboBox {
     id: control
+    Accessible.id: "FontCombobox_ComboBox"
     flat: true
     property string visibleRole
 
@@ -19,6 +20,7 @@ D.ComboBox {
 
     delegate: D.MenuItem {
         id: menuItem
+        Accessible.id: "FontCombobox_MenuItem"
         useIndicatorPadding: true
         width: parent.width
         text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : (model[control.textRole] === undefined ? modelData[control.textRole] : model[control.textRole])) : modelData

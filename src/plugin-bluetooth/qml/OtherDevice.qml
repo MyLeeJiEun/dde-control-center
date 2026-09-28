@@ -86,6 +86,7 @@ DccObject{
 
         page: RowLayout {
             D.CheckBox {
+                Accessible.id: "OtherDevice_CheckBox"
                 Layout.leftMargin: 10
                 Layout.alignment: Qt.AlignLeft
                 checked: dccData.model().displaySwitch

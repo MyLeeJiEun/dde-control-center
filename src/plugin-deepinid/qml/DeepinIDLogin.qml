@@ -23,7 +23,9 @@ DccObject {
         Layout.fillHeight: true
         contentHeight: groupView.height
 
-        ScrollBar.vertical: ScrollBar { }
+        ScrollBar.vertical: ScrollBar {
+            Accessible.id: "DeepinIDLogin_ScrollBar"
+        }
 
         DccGroupView {
             id: groupView
@@ -118,6 +120,7 @@ DccObject {
         pageType: DccObject.Item
         page: RowLayout{
             Button {
+                Accessible.id: "DeepinIDLogin_Button"
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignHCenter

@@ -75,6 +75,7 @@ DccObject {
 
                     D.Button {
                         id: previewBtn
+                        Accessible.id: "ScreenSaverPage_Button"
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 15
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -168,6 +169,7 @@ DccObject {
                 enabled: dccData.model.screenSaverModel.getConfigAbleByUrl(dccData.model.currentScreenSaver) || dccData.model.currentScreenSaver === "deepin-custom-screensaver"
                 page: D.Button {
                     id: settingBtn
+                    Accessible.id: "ScreenSaverPage_Button_2"
                     implicitWidth: {
                         font.pixelSize
                         return fm.advanceWidth(text) + leftPadding + rightPadding
@@ -237,6 +239,7 @@ DccObject {
                 weight: 30
                 pageType: DccObject.Editor
                 page: D.Switch {
+                    Accessible.id: "ScreenSaverPage_Switch"
                     checked: dccData.model.lockScreenAtAwake
                     onCheckedChanged: {
                         if (checked != dccData.model.lockScreenAtAwake) {

@@ -21,6 +21,7 @@ D.DialogWindow {
     property date currentDate: new Date()
 
     component SpinboxTextInput: TextInput {
+        Accessible.id: "DateTimeSettingDialog_TextInput"
         property var spinbox: parent
 
         text: spinbox.displayText
@@ -231,6 +232,7 @@ D.DialogWindow {
             Layout.topMargin: 20
             spacing: 10
             Button {
+                Accessible.id: "DateTimeSettingDialog_Button"
                 Layout.fillWidth: true
                 text: qsTr("Cancel")
                 font: D.DTK.fontManager.t6
@@ -239,6 +241,7 @@ D.DialogWindow {
                 }
             }
             Button {
+                Accessible.id: "DateTimeSettingDialog_Button_2"
                 Layout.fillWidth: true
                 text: qsTr("Confirm")
                 font: D.DTK.fontManager.t6

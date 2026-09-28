@@ -351,6 +351,7 @@ DccObject {
                 }
                 D.Button {
                     id: identifyBut
+                    Accessible.id: "DisplayMain_Button"
                     property bool identifyActive: false
                     implicitHeight: 24
                     implicitWidth: 72
@@ -403,6 +404,7 @@ DccObject {
             visible: dccData.screens.length > 1
             pageType: DccObject.Editor
             page: D.ComboBox {
+                Accessible.id: "DisplayMain_ModeComboBox"
                 ListModel {
                     id: modeModel
                 }
@@ -452,6 +454,7 @@ DccObject {
             pageType: DccObject.Editor
             visible: dccData.virtualScreens.length > 1
             page: ComboBox {
+                Accessible.id: "DisplayMain_ComboBox"
                 flat: true
                 enabled: !(root.isExtendMode && dccData.isConcatScreenMode)
                 textRole: "name"
@@ -520,6 +523,7 @@ DccObject {
                         Layout.fillWidth: true
                     }
                     Switch {
+                        Accessible.id: "DisplayMain_Switch"
                         checked: dccData.isConcatScreenMode
                         enabled: root.screensFormRect || dccData.isConcatScreenMode
                         onCheckedChanged: {
@@ -611,6 +615,7 @@ DccObject {
         }
         Slider {
             id: brightnessSlider
+            Accessible.id: "DisplayMain_Slider"
             implicitHeight: 24
             Layout.alignment: Qt.AlignVCenter
             highlightedPassedGroove: true
@@ -670,6 +675,7 @@ DccObject {
             pageType: DccObject.Editor
             onParentItemChanged: item => { if (item) { item.rightItemTopMargin = 6; item.rightItemBottomMargin = 6 } }
             page: Switch {
+                Accessible.id: "DisplayMain_Switch_2"
                 checked: dccData.autoBacklightEnabled
                 onClicked: dccData.autoBacklightEnabled = checked
             }
@@ -703,6 +709,7 @@ DccObject {
             pageType: DccObject.Editor
             onParentItemChanged: item => { if (item) { item.rightItemTopMargin = 6; item.rightItemBottomMargin = 6 } }
             page: Switch {
+                Accessible.id: "DisplayMain_Switch_3"
                 checked: dccData.autoBacklightEnabled
                 onClicked: dccData.autoBacklightEnabled = checked
             }
@@ -753,6 +760,7 @@ DccObject {
             pageType: DccObject.Editor
             page: D.ComboBox {
                 id: control
+                Accessible.id: "DisplayMain_ComboBox_2"
                 ListModel {
                     id: fillmodellist
                     ListElement {
@@ -870,6 +878,7 @@ DccObject {
             weight: 50
             pageType: DccObject.Editor
             page: ComboBox {
+                Accessible.id: "DisplayMain_ComboBox_3"
                 flat: true
                 enabled: !(root.isExtendMode && dccData.isConcatScreenMode)
                 textRole: "text"
@@ -917,6 +926,7 @@ DccObject {
             visible: !dccData.isX11 || dccData.virtualScreens.length === 1
             pageType: DccObject.Editor
             page: ComboBox {
+                Accessible.id: "DisplayMain_ComboBox_4"
                 flat: true
                 enabled: !(root.isExtendMode && dccData.isConcatScreenMode)
                 textRole: "text"
@@ -948,6 +958,7 @@ DccObject {
         pageType: DccObject.Editor
         onParentItemChanged: item => { if (item) item.topInset = 6 }
         page: ComboBox {
+            Accessible.id: "DisplayMain_ComboBox_5"
             flat: true
             enabled: !(root.isExtendMode && dccData.isConcatScreenMode)
             textRole: "text"
@@ -981,6 +992,7 @@ DccObject {
         pageType: DccObject.Editor
         onParentItemChanged: item => { if (item) { item.rightItemTopMargin = 6; item.rightItemBottomMargin = 6 } }
         page: Switch {
+            Accessible.id: "DisplayMain_Switch_4"
             checked: dccData.colorTemperatureEnabled
             onClicked: dccData.colorTemperatureEnabled = checked
         }
@@ -1001,6 +1013,7 @@ DccObject {
             visible: dccData.colorTemperatureEnabled && dccData.isX11
             pageType: DccObject.Editor
             page: ComboBox {
+                Accessible.id: "DisplayMain_ComboBox_6"
                 flat: true
                 model: [qsTr("All day"), qsTr("Sunset to Sunrise"), qsTr("Custom Time")]
                 currentIndex: dccData.colorTemperatureMode
@@ -1065,6 +1078,7 @@ DccObject {
                 }
                 Slider {
                     id: colorTemperatureSlider
+                    Accessible.id: "DisplayMain_Slider_2"
                     implicitHeight: 24
                     Layout.alignment: Qt.AlignVCenter
                     from: 0

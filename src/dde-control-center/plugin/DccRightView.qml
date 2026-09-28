@@ -23,7 +23,9 @@ Flickable {
             contentY = 0
         }
     }
-    ScrollBar.vertical: ScrollBar { }
+    ScrollBar.vertical: ScrollBar {
+        Accessible.id: "DccRightViewScrollBar"
+    }
 
     DccGroupView {
         id: groupView

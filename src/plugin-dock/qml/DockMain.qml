@@ -63,6 +63,7 @@ DccObject {
                         ColumnLayout {
                             D.ItemDelegate {
                                 id: modeDelegate
+                                Accessible.id: "DockMain_ItemDelegate"
                                 Layout.preferredWidth: modeDelegateWidth
                                 Layout.preferredHeight: modeDelegateHeight
                                 Layout.alignment: Qt.AlignHCenter
@@ -149,6 +150,7 @@ DccObject {
                     text: qsTr("Small")
                 }
                 D.Slider {
+                    Accessible.id: "DockMain_Slider"
                     Layout.alignment: Qt.AlignVCenter
                     id: balanceSlider
                     handleType: Slider.HandleType.ArrowBottom
@@ -189,6 +191,7 @@ DccObject {
             weight: 20
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "DockMain_Switch"
                 checked: dccData.dockInter.locked 
                 onCheckedChanged: {
                     if (dccData.dockInter.locked != checked)
@@ -269,6 +272,7 @@ DccObject {
                          ? qsTr("App icons are always grouped on the taskbar in Fashion Mode.")
                          : ""
             page: Switch {
+                Accessible.id: "DockMain_Switch_2"
                 checked: dccData.combineApp
                 onCheckedChanged: {
                     if (dccData.combineApp !== checked)

@@ -204,6 +204,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Editor
         page: D.Switch {
+            Accessible.id: "Common_Switch"
             checked: dccData.leftHandState
             onCheckedChanged: {
                 dccData.leftHandState = checked

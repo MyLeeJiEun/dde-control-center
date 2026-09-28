@@ -310,6 +310,7 @@ DccObject {
 
                 Button {
                     id: licenseActionBtn
+                    Accessible.id: "NativeInfoPage_Button"
                     text: dccData.systemInfoMode().licenseActionText
                     ColorSelector.family: Palette.CommonColor
                     implicitHeight: 30
@@ -417,6 +418,7 @@ DccObject {
         page: RowLayout {
 
             Button {
+                Accessible.id: "NativeInfoPage_Button_2"
                 Layout.topMargin: 10
                 implicitWidth: 250
                 implicitHeight: 30

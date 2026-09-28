@@ -93,6 +93,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "TimeAndDate_Switch"
                 checked: ntpSettings.ntpOn
                 onCheckedChanged: {
                     dccData.ntpEnabled = checked
@@ -117,6 +118,7 @@ DccObject {
 
                 ComboBox {
                     id: comboBox
+                    Accessible.id: "TimeAndDate_ComboBox"
                     property var serverList: dccData.ntpServerList
                     flat: true
                     padding: 10
@@ -191,6 +193,7 @@ DccObject {
 
                 Button {
                     id: settingsButton
+                    Accessible.id: "TimeAndDate_Button"
                     visible: !dccData.ntpEnabled
                     anchors.fill: parent
                     property bool needShowDialog: false
@@ -321,6 +324,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "TimeAndDate_Switch_2"
                 checked: dccData.use24HourFormat
                 onCheckedChanged: {
                     dccData.use24HourFormat = checked
@@ -381,6 +385,7 @@ DccObject {
 
                 Button {
                     id: zoneButton
+                    Accessible.id: "TimeAndDate_Button_2"
                     flat: true
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -450,6 +455,7 @@ DccObject {
                         delegateModel: DelegateModel {
                             model: systemTimezoneItem.model
                             delegate: D.MenuItem {
+                                Accessible.id: "TimeAndDate_MenuItem"
                                 useIndicatorPadding: true
                                 width: timezoneWindow.viewWidth
                                 text: model.display
@@ -523,6 +529,7 @@ DccObject {
                 spacing: 10
                 Button {
                     id: addButton
+                    Accessible.id: "TimeAndDate_Button_3"
                     text: qsTr("Add")
                     implicitHeight: 30
                     implicitWidth: 60
@@ -532,6 +539,7 @@ DccObject {
                         delegateModel: DelegateModel {
                             model: dccData.zoneSearchModel()
                             delegate: D.MenuItem {
+                                Accessible.id: "TimeAndDate_MenuItem_2"
                                 useIndicatorPadding: true
                                 width: timezoneListWindow.viewWidth
                                 text: model.display
@@ -597,6 +605,7 @@ DccObject {
         pageType: DccObject.Item
         page: ItemDelegate {
             id: itemZoneCompItemDelegate
+            Accessible.id: "TimeAndDate_ItemDelegate"
             visible: dccObj
             hoverEnabled: true
             implicitHeight: Math.max(50, textColumn.implicitHeight + 2)

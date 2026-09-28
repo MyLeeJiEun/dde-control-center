@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -46,6 +46,7 @@ DccObject {
                     }
                 }
                 Switch {
+                    Accessible.id: "DeepinIDSyncService_Switch"
                     checked: dccData.model.syncSwitch
                     enabled: dccData.model.syncEnabled
                     onCheckedChanged: {
@@ -164,6 +165,7 @@ DccObject {
             }
 
             D.ToolButton {
+                Accessible.id: "DeepinIDSyncService_ToolButton"
                 Layout.preferredHeight: 40
                 text: qsTr("Clear cloud data")
                 font: D.DTK.fontManager.t10

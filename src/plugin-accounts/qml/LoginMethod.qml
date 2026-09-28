@@ -115,6 +115,7 @@ DccTitleObject {
                     pageType: DccObject.Editor
                     page: D.SpinBox {
                         id: sbAge
+                        Accessible.id: "LoginMethod_SpinBox"
                         from: 1
                         to: 99999
                         value: dccData.passwordAge(loginMethodTitle.userId)
@@ -146,6 +147,7 @@ DccTitleObject {
 
                         contentItem: TextInput {
                             id: ti
+                            Accessible.id: "LoginMethod_TextInput"
                             text: sbAge.textFromValue(sbAge.value, sbAge.locale)
                             color: sbAge.palette.text
                             readOnly: !sbAge.editable

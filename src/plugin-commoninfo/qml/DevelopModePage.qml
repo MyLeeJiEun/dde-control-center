@@ -85,6 +85,7 @@ DccObject {
 
                 Button {
                     id: enterBtn
+                    Accessible.id: "DevelopModePage_Button"
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 10
                     implicitHeight: 30
@@ -160,6 +161,7 @@ DccObject {
                             Layout.alignment: Qt.AlignHCenter
                             RadioButton {
                                 id: radio1
+                                Accessible.id: "DevelopModePage_RadioButton"
                                 text: qsTr("Online")
                                 font: D.DTK.fontManager.t6
                                 checked: true
@@ -174,6 +176,7 @@ DccObject {
 
                             RadioButton {
                                 id: radio2
+                                Accessible.id: "DevelopModePage_RadioButton_2"
                                 text: qsTr("Offline")
                                 font: D.DTK.fontManager.t6
                                 onClicked: {
@@ -330,6 +333,7 @@ DccObject {
                                         }
                                         Button {
                                             id: exportBtn
+                                            Accessible.id: "DevelopModePage_Button_2"
                                             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                                             Layout.rightMargin: 6
                                             implicitWidth: 60
@@ -559,6 +563,7 @@ DccObject {
             page:  Row{
                 ComboBox {
                     id: debugLogCombo
+                    Accessible.id: "DevelopModePage_ComboBox"
                     model: [ qsTr("Off"), qsTr("Debug") ]
                     flat: true
                     font: D.DTK.fontManager.t8
@@ -628,6 +633,7 @@ DccObject {
             }
 
             Switch {
+                Accessible.id: "DevelopModePage_Switch"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 10
                 implicitWidth: 50

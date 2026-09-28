@@ -26,6 +26,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Editor
         page: D.Switch {
+            Accessible.id: "Common_Switch"
             checked: dccData.keyboardEnabled
             onToggled: {
                 dccData.keyboardEnabled = checked
@@ -253,6 +254,7 @@ DccObject {
             pageType: DccObject.Item
             page: TextField {
                 id: textField
+                Accessible.id: "Common_TextField"
                 placeholderText: qsTr("test here")
                 background: null
                 horizontalAlignment: textMetrics.boundingRect.width > width ? Text.AlignRight : Text.AlignHCenter
@@ -290,6 +292,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: D.Switch {
+                Accessible.id: "Common_Switch_2"
                 checked: dccData.numLock
                 onToggled: {
                     dccData.numLock = checked
@@ -305,6 +308,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: D.Switch {
+                Accessible.id: "Common_Switch_3"
                 checked: dccData.capsLock
                 onToggled: {
                     dccData.capsLock = checked

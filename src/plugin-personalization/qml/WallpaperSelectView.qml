@@ -83,6 +83,7 @@ ColumnLayout {
         }
         D.ToolButton {
             id: titleLoolButton
+            Accessible.id: "WallpaperSelectView_ToolButton"
             font: D.DTK.fontManager.t7
             visible: layout.lineCount * 2 < root.model.count + root.firstItemVisible ? 1 : 0
             textColor: D.Palette {
@@ -469,11 +470,14 @@ ColumnLayout {
 
         D.Menu {
             id: contextMenu
+            Accessible.id: "WallpaperSelectView_Menu"
             MenuItem {
+                Accessible.id: "WallpaperSelectView_MenuItem"
                 text: qsTr("Set lock screen")
                 onTriggered: root.wallpaperSelected(root.contextMenuUrl, PersonalizationExport.Option_Lock)
             }
             MenuItem {
+                Accessible.id: "WallpaperSelectView_MenuItem_2"
                 text: qsTr("Set desktop")
                 onTriggered: root.wallpaperSelected(root.contextMenuUrl, PersonalizationExport.Option_Desktop)
             }

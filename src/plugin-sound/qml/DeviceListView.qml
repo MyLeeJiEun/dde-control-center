@@ -29,6 +29,7 @@ Rectangle {
             id: repeater
             delegate: ItemDelegate {
                 id: itemCtl
+                Accessible.id: "DeviceListView_ItemDelegate"
                 Layout.fillWidth: true
                 leftPadding: 16
                 rightPadding: 10

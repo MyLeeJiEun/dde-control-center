@@ -43,6 +43,7 @@ DccObject {
                 model: dccData.touchScreenMatchModel()
                 delegate: ItemDelegate{
                     id: touchItem
+                    Accessible.id: "TouchScreen_ItemDelegate"
                     property var data: model
                     text: model.name
                     checkable: false
@@ -58,6 +59,7 @@ DccObject {
                         }
                         D.ComboBox{
                             id: combo
+                            Accessible.id: "TouchScreen_ComboBox"
                             flat: true
                             model: dccData.monitors
                             currentIndex: dccData.monitors.indexOf(touchItem.data.screenName)

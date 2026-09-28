@@ -206,6 +206,7 @@ D.DialogWindow {
             Layout.topMargin: 0
             spacing: 10
             Button {
+                Accessible.id: "ShortcutSettingDialog_Button"
                 Layout.bottomMargin: 14
                 Layout.fillWidth: true
                 font: D.DTK.fontManager.t6
@@ -217,6 +218,7 @@ D.DialogWindow {
                 }
             }
             Button {
+                Accessible.id: "ShortcutSettingDialog_Button_2"
                 Layout.bottomMargin: 14
                 Layout.fillWidth: true
                 Layout.rightMargin: 24

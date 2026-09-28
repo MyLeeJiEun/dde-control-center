@@ -33,6 +33,7 @@ Rectangle {
                 readonly property bool showSendFile: model.canSendFile && model.connectStatus === 2
 
                 id: itemCtl
+                Accessible.id: "BlueToothDeviceListView_ItemDelegate"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -187,6 +188,7 @@ Rectangle {
                             }
                             D.ToolButton {
                                 id: connectBtn
+                                Accessible.id: "BlueToothDeviceListView_ToolButton"
                                 implicitHeight: 30
                                 background.visible: true
                                 text: model.connectStatus === 2 ? qsTr("Disconnect") : qsTr("Connect")
@@ -240,10 +242,12 @@ Rectangle {
 
                                     D.Menu {
                                         id: contextMenu
+                                        Accessible.id: "BlueToothDeviceListView_Menu"
                                         implicitWidth: 150
 
                                         D.MenuItem {
                                             id: connectDev
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem"
                                             padding: 0
                                             text: model.connectStatus === 2 ? qsTr("Disconnect") : qsTr("Connect")
                                             enabled: model.connectStatus === 2 || model.connectStatus === 0
@@ -257,6 +261,7 @@ Rectangle {
                                         }
                                         D.MenuItem {
                                             id: sendFile
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem_2"
                                             padding: 0
                                             text: qsTr("Send Files")
                                             visible: itemCtl.showSendFile
@@ -272,6 +277,7 @@ Rectangle {
 
                                         D.MenuItem {
                                             id: rename
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem_3"
                                             text: qsTr("Rename")
                                             padding: 0
                                             onTriggered: {
@@ -286,6 +292,7 @@ Rectangle {
 
                                         D.MenuItem {
                                             id: removeDev
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem_4"
                                             text: qsTr("Remove Device")
                                             enabled: model.connectStatus === 2 || model.connectStatus === 0
                                             padding: 0

@@ -99,6 +99,7 @@ DccObject {
                 }
                 Slider {
                     id: voiceTipsSlider
+                    Accessible.id: "SpeakerPage_Slider"
                     Layout.alignment: Qt.AlignVCenter
                     implicitHeight: 24
                     handleType: Slider.HandleType.NoArrowHorizontal
@@ -139,6 +140,7 @@ DccObject {
             weight: 20
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "SpeakerPage_Switch"
                 Layout.alignment: Qt.AlignRight
                 checked: dccData.model().increaseVolume
                 onCheckedChanged: {
@@ -166,6 +168,7 @@ DccObject {
                 }
                 Slider {
                     id: balanceSlider
+                    Accessible.id: "SpeakerPage_Slider_2"
                     Layout.alignment: Qt.AlignVCenter
                     implicitHeight: 24
                     from: -1
@@ -197,6 +200,7 @@ DccObject {
             weight: 30
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "SpeakerPage_Switch_2"
                 checked: dccData.model().audioMono
                 onCheckedChanged: {
                     if (dccData.model().audioMono !== checked) {
@@ -213,6 +217,7 @@ DccObject {
             weight: 50
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "SpeakerPage_Switch_3"
                 checked: dccData.model().pausePlayer
                 onCheckedChanged: {
                     if (dccData.model().pausePlayer !== checked) {
@@ -229,6 +234,7 @@ DccObject {
             pageType: DccObject.Editor
             page: ComboBox {
                 id: control
+                Accessible.id: "SpeakerPage_ComboBox"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 10
                 flat: true
@@ -257,6 +263,7 @@ DccObject {
 
                     T.TextField {
                         id: textField
+                        Accessible.id: "SpeakerPage_TextField"
 
                         function getDisplayText() {
                             return control.editable ? control.editText : fm.elidedText(control.displayText,
@@ -307,6 +314,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
+                    Accessible.id: "SpeakerPage_MenuItem"
                     useIndicatorPadding: true
                     width: control.width
                     text: model.name
@@ -357,6 +365,7 @@ DccObject {
             visible: dccData.model().showBluetoothMode
             page: ComboBox {
                 id: bluetoothControl
+                Accessible.id: "SpeakerPage_ComboBox_2"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 10
                 flat: true
@@ -370,6 +379,7 @@ DccObject {
 
                     T.TextField {
                         id: textField
+                        Accessible.id: "SpeakerPage_TextField_2"
 
                         function getDisplayText() {
                             return bluetoothControl.editable ? bluetoothControl.editText : fm.elidedText(bluetoothControl.displayText,
@@ -418,6 +428,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
+                    Accessible.id: "SpeakerPage_MenuItem_2"
                     useIndicatorPadding: true
                     width: bluetoothControl.width
                     text: modelData

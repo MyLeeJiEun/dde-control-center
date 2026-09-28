@@ -250,6 +250,7 @@ DccObject {
         backgroundType: DccObject.Normal
         page: Switch {
             id: bootDelaySwitch
+            Accessible.id: "BootPage_Switch"
             Layout.alignment: Qt.AlignRight
             checked: dccData.mode().bootDelay
 
@@ -277,6 +278,7 @@ DccObject {
         pageType: DccObject.Editor
         backgroundType: DccObject.Normal
         page: Switch {
+            Accessible.id: "BootPage_Switch_2"
             Layout.alignment: Qt.AlignRight
             checked: dccData.mode().themeEnabled
 
@@ -381,6 +383,7 @@ DccObject {
                 Layout.alignment: Qt.AlignRight
                 Switch {
                     id: verificationSwitch
+                    Accessible.id: "BootPage_Switch_3"
 
                     rightPadding: 13
                     bottomPadding: 5
@@ -614,6 +617,7 @@ DccObject {
                             Layout.fillWidth: true
 
                             Button {
+                                Accessible.id: "BootPage_Button"
                                 Layout.alignment: Qt.AlignLeft
                                 text: qsTr("Cancel")
                                 Layout.preferredWidth: 170
@@ -733,6 +737,7 @@ DccObject {
                     id: repeater
                     model: dccData.mode().grubAnimationModel()
                     delegate: ItemDelegate {
+                        Accessible.id: "BootPage_ItemDelegate"
 
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -851,6 +856,7 @@ DccObject {
                             }
 
                             RadioButton {
+                                Accessible.id: "BootPage_RadioButton"
                                 autoExclusive: false
                                 text: model.text
                                 checked: model.checkStatus

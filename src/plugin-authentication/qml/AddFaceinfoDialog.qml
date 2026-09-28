@@ -120,6 +120,7 @@ To ensure successful entry:\n\
 
                         CheckBox {
                             id: agreeCheckbox
+                            Accessible.id: "AddFaceinfoDialog_AgreeCheckBox"
                             text: qsTr("I have read and agree to the")
                             anchors.verticalCenter: parent.verticalCenter
                             checked: firstPage.disclaimerAccepted
@@ -128,6 +129,7 @@ To ensure successful entry:\n\
 
                         D.ToolButton {
                             id: disclaimerButton
+                            Accessible.id: "AddFaceinfoDialog_DisclaimerButton"
                             text: qsTr("Disclaimer")
                             padding: 0
                             background: null
@@ -157,6 +159,7 @@ To ensure successful entry:\n\
 
                         CheckBox {
                             id: agreeCheckboxWrapped
+                            Accessible.id: "AddFaceinfoDialog_AgreeCheckBoxWrapped"
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: qsTr("I have read and agree to the")
                             checked: firstPage.disclaimerAccepted
@@ -168,6 +171,7 @@ To ensure successful entry:\n\
 
                         D.ToolButton {
                             id: disclaimerButtonWrapped
+                            Accessible.id: "AddFaceinfoDialog_DisclaimerButtonWrapped"
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: qsTr("Disclaimer")
                             padding: 0
@@ -330,6 +334,7 @@ To ensure successful entry:\n\
 
                     Button {
                         Layout.fillWidth: true
+                        Accessible.id: "AddFaceinfoDialog_DoneButton"
                         text: qsTr("Done")
                         onClicked: {
                             dccData.faceController.stopEnroll()
@@ -349,6 +354,7 @@ To ensure successful entry:\n\
 
                     Button {
                         Layout.fillWidth: true
+                        Accessible.id: "AddFaceinfoDialog_CancelButton"
                         text: qsTr("Cancel")
                         onClicked: {
                             dialog.close();

@@ -72,8 +72,10 @@ DccObject {
 
                 Menu {
                     id: contextMenu
+                    Accessible.id: "PrivacyPolicyPage_Menu"
                     MenuItem {
                         id: copyLinkMenuItem
+                        Accessible.id: "PrivacyPolicyPage_MenuItem"
                         text: qsTr("Copy Link Address") + "(L)"
                         onTriggered: {
                             console.log("Copying link: " + policyLabel.currentLinkUrl)

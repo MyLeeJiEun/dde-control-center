@@ -340,6 +340,7 @@ DccObject {
                 weight: 50
                 page: RowLayout {
                     D.ToolButton {
+                        Accessible.id: "AuthenticationMain_ToolButton"
                         implicitHeight: DS.Style.itemDelegate.height
                         Layout.leftMargin: 5
                         textColor: D.Palette {
