@@ -90,7 +90,7 @@ D.DialogWindow {
                         id: arrowListView
                         D.ItemDelegate {
                             id: item
-                            Accessible.id: "TimezoneDialog_ItemDelegate"
+                            Accessible.id: "TimezoneDialog_ItemDelegate_" + index
                             implicitWidth: 120
                             implicitHeight: 30
                             text: modelData

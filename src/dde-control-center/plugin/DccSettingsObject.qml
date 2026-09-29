@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 import QtQuick 2.15
 
@@ -8,6 +8,7 @@ DccObject {
     readonly property string footerUrl: root.parentName + "/" + root.name + "/footer"
     page: DccSettingsView {}
     DccObject {
+        accessibleId: "Dde-control-centerBody"
         id: bodyObj
         name: "body"
         parentName: root.parentName + "/" + root.name
@@ -15,6 +16,7 @@ DccObject {
         pageType: DccObject.Item
     }
     DccObject {
+        accessibleId: "Dde-control-centerFooter"
         id: footerObj
         name: "footer"
         parentName: root.parentName + "/" + root.name

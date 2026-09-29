@@ -14,6 +14,7 @@ import ZoneInfoModel 1.0
 // 时间和日期
 DccObject {
     DccObject {
+        accessibleId: "DatetimeDateTimeContent"
         id: dateTimeContent
         name: "dateTimeContent"
         parentName: "datetime"
@@ -84,6 +85,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DatetimeNtpSettings"
             id: ntpSettings
             property bool ntpOn: dccData.ntpEnabled
             name: "ntpSettings"
@@ -102,6 +104,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DatetimeDateAndTimeSettings"
             id: dateAndTimeSettings
             name: "dateAndTimeSettings"
             parentName: "dateTimeGroup"
@@ -230,6 +233,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DatetimeCustomNTPServer"
             id: customNTPServer
             name: "customNTPServer"
             parentName: "dateTimeGroup"
@@ -316,6 +320,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "Datetime12/24h"
             visible: false // 暂时隐藏，会导致逻辑很复杂
             name: "12/24h"
             parentName: "dateTimeGroup"
@@ -361,6 +366,7 @@ DccObject {
         onParentItemChanged: item => { if (item) item.topPadding = 5 }
 
         DccObject {
+            accessibleId: "DatetimeSystemTimezone"
             id: systemTimezone
             name: "systemTimezone"
             parentName: "timezoneGroup"
@@ -385,7 +391,7 @@ DccObject {
 
                 Button {
                     id: zoneButton
-                    Accessible.id: "TimeAndDate_Button_2"
+                    Accessible.id: "TimeAndDate_Button_2_" + index
                     flat: true
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -455,7 +461,7 @@ DccObject {
                         delegateModel: DelegateModel {
                             model: systemTimezoneItem.model
                             delegate: D.MenuItem {
-                                Accessible.id: "TimeAndDate_MenuItem"
+                                Accessible.id: "TimeAndDate_MenuItem_" + index
                                 useIndicatorPadding: true
                                 width: timezoneWindow.viewWidth
                                 text: model.display
@@ -519,6 +525,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DatetimeTimezoneList"
             name: "timezoneList"
             parentName: "timezoneGroup"
             displayName: qsTr("Timezone list")
@@ -539,7 +546,7 @@ DccObject {
                         delegateModel: DelegateModel {
                             model: dccData.zoneSearchModel()
                             delegate: D.MenuItem {
-                                Accessible.id: "TimeAndDate_MenuItem_2"
+                                Accessible.id: "TimeAndDate_MenuItem_2_" + index
                                 useIndicatorPadding: true
                                 width: timezoneListWindow.viewWidth
                                 text: model.display

@@ -158,6 +158,7 @@ D.DialogWindow {
         }
 
         KeySequenceDisplay {
+            accessibleId: "ShortcutSettingDialog_KeySequence"
             id: edit
             property bool showAlertColor: false
             property string accels

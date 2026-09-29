@@ -132,7 +132,7 @@ Loader {
 
                             delegate: D.CheckDelegate {
                                 id: checkDelegate
-                                Accessible.id: "RegionFormatDialog_CheckDelegate"
+                                Accessible.id: "RegionFormatDialog_CheckDelegate_" + index
                                 implicitWidth: itemsView.width
                                 text: model.display
                                 font: D.DTK.fontManager.t6
@@ -233,7 +233,7 @@ Loader {
 
                         ItemDelegate {
                             id: root
-                            Accessible.id: "RegionFormatDialog_ItemDelegate"
+                            Accessible.id: "RegionFormatDialog_ItemDelegate_" + index
                             Layout.fillWidth: true
                             backgroundVisible: true
                             checkable: false

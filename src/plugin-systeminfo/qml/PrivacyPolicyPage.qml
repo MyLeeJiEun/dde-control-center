@@ -13,6 +13,7 @@ import org.deepin.dcc 1.0
 DccObject {
 
     DccObject {
+        accessibleId: "SysteminfoTitle"
         name: "title"
         parentName: "system/privacyPolicy"
         pageType: DccObject.Item
@@ -25,6 +26,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "SysteminfoContent"
         name: "content"
         parentName: "system/privacyPolicy"
         pageType: DccObject.Item
@@ -72,7 +74,6 @@ DccObject {
 
                 Menu {
                     id: contextMenu
-                    Accessible.id: "PrivacyPolicyPage_Menu"
                     MenuItem {
                         id: copyLinkMenuItem
                         Accessible.id: "PrivacyPolicyPage_MenuItem"

@@ -14,6 +14,7 @@ import org.deepin.dtk.private as P
 import org.deepin.dcc.personalization 1.0
 
 ColumnLayout {
+    property string accessibleId: ""
     id: root
     spacing: 0
     readonly property int imageBorder: 2
@@ -83,7 +84,7 @@ ColumnLayout {
         }
         D.ToolButton {
             id: titleLoolButton
-            Accessible.id: "WallpaperSelectView_ToolButton"
+            Accessible.id: accessibleId !== "" ? (accessibleId + "ToolButton") : "WallpaperSelectView_ToolButton"
             font: D.DTK.fontManager.t7
             visible: layout.lineCount * 2 < root.model.count + root.firstItemVisible ? 1 : 0
             textColor: D.Palette {
@@ -470,7 +471,6 @@ ColumnLayout {
 
         D.Menu {
             id: contextMenu
-            Accessible.id: "WallpaperSelectView_Menu"
             MenuItem {
                 Accessible.id: "WallpaperSelectView_MenuItem"
                 text: qsTr("Set lock screen")

@@ -28,6 +28,7 @@ DccRepeater {
         // pageType: DccObject.Item
         backgroundType: DccObject.ClickStyle
         page: DccCheckIcon {
+            accessibleId: "PowerPlanCheck_" + modelData.mode
             visible: modelData.mode === dccData.model.powerPlan
         }
         onActive: function (cmd) {

@@ -44,6 +44,7 @@ DccTitleObject {
             canSearch: loginMethodTitle.canSearch
             weight: 20
             DccObject {
+                accessibleId: "AccountsItem_2"
                 name: loginMethodTitle.parentName + "PasswordLoginTitle"
                 parentName: loginMethodTitle.parentName + "loginMethodItem" + "password"
                 displayName: qsTr("Password")
@@ -73,6 +74,7 @@ DccTitleObject {
                 page: DccGroupView {}
 
                 DccObject {
+                    accessibleId: "AccountsArrowOrdinaryRight"
                     name: loginMethodTitle.parentName + "PasswordModify"
                     parentName: passwordGroupView.name
                     displayName: dccData.currentUserId() === loginMethodTitle.userId ? qsTr("Modify password") : qsTr("Reset password")
@@ -107,6 +109,7 @@ DccTitleObject {
                     }
                 }
                 DccObject {
+                    accessibleId: "AccountsEditor_7"
                     name: loginMethodTitle.parentName + "PasswordValidityDays" + "biometric"
                     parentName: passwordGroupView.name
                     displayName: qsTr("Validity days")

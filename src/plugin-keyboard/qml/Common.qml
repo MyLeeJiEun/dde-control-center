@@ -18,6 +18,7 @@ DccObject {
         weight: 10
     }
     DccObject {
+        accessibleId: "KeyboardEnableKeyboard"
         name: "enableKeyboard"
         parentName: "KeyboardCommon"
         displayName: qsTr("Enable Keyboard")
@@ -26,7 +27,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Editor
         page: D.Switch {
-            Accessible.id: "Common_Switch"
+            Accessible.id: "KeyboardCommon_Switch"
             checked: dccData.keyboardEnabled
             onToggled: {
                 dccData.keyboardEnabled = checked
@@ -34,6 +35,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "KeyboardRepeatDelay"
         name: "RepeatDelay"
         parentName: "KeyboardCommon"
         displayName: qsTr("Repeat delay")
@@ -139,6 +141,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "KeyboardRepeatRate"
             name: "RepeatRate"
             parentName: "RepeatRateGroup"
             displayName: qsTr("Repeat rate")
@@ -246,6 +249,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "KeyboardEditTesting"
             name: "EditTesting"
             parentName: "RepeatRateGroup"
             weight: 60
@@ -254,7 +258,7 @@ DccObject {
             pageType: DccObject.Item
             page: TextField {
                 id: textField
-                Accessible.id: "Common_TextField"
+                Accessible.id: "KeyboardCommon_TextField"
                 placeholderText: qsTr("test here")
                 background: null
                 horizontalAlignment: textMetrics.boundingRect.width > width ? Text.AlignRight : Text.AlignHCenter
@@ -284,6 +288,7 @@ DccObject {
             height: implicitHeight + 20
         }
         DccObject {
+            accessibleId: "KeyboardEnableNumLock"
             name: "EnableNumLock"
             parentName: "KeypadSettings"
             displayName: qsTr("Numeric Keypad")
@@ -292,7 +297,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: D.Switch {
-                Accessible.id: "Common_Switch_2"
+                Accessible.id: "KeyboardCommon_Switch_2"
                 checked: dccData.numLock
                 onToggled: {
                     dccData.numLock = checked
@@ -300,6 +305,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "KeyboardCapsLockPrompt"
             name: "CapsLockPrompt"
             parentName: "KeypadSettings"
             displayName: qsTr("Caps lock prompt")
@@ -308,7 +314,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: D.Switch {
-                Accessible.id: "Common_Switch_3"
+                Accessible.id: "KeyboardCommon_Switch_3"
                 checked: dccData.capsLock
                 onToggled: {
                     dccData.capsLock = checked

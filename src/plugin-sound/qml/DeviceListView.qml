@@ -29,7 +29,7 @@ Rectangle {
             id: repeater
             delegate: ItemDelegate {
                 id: itemCtl
-                Accessible.id: "DeviceListView_ItemDelegate"
+                Accessible.id: "DeviceListView_ItemDelegate_" + index
                 Layout.fillWidth: true
                 leftPadding: 16
                 rightPadding: 10
@@ -95,6 +95,7 @@ Rectangle {
                         }
 
                         DccCheckIcon {
+                            accessibleId: "DeviceListView_DeviceCheck"
                             checked: model.isEnabled
                             size: 16
                             onClicked: {

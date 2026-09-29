@@ -25,6 +25,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "SoundNoOutput"
         name: "noOutput"
         parentName: "sound/outPut"
         weight: 20
@@ -53,6 +54,7 @@ DccObject {
         pageType: DccObject.Item
         page: DccGroupView { }
         DccObject {
+            accessibleId: "SoundOutputVolume"
             name: "outputVolume"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Output Volume")
@@ -133,6 +135,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundVolumeEnhancement"
             name: "volumeEnhancement"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Volume Boost")
@@ -151,6 +154,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundVolumeBalance"
             name: "volumeBalance"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Left Right Balance")
@@ -193,6 +197,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundMonoAudio"
             name: "monoAudio"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Mono Audio")
@@ -210,6 +215,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundPlugAndUnplugManagement"
             name: "plugAndUnplugManagement"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Auto Pause")
@@ -227,6 +233,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundOutputDevice"
             name: "outputDevice"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Output Device")
@@ -314,7 +321,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
-                    Accessible.id: "SpeakerPage_MenuItem"
+                    Accessible.id: "SpeakerPage_MenuItem_" + index
                     useIndicatorPadding: true
                     width: control.width
                     text: model.name
@@ -357,6 +364,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SoundBluetoothMode"
             name: "bluetoothMode"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Mode")
@@ -428,7 +436,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
-                    Accessible.id: "SpeakerPage_MenuItem_2"
+                    Accessible.id: "SpeakerPage_MenuItem_2_" + index
                     useIndicatorPadding: true
                     width: bluetoothControl.width
                     text: modelData

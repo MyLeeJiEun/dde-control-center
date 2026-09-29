@@ -78,6 +78,7 @@ DccObject{
     }
 
     DccObject {
+        accessibleId: "BluetoothBlueToothSwitch_3"
         name: "blueToothSwitch"
         parentName: "otherDevice" + model.id
         pageType: DccObject.Item
@@ -162,6 +163,7 @@ DccObject{
     }
 
     DccObject {
+        accessibleId: "BluetoothOtherDeviceList"
         name: "otherDeviceList"
         parentName: "otherDevice" + model.id
         weight: 40

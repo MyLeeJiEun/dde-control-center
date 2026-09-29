@@ -12,6 +12,7 @@ import org.deepin.dcc 1.0
 
 DccObject {
     DccObject {
+        accessibleId: "WacomWacomTitle"
         name: "wacomTitle"
         parentName: "wacom"
         displayName: qsTr("wacom")
@@ -30,6 +31,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "WacomMode"
         name: "mode"
         parentName: "wacom"
         displayName: qsTr("Model")
@@ -47,6 +49,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "WacomPressure"
         name: "pressure"
         parentName: "wacom"
         displayName: qsTr("Pressure Sensitivity")

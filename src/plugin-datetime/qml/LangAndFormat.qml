@@ -29,6 +29,7 @@ DccObject {
 
     // 语言列表抬头
     DccObject {
+        accessibleId: "DatetimeLanguageListTiltle"
         id: languageListTiltle
         property bool isEditing: false
         name: "languageListTiltle"
@@ -109,7 +110,7 @@ DccObject {
                     enabled: dccData.langState === 0 // language set finished
                     page: ItemDelegate {
                         id: itemDelegate
-                        Accessible.id: "LangAndFormat_ItemDelegate"
+                        Accessible.id: "LangAndFormat_ItemDelegate_" + index
                         property bool isCurrentLang: dccData.currentLang === dccObj.displayName
                         property bool isLoading: itemDelegate.isCurrentLang && !dccObj.enabled
                                                 && (dccData.langState & langAndFormat.localeStateSetLang)
@@ -248,6 +249,7 @@ DccObject {
         onParentItemChanged: item => { if (item) item.topPadding = 3 }
 
         DccObject {
+            accessibleId: "DatetimeLangItem0"
             name: "langItem0"
             parentName: "otherLanguagesTitle"
             displayName: qsTr("Other languages")
@@ -283,6 +285,7 @@ DccObject {
 
     // 区域格式抬头
     DccObject {
+        accessibleId: "DatetimeRegionlistTitle"
         name: "regionlistTitle"
         parentName: "langAndFormat"
         displayName: qsTr("Region")
@@ -304,6 +307,7 @@ DccObject {
 
     // 地区
     DccObject {
+        accessibleId: "DatetimeRegions"
         name: "regions"
         parentName: "langAndFormat"
         weight: 45
@@ -380,6 +384,7 @@ DccObject {
 
     // 区域格式
     DccObject {
+        accessibleId: "DatetimeRegionAndFormat"
         id: regionAndFormat
         name: "regionAndFormat"
         parentName: "langAndFormat"
@@ -612,6 +617,7 @@ DccObject {
 
     // Number example
     DccObject {
+        accessibleId: "DatetimeNumberExample"
         name: "numberExample"
         parentName: "langAndFormat"
         weight: 90

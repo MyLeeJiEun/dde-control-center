@@ -182,7 +182,7 @@ ColorDialogImpl {
             Repeater {
                 model: [control.red, control.green, control.blue]
                 D.TextField {
-                    Accessible.id: "DccColorDialog_TextField_2"
+                    Accessible.id: "DccColorDialog_TextField_2_" + index
                     text: modelData
                     Layout.fillWidth: true
                     Layout.preferredWidth: 44

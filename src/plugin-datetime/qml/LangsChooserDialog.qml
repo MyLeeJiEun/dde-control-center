@@ -79,7 +79,7 @@ Loader {
 
                         delegate: CheckDelegate {
                             id: checkDelegate
-                            Accessible.id: "LangsChooserDialog_CheckDelegate"
+                            Accessible.id: "LangsChooserDialog_CheckDelegate_" + index
                             implicitWidth: itemsView.width
                             implicitHeight: Math.max(30, checkDelegateFontMetrics.height + (DS.Style.control.padding - DS.Style.control.borderWidth) * 2) // Minimum 30px, adaptive based on font
                             text: model.display

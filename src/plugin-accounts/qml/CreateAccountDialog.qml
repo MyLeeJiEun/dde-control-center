@@ -222,7 +222,7 @@ D.DialogWindow {
                 Repeater {
                     model: namesModel
                     delegate: D.ItemDelegate {
-                        Accessible.id: "CreateAccountDialog_ItemDelegate"
+                        Accessible.id: "CreateAccountDialog_ItemDelegate_" + index
                         Layout.fillWidth: true
                         backgroundVisible: false
                         checkable: false

@@ -10,6 +10,7 @@ import org.deepin.dcc 1.0
 
 DccObject {
     DccObject {
+        accessibleId: "SoundSoundEffects"
         name: "soundEffects"
         parentName: "sound/soundEffectsPage"
         displayName: qsTr("Sound Effects")
@@ -24,6 +25,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "SoundEffectsList"
         name: "effectsList"
         parentName: "sound/soundEffectsPage"
         weight: 20

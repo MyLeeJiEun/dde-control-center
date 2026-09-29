@@ -51,7 +51,7 @@ Item {
             model: row.icons
             delegate: D.ItemDelegate {
                 id: delegate
-                Accessible.id: "CustomLocalAvatarsRow_ItemDelegate"
+                Accessible.id: "CustomLocalAvatarsRow_ItemDelegate_" + index
                 property bool isAddButton: modelData == "add"
                 property string modelPathNoQuery: (modelData || "").toString().replace("file://", "")
                 property string currentNoQuery: (root.currentAvatar || "").toString().replace("file://", "")

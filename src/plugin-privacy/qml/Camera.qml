@@ -21,6 +21,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "PrivacyTitle"
             name: "title"
             weight: 1
             parentName: "privacy/camera/cameraAppViewGroup"
@@ -41,7 +42,7 @@ DccObject {
                 canSearch: false
                 backgroundType: DccObject.Hover
                 page: D.Switch {
-                    Accessible.id: "Camera_Switch"
+                    Accessible.id: "Camera_Switch_" + index
                     checked: model.cameraPermission
                     onCheckedChanged: {
                         if (checked !== model.cameraPermission) {

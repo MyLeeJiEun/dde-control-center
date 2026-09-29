@@ -183,7 +183,7 @@ D.DialogWindow {
                 model: listModel
                 delegate: D.ItemDelegate {
                     id: itemDelegate
-                    Accessible.id: "AvatarSettingsDialog_ItemDelegate"
+                    Accessible.id: "AvatarSettingsDialog_ItemDelegate_" + index
                     text: qsTr(model.name)
                     font: D.DTK.fontManager.t6
                     hoverEnabled: true

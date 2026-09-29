@@ -23,6 +23,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationThemeTitle"
             name: "themeTitle"
             parentName: "personalization/themeRoot"
             displayName: qsTr("Theme")
@@ -95,6 +96,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationAppearance"
             name: "appearance"
             parentName: "personalization/themeRoot"
             displayName: qsTr("Appearance")

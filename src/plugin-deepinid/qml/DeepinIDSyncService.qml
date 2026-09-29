@@ -18,6 +18,7 @@ DccObject {
     page: DccGroupView {}
 
     DccObject {
+        accessibleId: "DeepinidSyncServiceSwitch"
         name: "syncServiceSwitch"
         parentName: "deepinid/userinfo/syncService"
         displayName: qsTr("Auto Sync")
@@ -66,6 +67,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "DeepinidSystemSettings"
         name: "systemSettings"
         parentName: "deepinid/userinfo/syncService"
         displayName: qsTr("System Settings")
@@ -110,6 +112,7 @@ DccObject {
             property real iconSize: 16
             property real leftPaddingSize: 14
             page: DccCheckIcon {
+                accessibleId: "SyncServiceCheck_" + model.keyList
                 checked: model.isChecked
                 onClicked: {
                     dccData.worker.setSyncSwitcher(model.keyList, !model.isChecked)
@@ -133,6 +136,7 @@ DccObject {
             visible: dccData.model.syncSwitch
             pageType: DccObject.Editor
             page: DccCheckIcon {
+                accessibleId: "SyncServiceCheck2_" + model.keyList
                 checked: model.enable
                 onClicked: {
                     dccData.worker.setUtcloudSwitcher(model.key, !model.enable)
@@ -145,6 +149,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "DeepinidSyncTimeUpdate"
         name: "syncTimeUpdate"
         parentName: "deepinid/userinfo/syncService"
         displayName: qsTr("Last sync time: %1").arg(dccData.model.lastSyncTime)
@@ -165,7 +170,7 @@ DccObject {
             }
 
             D.ToolButton {
-                Accessible.id: "DeepinIDSyncService_ToolButton"
+                Accessible.id: "DeepinIDSyncService_ToolButton_" + index
                 Layout.preferredHeight: 40
                 text: qsTr("Clear cloud data")
                 font: D.DTK.fontManager.t10

@@ -82,7 +82,7 @@ D.DialogWindow {
             model: selectDayDialog.dayModel
             spacing: 2
             delegate: D.ItemDelegate {
-                Accessible.id: "ScheduledShutdownDialog_ItemDelegate"
+                Accessible.id: "ScheduledShutdownDialog_ItemDelegate_" + index
                 width: ListView.view.width
                 leftPadding: 10
                 rightPadding: 10
@@ -93,6 +93,7 @@ D.DialogWindow {
                 text: selectDayDialog.dateStr[modelData - 1]
                 onClicked: handleSelected(modelData)
                 content: DccCheckIcon {
+                    accessibleId: "ShutdownDayCheck_" + modelData
                     checked: selectDayDialog.selectedDays.indexOf(modelData) !== -1
                     onClicked: handleSelected(modelData)
                 }

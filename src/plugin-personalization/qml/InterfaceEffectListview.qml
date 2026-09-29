@@ -25,6 +25,7 @@ DccRepeater {
         description: modelData.description
         backgroundType: DccObject.ClickStyle
         page: DccCheckIcon {
+            accessibleId: "WindowEffectCheck_" + modelData.value
             visible: modelData.value === dccData.model.windowEffectType
         }
         onActive: function (cmd) {

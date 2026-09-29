@@ -21,12 +21,14 @@ DccObject {
         displayName: qsTr("Screensaver")
     }
     DccObject {
+        accessibleId: "PersonalizationScreenSaverStatusGroup"
         name: "screenSaverStatusGroup"
         parentName: "personalization/screenSaver"
         weight: 100
         pageType: DccObject.Item
         page: DccRowView { }
         DccObject {
+            accessibleId: "PersonalizationScreenSaverDisplayArea"
             name: "screenSaverDisplayArea"
             parentName: "personalization/screenSaver/screenSaverStatusGroup"
             weight: 200
@@ -161,6 +163,7 @@ DccObject {
             }
 
             DccObject {
+                accessibleId: "PersonalizationPersonalizedScreensaver"
                 name: "personalizedScreensaver"
                 parentName: "personalization/screenSaver/screenSaverStatusGroup/screenSaverSetGroup"
                 displayName: qsTr("Personalized screensaver")
@@ -195,12 +198,14 @@ DccObject {
             }
 
             DccObject {
+                accessibleId: "PersonalizationIdleTime"
                 name: "idleTime"
                 parentName: "personalization/screenSaver/screenSaverStatusGroup/screenSaverSetGroup"
                 displayName: qsTr("idle time")
                 weight: 20
                 pageType: DccObject.Editor
                 page: CustomComboBox {
+                    accessibleId: "PersonalizationIdleTimeBox"
                     flat: true
                     textRole: "text"
                     currentIndex: {
@@ -233,6 +238,7 @@ DccObject {
             }
 
             DccObject {
+                accessibleId: "PersonalizationLockScreenAtAwake"
                 name: "lockScreenAtAwake"
                 parentName: "personalization/screenSaver/screenSaverStatusGroup/screenSaverSetGroup"
                 displayName: qsTr("Password required for recovery")
@@ -255,6 +261,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "PersonalizationScreenSaverPicobj"
         name: "screenSaverPicobj"
         parentName: "personalization/screenSaver"
         displayName: qsTr("Picture slideshow screensaver")
@@ -262,6 +269,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Item
         page: WallpaperSelectView {
+            accessibleId: "ScreenSaverPage_PicScreenSaver"
             model: dccData.model.picScreenSaverModel
             currentItem: dccData.model.currentScreenSaverPicMode
             enableContextMenu: false
@@ -276,6 +284,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationScreenSaverListObj"
         name: "screenSaverListObj"
         parentName: "personalization/screenSaver"
         displayName: qsTr("System screensaver")
@@ -283,6 +292,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Item
         page: WallpaperSelectView {
+            accessibleId: "ScreenSaverPage_ScreenSaver"
             model: dccData.model.screenSaverModel
             currentItem: dccData.model.currentScreenSaver
             enableContextMenu: false

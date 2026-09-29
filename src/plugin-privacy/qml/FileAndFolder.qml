@@ -21,6 +21,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "PrivacyTitle_2"
             name: "title"
             weight: 1
             parentName: "privacy/filefolder/filefolderViewGroup"
@@ -103,7 +104,7 @@ DccObject {
                                 text: qsTr("folder")
                             }
                             D.Switch {
-                                Accessible.id: "FileAndFolder_Switch"
+                                Accessible.id: "FileAndFolder_Switch_" + index
                                 Layout.alignment: Qt.AlignRight
                                 Layout.rightMargin: 10
                                 checked: rep.checkedStates[index]

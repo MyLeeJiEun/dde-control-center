@@ -49,6 +49,7 @@ ColumnLayout {
                             }
 
                             DccCheckIcon {
+                                accessibleId: "IconCheck_" + index
                                 visible: model.checked
                             }
                         }

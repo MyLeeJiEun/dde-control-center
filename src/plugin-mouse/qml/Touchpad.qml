@@ -23,6 +23,7 @@ DccObject {
     property int currentFingerNum: 3  // Record current gesture finger count
     property bool resetAnimationTrigger: false  // Trigger to reset animation frames
     DccObject {
+        accessibleId: "MouseBasicSettings"
         name: "BasicSettings"
         parentName: "MouseAndTouchpad/Touchpad"
         displayName: qsTr("Basic Settings")
@@ -47,6 +48,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseDisableTouchpadByMouse"
         name: "DisableTouchpadByMouse"
         parentName: "MouseAndTouchpad/Touchpad"
         displayName: qsTr("Touchpad")
@@ -73,6 +75,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MousePointerSpeed_2"
         name: "PointerSpeed"
         parentName: "MouseAndTouchpad/Touchpad"
         displayName: qsTr("Pointer Speed")
@@ -152,6 +155,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseTouchpadGroup"
         name: "TouchpadGroup"
         parentName: "MouseAndTouchpad/Touchpad"
         displayName: qsTr("Pointer Speed")
@@ -160,6 +164,7 @@ DccObject {
         pageType: DccObject.Item
 
         DccObject {
+            accessibleId: "MouseDisableTouchpadByInput"
             name: "DisableTouchpadByInput"
             parentName: "MouseAndTouchpad/Touchpad/TouchpadGroup"
             displayName: qsTr("Disable touchpad during input")
@@ -182,6 +187,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "MouseTapToClick"
             name: "TapToClick"
             parentName: "MouseAndTouchpad/Touchpad/TouchpadGroup"
             displayName: qsTr("Tap to Click")
@@ -203,6 +209,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "MouseNaturalScrolling_2"
             name: "NaturalScrolling"
             parentName: "MouseAndTouchpad/Touchpad/TouchpadGroup"
             displayName: qsTr("Natural Scrolling")
@@ -235,6 +242,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseGesture"
         name: "Gesture"
         parentName: "MouseAndTouchpad/Touchpad"
         displayName: qsTr("Gestures")
@@ -262,6 +270,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseGestureGroup"
         name: "GestureGroup"
         parentName: "MouseAndTouchpad/Touchpad"
         weight: 60
@@ -269,6 +278,7 @@ DccObject {
         pageType: DccObject.Item
 
         DccObject {
+            accessibleId: "MouseAnimation"
             name: "animation"
             parentName: "MouseAndTouchpad/Touchpad/GestureGroup"
             weight: 10
@@ -382,6 +392,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseThreeFingerGesture"
         name: "ThreeFingerGesture"
         parentName: "MouseAndTouchpad/Touchpad"
         displayName: qsTr("Three-finger gestures")
@@ -408,6 +419,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseThreeFingerGestureGroup"
         name: "ThreeFingerGestureGroup"
         parentName: "MouseAndTouchpad/Touchpad"
         weight: 80
@@ -470,6 +482,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseFourFingerGesture"
         name: "FourFingerGesture"
         parentName: "MouseAndTouchpad/Touchpad"
         displayName: qsTr("Four-finger gestures")
@@ -494,6 +507,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MouseFourFingerGestureGroup"
         name: "FourFingerGestureGroup"
         parentName: "MouseAndTouchpad/Touchpad"
         weight: 100

@@ -31,6 +31,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "DockDockmode"
             name: "dockmode"
             parentName: "personalization/dock/taskBarModeGroup"
             displayName: qsTr("Mode")
@@ -63,7 +64,7 @@ DccObject {
                         ColumnLayout {
                             D.ItemDelegate {
                                 id: modeDelegate
-                                Accessible.id: "DockMain_ItemDelegate"
+                                Accessible.id: "DockMain_ItemDelegate_" + index
                                 Layout.preferredWidth: modeDelegateWidth
                                 Layout.preferredHeight: modeDelegateHeight
                                 Layout.alignment: Qt.AlignHCenter
@@ -137,6 +138,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "DockDocksize"
             name: "docksize"
             parentName: "personalization/dock/dockSettingsGroup"
             displayName: qsTr("Dock size")
@@ -185,6 +187,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DockLockedDock"
             name: "lockedDock"
             parentName: "personalization/dock/dockSettingsGroup"
             displayName: qsTr("Lock the Dock")
@@ -200,12 +203,14 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DockPositionInScreen"
             name: "positionInScreen"
             parentName: "personalization/dock/dockSettingsGroup"
             displayName: qsTr("Position on the screen")
             weight: 100
             pageType: DccObject.Editor
             page: CustomComBobox {
+                accessibleId: "DockPositionInScreenBox"
                 flat: true
                 readonly property bool fashionMode: dccData.dockInter.DisplayMode === 2
                 model: alignModel
@@ -239,12 +244,14 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DockPositionInScreen_2"
             name: "positionInScreen"
             parentName: "personalization/dock/dockSettingsGroup"
             displayName: qsTr("Status")
             weight: 200
             pageType: DccObject.Editor
             page: CustomComBobox {
+                accessibleId: "DockPositionInScreen_2Box"
                 flat: true
                 model: hideModel
                 currentIndex: indexByValue(dccData.dockInter.HideMode)
@@ -263,6 +270,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DockCombineApp"
             name: "combineApp"
             parentName: "personalization/dock/dockSettingsGroup"
             displayName: qsTr("Combine application icons")
@@ -290,6 +298,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "DockMultiscreenItem"
             name: "multiscreenItem"
             parentName: "personalization/dock/multiscreenGroup"
             displayName: qsTr("Multiple Displays")
@@ -298,6 +307,7 @@ DccObject {
             weight: 10
             pageType: DccObject.Editor
             page: CustomComBobox {
+                accessibleId: "DockMultiscreenItemBox"
                 flat: true
                 model: showModeModel
                 currentIndex: indexByValue(dccData.dockInter.showInPrimary)

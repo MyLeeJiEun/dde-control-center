@@ -36,6 +36,7 @@ DccObject {
 
     // 账户头像
     DccObject {
+        accessibleId: "AccountsUserAvatars"
         id: userAvatars
         name: "userAvatars"
         parentName: settings.papaName
@@ -258,6 +259,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "AccountsEditor"
             name: settings.papaName + "acountName"
             parentName: settings.papaName + "acountInfos"
             displayName: qsTr("Account name")
@@ -269,6 +271,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "AccountsEditor_2"
             name: settings.papaName + "acountFullname"
             parentName: settings.papaName + "acountInfos"
             displayName: qsTr("Account fullname")
@@ -279,6 +282,7 @@ DccObject {
                 property string originalFullName: "" // Store original name here
 
                 EditActionLabel {
+                    accessibleId: "AccountSettings_FullNameEdit"
                     id: fullNameEdit
                     property bool rightClickPressed: false
                     property bool contextMenuVisible: false
@@ -322,7 +326,6 @@ DccObject {
 
                     Menu {
                         id: contextMenu
-                        Accessible.id: "AccountSettings_Menu"
                         
                         onAboutToShow: {
                             fullNameEdit.contextMenuVisible = true
@@ -514,6 +517,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "AccountsEditor_3"
             name: settings.papaName + "acountType"
             parentName: settings.papaName + "acountInfos"
             displayName: qsTr("Account type")
@@ -563,6 +567,7 @@ DccObject {
         visible: (autoLongin.visible || noPassword.visible || quickLogin.visible) && !DccApp.isTreeland()
 
         DccObject {
+            accessibleId: "AccountsEditor_4"
             id: quickLogin
             name: settings.papaName + "quickLogin"
             parentName: settings.papaName + "acountSettings"
@@ -585,6 +590,7 @@ DccObject {
         }
         
         DccObject {
+            accessibleId: "AccountsEditor_5"
             id: autoLongin
             name: settings.papaName + "autoLongin"
             parentName: settings.papaName + "acountSettings"
@@ -630,6 +636,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "AccountsEditor_6"
             id: noPassword
             name: settings.papaName + "noPassword"
             parentName: settings.papaName + "acountSettings"
@@ -696,6 +703,7 @@ DccObject {
     //     }
     // }
     DccObject {
+        accessibleId: "AccountsItem"
         id: bottomButtons
         name: settings.papaName + "BottomButtons"
         parentName: settings.papaName
@@ -850,7 +858,7 @@ DccObject {
 
                                 Button {
                                     id: headerEditButton
-                                    Accessible.id: "AccountSettings_Button_4"
+                                    Accessible.id: "AccountSettings_Button_4_" + index
                                     checkable: true
                                     checked: groupSettings.isEditing
                                     Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
@@ -899,7 +907,7 @@ DccObject {
                                 anchors.fill: parent
                                 Button {
                                     id: addGroupButton
-                                    Accessible.id: "AccountSettings_Button_5"
+                                    Accessible.id: "AccountSettings_Button_5_" + index
                                     Layout.alignment: Qt.AlignRight
                                     text: qsTr("Add group")
                                     implicitWidth: implicitContentWidth + 20
@@ -925,7 +933,7 @@ DccObject {
                         roleValue: "group"
                         delegate: ItemDelegate {
                             id: itemDelegate
-                            Accessible.id: "AccountSettings_ItemDelegate"
+                            Accessible.id: "AccountSettings_ItemDelegate_" + index
                             implicitHeight: 36
                             padding: 0
                             checkable: false
@@ -1004,6 +1012,7 @@ DccObject {
                                                         groupview.width - editButton.width - 30)
 
                                     EditActionLabel {
+                                        accessibleId: "AccountSettings_EditLabel"
                                         id: editLabel
                                         property bool editAble: model.groupEditAble
                                         property string lastValidText: ""

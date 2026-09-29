@@ -22,6 +22,7 @@ DccObject {
 
 
     DccObject {
+        accessibleId: "PersonalizationScreenTab"
         name: "screenTab"
         parentName: "personalization/wallpaper"
         weight: 50
@@ -56,12 +57,14 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationWallpaperStatusGroup"
         name: "wallpaperStatusGroup"
         parentName: "personalization/wallpaper"
         weight: 100
         pageType: DccObject.Item
         page: DccRowView { }
         DccObject {
+            accessibleId: "PersonalizationWallpaparDisplayArea"
             name: "wallpaparDisplayArea"
             parentName: "personalization/wallpaper/wallpaperStatusGroup"
             weight: 200
@@ -109,6 +112,7 @@ DccObject {
             }
 
             DccObject {
+                accessibleId: "PersonalizationWallpaperType"
                 name: "wallpaperType"
                 parentName: "personalization/wallpaper/wallpaperStatusGroup/wallpaperSetGroup"
                 displayName: {
@@ -143,6 +147,7 @@ DccObject {
                 }
             }
             DccObject {
+                accessibleId: "PersonalizationFillStyle"
                 name: "fillStyle"
                 parentName: "personalization/wallpaper/wallpaperStatusGroup/wallpaperSetGroup"
                 displayName: qsTr("fill style")
@@ -161,6 +166,7 @@ DccObject {
                 }
             }
             DccObject {
+                accessibleId: "PersonalizationAutomaticWallpaper"
                 name: "automaticWallpaper"
                 parentName: "personalization/wallpaper/wallpaperStatusGroup/wallpaperSetGroup"
                 displayName: qsTr("Automatic wallpaper change")
@@ -168,6 +174,7 @@ DccObject {
                 weight: 200
                 pageType: DccObject.Editor
                 page: CustomComboBox {
+                    accessibleId: "PersonalizationAutomaticWallpaperBox"
                     flat: true
                     textRole: "text"
                     currentIndex: indexByValue(dccData.model.wallpaperSlideShowMap[dccData.model.currentSelectScreen])
@@ -201,6 +208,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationMyPictures"
         name: "myPictures"
         parentName: "personalization/wallpaper"
         displayName: qsTr("My pictures")
@@ -208,6 +216,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Item
         page: WallpaperSelectView {
+            accessibleId: "WallpaperPage_AddWallpaper"
             firstItemImgSource: "wallpaper_add_bg"
             firstItemTopIconName: "wallpaper_add"
             model: dccData.model.customWallpaperModel
@@ -236,6 +245,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationSystemWallapers"
         name: "systemWallapers"
         parentName: "personalization/wallpaper"
         displayName: qsTr("System Wallpapers")
@@ -243,6 +253,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Item
         page: WallpaperSelectView {
+            accessibleId: "WallpaperPage_SysWallpaper"
             model: dccData.model.sysWallpaperModel
             currentItem: dccData.model.wallpaperMap[dccData.model.currentSelectScreen]
             onWallpaperSelected: (url, option) => {
@@ -252,6 +263,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationLiveWallpaper"
         name: "liveWallpaper"
         parentName: "personalization/wallpaper"
         displayName: qsTr("Live Wallpaper")
@@ -260,6 +272,7 @@ DccObject {
         pageType: DccObject.Item
         visible: DccApp.isTreeland()
         page: WallpaperSelectView {
+            accessibleId: "WallpaperPage_LiveWallpaper"
             model: dccData.model.liveWallpaperModel
             currentItem: dccData.model.wallpaperMap[dccData.model.currentSelectScreen]
             enableContextMenu: false
@@ -270,6 +283,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationSolidColor"
         name: "solidColor"
         parentName: "personalization/wallpaper"
         displayName: qsTr("Solid color wallpaper")
@@ -277,6 +291,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Item
         page: WallpaperSelectView {
+            accessibleId: "WallpaperPage_SolidWallpaper"
             firstItemImgSource: "wallpaper_addcolor"
             model: dccData.model.solidWallpaperModel
             currentItem: dccData.model.wallpaperMap[dccData.model.currentSelectScreen]

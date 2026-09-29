@@ -14,6 +14,7 @@ import org.deepin.dcc 1.0
 DccObject {
 
     DccObject {
+        accessibleId: "CommoninfoGrubSettingText"
         name: "grubSettingText"
         parentName: "bootMenu"
         displayName: qsTr("Startup Settings")
@@ -30,6 +31,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoGrubSettingList"
         name: "grubSettingList"
         parentName: "bootMenu"
         weight: 20
@@ -213,6 +215,7 @@ DccObject {
                                 }
 
                                 DccCheckIcon {
+                                    accessibleId: "BootPage_BootMenuCheck_" + index
                                     Layout.alignment: Qt.AlignRight
                                     Layout.rightMargin: 10
                                     checked: model.checkStatus
@@ -242,6 +245,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoStartDelay"
         name: "startDelay"
         parentName: "bootMenu"
         displayName: qsTr("grub start delay")
@@ -270,6 +274,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoGrubTheme"
         name: "grubTheme"
         parentName: "bootMenu"
         displayName: qsTr("theme")
@@ -291,6 +296,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoBootMenuVerification"
         name: "bootMenuVerification"
         parentName: "bootMenu"
         visible: !dccData.mode().isCommunitySystem()
@@ -648,6 +654,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoStartAnimation"
         name: "startAnimation"
         parentName: "bootMenu"
         displayName: qsTr("Start animation")
@@ -717,6 +724,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoCheckAnimation"
         name: "checkAnimation"
         parentName: "bootMenu"
         weight: 70
@@ -737,7 +745,7 @@ DccObject {
                     id: repeater
                     model: dccData.mode().grubAnimationModel()
                     delegate: ItemDelegate {
-                        Accessible.id: "BootPage_ItemDelegate"
+                        Accessible.id: "BootPage_ItemDelegate_" + index
 
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -856,7 +864,7 @@ DccObject {
                             }
 
                             RadioButton {
-                                Accessible.id: "BootPage_RadioButton"
+                                Accessible.id: "BootPage_RadioButton_" + index
                                 autoExclusive: false
                                 text: model.text
                                 checked: model.checkStatus

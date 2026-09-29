@@ -18,10 +18,12 @@ DccObject {
 
 
     page: DccRightView {
+        accessibleId: "DefaultappDetailRightView"
         isGroup: true
     }
 
     DccObject {
+        accessibleId: "DefaultappTitle"
         name: "title"
         parentName: root.name
         displayName: qsTr("Please choose the default program to open '%1'").arg(root.displayName)
@@ -62,7 +64,7 @@ DccObject {
             pageType: DccObject.Item
             page: D.ItemDelegate {
                 id: control
-                Accessible.id: "DetailItem_ItemDelegate"
+                Accessible.id: "DetailItem_ItemDelegate_" + index
                 leftPadding: 10
                 rightPadding: 8
                 topPadding: 0
@@ -79,6 +81,7 @@ DccObject {
                 content: RowLayout {
                     width: 38
                     DccCheckIcon {
+                        accessibleId: "DetailItem_DefaultAppCheck_" + model.id
                         Layout.alignment: Qt.AlignCenter
                         visible: model.isDefault
                     }

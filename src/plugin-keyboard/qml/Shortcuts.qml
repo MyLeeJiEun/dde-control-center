@@ -43,6 +43,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "KeyboardShortcutSettingsBody"
         id: shortcutSettingsBody
         property bool isEditing: false
         property string conflictAccels
@@ -144,7 +145,7 @@ DccObject {
 
                 delegate: ItemDelegate {
                     id: editorDelegate
-                    Accessible.id: "Shortcuts_ItemDelegate"
+                    Accessible.id: "Shortcuts_ItemDelegate_" + index
                     checkable: false
                     implicitWidth: ListView.view.width
                     topInset: 0
@@ -161,6 +162,7 @@ DccObject {
 
                     contentItem: ColumnLayout {
                         KeySequenceDisplay {
+                            accessibleId: "Shortcuts_KeySequence_" + model.id
                             id: edit
                             property string dialogCommand: model.command
                             property string shortcutId: model.id
@@ -511,6 +513,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "KeyboardBottomAreaFoot"
         id: bottomAreaFoot
         name: "bottomAreaFoot"
         parentName: "shortcutSettingsView"
@@ -519,6 +522,7 @@ DccObject {
         property int restoreButtonWidth: DS.Style.button.width
 
         DccObject {
+            accessibleId: "KeyboardBottomAreaRestoreButton"
             name: "bottomAreaRestoreButton"
             parentName: "bottomAreaFoot"
             pageType: DccObject.Item
@@ -560,6 +564,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "KeyboardBottomAreaSpacer"
             name: "bottomAreaSpacer"
             parentName: "bottomAreaFoot"
             pageType: DccObject.Item
@@ -569,6 +574,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "KeyboardBottomAreaAddButton"
             name: "bottomAreaAddButton"
             parentName: "bottomAreaFoot"
             pageType: DccObject.Item

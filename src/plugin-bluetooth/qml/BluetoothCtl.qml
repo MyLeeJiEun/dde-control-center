@@ -15,6 +15,7 @@ DccObject{
     property bool hideWhenUserClosing: false  // 接收来自父组件的隐藏状态
     
     DccObject {
+        accessibleId: "BluetoothBlueToothSwitch"
         name: "blueToothSwitch"
         parentName: "blueToothCtl" + model.id
         displayName: model.name
@@ -258,6 +259,7 @@ DccObject{
     }
 
     DccObject {
+        accessibleId: "BluetoothBlueToothSwitch_2"
         name: "blueToothSwitch"
         parentName: "blueToothCtl"  + model.id
         icon: "audio"
@@ -281,6 +283,7 @@ DccObject{
     }
 
     DccObject {
+        accessibleId: "BluetoothAirplaneModeTips"
         name: "airplaneModeTips"
         parentName: "blueToothCtl"  + model.id
         pageType: DccObject.Item

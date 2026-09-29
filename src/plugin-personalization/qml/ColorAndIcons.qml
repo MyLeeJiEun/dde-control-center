@@ -20,6 +20,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationAccentColor"
         name: "accentColor"
         parentName: "personalization/colorAndIcons"
         weight: 100
@@ -138,6 +139,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationIconTheme"
         name: "iconTheme"
         parentName: "personalization/colorAndIcons"
         displayName: qsTr("Icon Theme")
@@ -151,10 +153,12 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationIconThemeSelect"
             name: "iconThemeSelect"
             parentName: "personalization/colorAndIcons/iconTheme"
             weight: 1
             DccObject {
+                accessibleId: "PersonalizationCursorThemeSelect"
                 name: "cursorThemeSelect"
                 parentName: "personalization/colorAndIcons/iconTheme/iconThemeSelect"
                 weight: 1
@@ -169,6 +173,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "PersonalizationCursorTheme"
         name: "cursorTheme"
         parentName: "personalization/colorAndIcons"
         displayName: qsTr("Cursor Theme")
@@ -182,10 +187,12 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationCursorThemeSelect_2"
             name: "cursorThemeSelect"
             parentName: "personalization/colorAndIcons/cursorTheme"
             weight: 1
             DccObject {
+                accessibleId: "PersonalizationCursorThemeSelect_3"
                 name: "cursorThemeSelect"
                 parentName: "personalization/colorAndIcons/cursorTheme/cursorThemeSelect"
                 weight: 1

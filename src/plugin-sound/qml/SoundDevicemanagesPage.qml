@@ -18,6 +18,7 @@ DccObject {
         weight: 10
     }
     DccObject {
+        accessibleId: "SoundOutputDeviceList"
         name: "outputDeviceList"
         parentName: "sound/deviceManager"
         weight: 20
@@ -45,6 +46,7 @@ DccObject {
         weight: 30
     }
     DccObject {
+        accessibleId: "SoundInputDeviceList"
         name: "inputDeviceList"
         parentName: "sound/deviceManager"
         weight: 40

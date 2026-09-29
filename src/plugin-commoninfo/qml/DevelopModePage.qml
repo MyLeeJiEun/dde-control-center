@@ -13,6 +13,7 @@ import org.deepin.dtk.style 1.0 as DS
 
 DccObject {
     DccObject {
+        accessibleId: "CommoninfoDevelopTitle"
         name: "developTitle"
         parentName: "developerMode"
         displayName: qsTr("Root Access")
@@ -42,6 +43,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "CommoninfoDeveloperModeStatus"
             name: "developerModeStatus"
             parentName: "developerModeSetting"
             displayName: qsTr("Request Root Access")
@@ -454,6 +456,7 @@ DccObject {
                                 font: D.DTK.fontManager.t8
                             }
                             D.RecommandButton {
+                                Accessible.id: "DevelopModePage_RecommandButton"
                                 Layout.fillWidth: true
                                 Layout.alignment: Qt.AlignHCenter
                                 Layout.bottomMargin: 6
@@ -481,6 +484,7 @@ DccObject {
 
 
         DccObject {
+            accessibleId: "CommoninfoDevelopTips"
             name: "developTips"
             parentName: "developerModeSetting"
             weight: 40
@@ -524,6 +528,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoDevelopDebugTitle"
         name: "developDebugTitle"
         parentName: "developerMode"
         displayName: qsTr("Development and debugging options")
@@ -553,6 +558,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "CommoninfoDevelopDebug"
             name: "developDebug"
             parentName: "developDebugGrp"
             displayName: qsTr("System logging level")
@@ -579,6 +585,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "CommoninfoDevelopDebugTips"
             name: "developDebugTips"
             parentName: "developDebugGrp"
             weight: 20
@@ -599,6 +606,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoDevelopReadOnlyProtection"
         name: "developReadOnlyProtection"
         parentName: "developerMode"
         displayName: qsTr("Solid System Read-Only Protection")

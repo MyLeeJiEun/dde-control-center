@@ -5,6 +5,8 @@ import QtQuick.Controls
 import org.deepin.dtk 1.0 as D
 
 D.ActionButton {
+    property string accessibleId: ""
+    Accessible.id: accessibleId !== "" ? accessibleId : "DccCheckIcon"
     property real size: 16
     checked: true
     activeFocusOnTab: false

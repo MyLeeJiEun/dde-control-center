@@ -9,7 +9,8 @@ import org.deepin.dtk.style 1.0 as DS
 
 D.SpinBox {
     id: control
-    Accessible.id: "DccTimeRangeSpinBox"
+    property string accessibleId: ""
+    Accessible.id: accessibleId !== "" ? accessibleId : "DccTimeRangeSpinBox"
     wrap: true
     readonly property string timeString: textFromValue(value)
     property int hour: 0
@@ -89,7 +90,7 @@ D.SpinBox {
         opacity: enabled ? 1 : 0.4
         TextInput {
             id: hourInput
-            Accessible.id: "DccTimeRangeHourInput"
+            Accessible.id: control.accessibleId !== "" ? (control.accessibleId + "HourInput") : "DccTimeRangeHourInput"
             property bool typingDigit: false
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -173,7 +174,7 @@ D.SpinBox {
         }
         TextInput {
             id: minuteInput
-            Accessible.id: "DccTimeRangeMinuteInput"
+            Accessible.id: control.accessibleId !== "" ? (control.accessibleId + "MinuteInput") : "DccTimeRangeMinuteInput"
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredWidth: 20

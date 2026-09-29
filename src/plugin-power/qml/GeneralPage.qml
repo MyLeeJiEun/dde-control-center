@@ -40,6 +40,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "PowerAutoPowerSavingOnLowBattery"
             name: "autoPowerSavingOnLowBattery"
             parentName: "power/general/powerSavingSettingsGroup"
             displayName: qsTr("Auto power saving on low battery")
@@ -56,6 +57,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PowerLowPowerThreshold"
             name: "lowPowerThreshold"
             parentName: "power/general/powerSavingSettingsGroup"
             displayName: qsTr("Low battery threshold")
@@ -76,6 +78,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PowerAutoPowerSavingOnBattery"
         name: "autoPowerSavingOnBattery"
         parentName: "power/general"
         displayName: qsTr("Auto power saving on battery")
@@ -93,6 +96,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PowerDecreaseBrightness"
         name: "decreaseBrightness"
         parentName: "power/general"
         displayName: qsTr("Decrease screen brightness on power saver")
@@ -151,6 +155,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "PowerPasswordIsRequiredToWakeUpTheComputer"
             name: "passwordIsRequiredToWakeUpTheComputer"
             parentName: "power/general/wakeupSettingsGroup"
             displayName: qsTr("Password is required to wake up the computer")
@@ -167,6 +172,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PowerPasswordIsRequiredToWakeUpTheMonitor"
             name: "passwordIsRequiredToWakeUpTheMonitor"
             parentName: "power/general/wakeupSettingsGroup"
             displayName: qsTr("Password is required to wake up the monitor")
@@ -201,6 +207,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "PowerTimedPoweroff"
             name: "timedPoweroff"
             parentName: "power/general/shutdownGroup"
             displayName: qsTr("Scheduled Shutdown")
@@ -225,6 +232,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PowerPoweroffTime"
             name: "poweroffTime"
             parentName: "power/general/shutdownGroup"
             visible: dccData.model.scheduledShutdownState
@@ -233,6 +241,7 @@ DccObject {
             pageType: DccObject.Editor
             page: RowLayout {
                 DccTimeRange {
+                    accessibleId: "GeneralPage_PoweroffTime"
                     id: timeRange
                     Layout.preferredWidth: 100
                     hour: dccData.model.shutdownTime.split(':')[0]
@@ -246,6 +255,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PowerRepeatDays"
             name: "repeatDays"
             parentName: "power/general/shutdownGroup"
             visible: dccData.model.scheduledShutdownState
@@ -294,6 +304,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "PowerRepeatDaysEdit"
             id: repeatDaysEditObject
             property bool forceShow: false
             name: "repeatDaysEdit"

@@ -16,6 +16,7 @@ DccObject {
     weight: 20
     page: DccGroupView {}
     DccObject {
+        accessibleId: "SysteminfoUserExperienceProgramSwitch"
         name: "userExperienceProgramSwitch"
         weight: 20
         parentName: "system/userExperienceProgram/userExperienceProgramGrp"
@@ -64,6 +65,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "SysteminfoUserExperienceProgramContent"
         name: "userExperienceProgramContent"
         weight: 30
         parentName: "system/userExperienceProgram/userExperienceProgramGrp"
@@ -113,7 +115,6 @@ DccObject {
 
             Menu {
                 id: contextMenu
-                Accessible.id: "UserExperienceProgramPage_Menu"
                 MenuItem {
                     Accessible.id: "UserExperienceProgramPage_MenuItem"
                     text: qsTr("Copy Link Address") + "(L)" 

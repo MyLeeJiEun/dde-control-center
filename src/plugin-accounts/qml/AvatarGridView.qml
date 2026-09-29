@@ -56,7 +56,7 @@ GridView {
 
     delegate: D.ItemDelegate {
         id: delegate
-        Accessible.id: "AvatarGridView_ItemDelegate"
+        Accessible.id: "AvatarGridView_ItemDelegate_" + index
         property bool isAddButton: modelData == "add"
         property bool isSelected: !isAddButton && (gridView.currentAvatar === modelData)
         implicitHeight: gridView.cellHeight

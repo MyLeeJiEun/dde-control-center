@@ -164,6 +164,7 @@ DccObject {
             isGroup: false
         }
         DccObject {
+            accessibleId: "DisplayMonitorsGround"
             id: groundObj
             function cacheImage() {
                 for (var i = 0; i < dccData.virtualScreens.length; i++) {
@@ -329,6 +330,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayIdentify"
             name: "identify"
             parentName: "monitorControl"
             displayName: qsTr("Identify")
@@ -397,6 +399,7 @@ DccObject {
         onParentItemChanged: item => { if (item) item.topInset = 2 }
         page: DccGroupView {}
         DccObject {
+            accessibleId: "DisplayMode"
             name: "mode"
             parentName: "display/displayMultipleDisplays"
             displayName: qsTr("Mode")
@@ -447,6 +450,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayMainScreen"
             name: "mainScreen"
             parentName: "display/displayMultipleDisplays"
             displayName: qsTr("Main Screen")
@@ -477,6 +481,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayMergeToConcatScreen"
             name: "mergeToConcatScreen"
             parentName: "display/displayMultipleDisplays"
             displayName: qsTr("Concat Screen")
@@ -542,6 +547,7 @@ DccObject {
         onParentItemChanged: item => { if (item) item.topInset = 12 }
     }
     DccObject {
+        accessibleId: "DisplayScreenTab"
         name: "screenTab"
         parentName: "display"
         weight: 50
@@ -666,6 +672,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayAutoBrightness"
             name: "autoBrightness"
             parentName: "display/brightnessGroup"
             displayName: qsTr("Auto Brightness")
@@ -689,6 +696,7 @@ DccObject {
         page: DccGroupView {}
         onParentItemChanged: item => { if (item) item.topInset = 3 }
         DccObject {
+            accessibleId: "DisplayBrightness"
             name: "brightness"
             parentName: "display/screenGroup"
             displayName: qsTr("Brightness")
@@ -700,6 +708,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayAutoBrightness_2"
             name: "autoBrightness"
             parentName: "display/screenGroup"
             displayName: qsTr("Auto Brightness")
@@ -716,12 +725,14 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DisplayDisplayResolution"
             name: "displayResolution"
             parentName: "display/screenGroup"
             displayName: qsTr("Resolution") // 分辨率
             weight: 20
             pageType: DccObject.Editor
             page: AutoSizingComboBox {
+                accessibleId: "DisplayDisplayResolutionBox"
                 id: resolutionComboBox
                 flat: true
                 enabled: !(root.isExtendMode && dccData.isConcatScreenMode)
@@ -752,6 +763,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayResizeDesktop"
             name: "resizeDesktop"
             parentName: "display/screenGroup"
             displayName: qsTr("Resize Desktop") // 屏幕显示
@@ -839,12 +851,14 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayDisplayRefreshRate"
             name: "displayRefreshRate"
             parentName: "display/screenGroup"
             displayName: qsTr("Refresh Rate") // 刷新率
             weight: 40
             pageType: DccObject.Editor
             page: AutoSizingComboBox {
+                accessibleId: "DisplayDisplayRefreshRateBox"
                 flat: true
                 enabled: !(root.isExtendMode && dccData.isConcatScreenMode)
                 textRole: "text"
@@ -872,6 +886,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayDisplayRotate"
             name: "displayRotate"
             parentName: "display/screenGroup"
             displayName: qsTr("Rotation") // 方向
@@ -918,6 +933,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayDisplayScaling"
             name: "displayScaling"
             parentName: "display/screenGroup"
             displayName: qsTr("Scaling") //"缩放"
@@ -948,6 +964,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "DisplayDisplayScaling_2"
         name: "displayScaling"
         parentName: "display"
         displayName: qsTr("Scaling") //"缩放"
@@ -982,6 +999,7 @@ DccObject {
         weight: 90
     }
     DccObject {
+        accessibleId: "DisplayEyeComfort"
         name: "eyeComfort"
         parentName: "display"
         displayName: qsTr("Enable eye comfort")
@@ -1006,6 +1024,7 @@ DccObject {
         onParentItemChanged: item => { if (item) item.topInset = 6 }
         page: DccGroupView {}
         DccObject {
+            accessibleId: "DisplayTime"
             name: "time"
             parentName: "display/eyeComfortGroup"
             displayName: qsTr("Time")
@@ -1021,6 +1040,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayTimeFrame"
             name: "timeFrame"
             parentName: "display/eyeComfortGroup"
             weight: 20
@@ -1031,6 +1051,7 @@ DccObject {
                     text: qsTr("from")
                 }
                 DccTimeRange {
+                    accessibleId: "DisplayMain_StartTimeRange"
                     id: startTimeRange
                     hour: dccData.customColorTempTimePeriod.split("-")[0].split(":")[0]
                     minute: dccData.customColorTempTimePeriod.split("-")[0].split(":")[1]
@@ -1040,6 +1061,7 @@ DccObject {
                     text: qsTr("to")
                 }
                 DccTimeRange {
+                    accessibleId: "DisplayMain_EndTimeRange"
                     id: endTimeRange
                     hour: dccData.customColorTempTimePeriod.split("-")[1].split(":")[0]
                     minute: dccData.customColorTempTimePeriod.split("-")[1].split(":")[1]
@@ -1058,6 +1080,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DisplayColorTemperature"
             name: "colorTemperature"
             parentName: "display/eyeComfortGroup"
             displayName: qsTr("Color Temperature")

@@ -33,6 +33,7 @@ D.DialogWindow {
     }
 
     D.ListView {
+        Accessible.id: "AddFingerDialog_ListView"
         id: listview
         implicitWidth: dialog.width - dialog.leftPadding - dialog.rightPadding
         implicitHeight: 500 - DS.Style.dialogWindow.titleBarHeight - DS.Style.dialogWindow.contentHMargin

@@ -11,6 +11,7 @@ import org.deepin.dcc 1.0
 
 DccObject {
     DccObject {
+        accessibleId: "SysteminfoTitle_2"
         id: versionProtocolPage
         name: "title"
         parentName: "system/versionProtocol"
@@ -24,6 +25,7 @@ DccObject {
             }
     }
     DccObject {
+        accessibleId: "SysteminfoContent_2"
         id: versionProtocolPageContent
         name: "content"
         parentName: "system/versionProtocol"

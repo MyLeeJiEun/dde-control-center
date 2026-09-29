@@ -325,7 +325,7 @@ ColumnLayout {
                 model: passwordModel
                 delegate: D.ItemDelegate {
                     id: control
-                    Accessible.id: "PasswordLayout_ItemDelegate"
+                    Accessible.id: "PasswordLayout_ItemDelegate_" + index
                     implicitWidth: pwdColumnLayout.width
                     backgroundVisible: false
                     checkable: false

@@ -20,6 +20,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "DeepinidWechatTitle"
             name: "wechatTitle"
             parentName: "deepinid/userinfo/body/wechatAccount"
             displayName: qsTr("Bind WeChat")
@@ -29,6 +30,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DeepinidWechatInfo"
             name: "wechatInfo"
             parentName: "deepinid/userinfo/body/wechatAccount"
             weight: 20
@@ -118,6 +120,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "DeepinidLocalTitle"
             name: "localTitle"
             parentName: "deepinid/userinfo/body/localAccount"
             displayName: qsTr("Local Account Binding")
@@ -127,6 +130,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DeepinidEditor"
             parentName: "deepinid/userinfo/body/localAccount"
             displayName: qsTr("WeChat Scan Code Login System")
             description: qsTr("Use WeChat, which is bound to your %1 ID, to scan code to log in to your local account.").arg(dccData.editionName())
@@ -136,6 +140,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DeepinidEditor_2"
             parentName: "deepinid/userinfo/body/localAccount"
             displayName: qsTr("Reset password via %1 ID").arg(dccData.editionName())
             description: qsTr("Reset your local password via %1 ID in case you forget it.").arg(dccData.editionName())
@@ -145,6 +150,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DeepinidEditor_3"
             parentName: "deepinid/userinfo/body/localAccount"
             displayName: qsTr("To use the above features, please go to Control Center - Accounts and turn on the corresponding options.")
             weight: 40

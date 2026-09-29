@@ -16,6 +16,7 @@ DccObject {
         weight: 10
     }
     DccObject {
+        accessibleId: "MousePointerSpeed"
         name: "PointerSpeed"
         parentName: "MouseAndTouchpadMouse"
         displayName: qsTr("Pointer Speed")
@@ -83,6 +84,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "MousePointerSize"
         name: "PointerSize"
         parentName: "MouseAndTouchpadMouse"
         displayName: qsTr("Pointer Size")
@@ -221,6 +223,7 @@ DccObject {
         pageType: DccObject.Item
         page: DccGroupView {}
         DccObject {
+            accessibleId: "MouseMouseAcceleration"
             name: "MouseAcceleration"
             parentName: "MouseSettings"
             displayName: qsTr("Mouse Acceleration")
@@ -235,6 +238,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "MouseDisableTouchpad"
             name: "DisableTouchpad"
             parentName: "MouseSettings"
             displayName: qsTr("Disable touchpad when a mouse is connected")
@@ -250,6 +254,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "MouseNaturalScrolling"
             name: "NaturalScrolling"
             parentName: "MouseSettings"
             displayName: qsTr("Natural Scrolling")

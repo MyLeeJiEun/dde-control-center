@@ -26,6 +26,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "SoundNoIntput"
         name: "noIntput"
         parentName: "sound/inPut"
         weight: 20
@@ -53,6 +54,7 @@ DccObject {
         page: DccGroupView {}
         visible: dccData.model().inPutPortCombo.length !== 0
         DccObject{
+            accessibleId: "SoundInputVolume"
             name: "inputVolume"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Input Volume")
@@ -134,6 +136,7 @@ DccObject {
         }
 
         DccObject{
+            accessibleId: "SoundMicrophoneFeedback"
             name: "microphoneFeedback"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Input Level")
@@ -180,6 +183,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SoundReduceNoise"
             name: "reduceNoise"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Automatic Noise Suppression")
@@ -200,6 +204,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SoundInputDevice"
             name: "inputDevice"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Input Device")
@@ -285,7 +290,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
-                    Accessible.id: "MicrophonePage_MenuItem"
+                    Accessible.id: "MicrophonePage_MenuItem_" + index
                     useIndicatorPadding: true
                     width: control.width
                     text: model.name

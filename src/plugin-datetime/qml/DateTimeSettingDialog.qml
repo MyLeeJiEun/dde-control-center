@@ -127,6 +127,7 @@ D.DialogWindow {
                 horizontalAlignment: Text.AlignLeft
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Year"
                 id: spYear
                 unitText: qsTr("Year")
                 locale: Qt.locale("C")
@@ -151,6 +152,7 @@ D.DialogWindow {
                 }
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Month"
                 id: spMonth
                 unitText: qsTr("Month")
                 from: 1
@@ -169,6 +171,7 @@ D.DialogWindow {
                 }
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Day"
                 id: spDay
                 unitText: qsTr("Day")
                 from: 1
@@ -194,6 +197,7 @@ D.DialogWindow {
                 horizontalAlignment: Text.AlignLeft
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Hour"
                 id: spHour
                 from: 0
                 to: 23
@@ -210,6 +214,7 @@ D.DialogWindow {
                 }
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Minute"
                 id: spMin
                 from: 0
                 to: 59

@@ -42,6 +42,7 @@ DccObject {
         page: DccGroupView {}
 
         DccObject {
+            accessibleId: "PersonalizationRoundedEffect"
             name: "roundedEffect"
             parentName: "personalization/windowEffect/windowSettingsGroup"
             displayName: qsTr("Window rounded corners")
@@ -118,6 +119,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationEnableTransparentWhenMoveWindow"
             name: "enableTransparentWhenMoveWindow"
             parentName: "personalization/windowEffect/windowSettingsGroup"
             displayName: qsTr("Enable transparent effects when moving windows")
@@ -136,6 +138,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationMinimizeEffect"
             id: minimizeEffectObject
             property var supportEffects: dccData.model.supportEffects
             name: "minimizeEffect"
@@ -147,6 +150,7 @@ DccObject {
             weight: 3
             pageType: DccObject.Editor
             page: CustomComboBox {
+                accessibleId: "PersonalizationMinimizeEffectBox"
                 flat: true
                 currentIndex: dccData.model.miniEffect
                 textRole: "text"
@@ -164,6 +168,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationComputerSuspendsAfter"
         name: "computerSuspendsAfter"
         parentName: "personalization/windowEffect"
         displayName: qsTr("Opacity")
@@ -215,6 +220,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationTitleBarHeight"
         name: "titleBarHeight"
         parentName: "personalization/windowEffect"
         displayName: qsTr("Title Bar Height")
@@ -266,6 +272,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationScrollBar"
         id: scrollBarObject
         name: "scrollBar"
         property bool hasDBusProperty: false
@@ -300,6 +307,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "PersonalizationCompact"
         name: "compact"
         parentName: "personalization/windowEffect"
         displayName: qsTr("Compact Display")

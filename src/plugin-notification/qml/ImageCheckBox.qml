@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 import QtQuick 2.11
@@ -10,6 +10,9 @@ import org.deepin.dcc 1.0
 
 T.Control {
     id: control
+    property string accessibleId: ""
+    Accessible.id: accessibleId !== "" ? accessibleId : "ImageCheckBox"
+    Accessible.role: Accessible.CheckBox
     property string text: "ImageCheckBox"
     property bool checked: true
     property string imageName: ""
