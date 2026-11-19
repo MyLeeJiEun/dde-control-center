@@ -8,6 +8,7 @@ import org.deepin.dtk 1.0 as D
 
 Control {
     id: control
+    Accessible.id: "CustomAvatarEmpatyArea"
     property real radius: 8
     property bool invalidFileType: false
     implicitWidth: 460
@@ -17,6 +18,7 @@ Control {
     signal iconDropped(string file)
 
     Shape {
+        Accessible.id: "CustomAvatarEmpatyArea_Shape"
         id: shape
         anchors.centerIn: parent
         width: 400

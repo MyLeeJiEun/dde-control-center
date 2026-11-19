@@ -33,6 +33,7 @@ D.DialogWindow {
     }
 
     D.ListView {
+        Accessible.id: "AddFingerDialog_ListView"
         id: listview
         implicitWidth: dialog.width - dialog.leftPadding - dialog.rightPadding
         implicitHeight: 500 - DS.Style.dialogWindow.titleBarHeight - DS.Style.dialogWindow.contentHMargin
@@ -86,10 +87,12 @@ D.DialogWindow {
 
                     CheckBox {
                         id: agreeCheckbox
+                        Accessible.id: "AddFingerDialog_CheckBox"
                         text: qsTr("I have read and agree to the")
                     }
 
                     D.ToolButton {
+                        Accessible.id: "AddFingerDialog_ToolButton"
                         text: qsTr("Disclaimer")
                         padding: 0
                         background: null
@@ -111,6 +114,7 @@ D.DialogWindow {
                 }
 
                 D.RecommandButton {
+                    Accessible.id: "AddFingerDialog_RecommandButton_1"
                     spacing: 10
                     Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                     Layout.bottomMargin: DS.Style.dialogWindow.contentHMargin
@@ -181,6 +185,7 @@ D.DialogWindow {
                     Layout.rightMargin: 0
 
                     Button {
+                        Accessible.id: "AddFingerDialog_Button"
                         Layout.fillWidth: true
                         text: qsTr("Done")
                         onClicked: {
@@ -198,6 +203,7 @@ D.DialogWindow {
                     Layout.rightMargin: 0
 
                     Button {
+                        Accessible.id: "AddFingerDialog_Button_2"
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         onClicked: {
@@ -206,6 +212,7 @@ D.DialogWindow {
                         }
                     }
                     D.RecommandButton {
+                        Accessible.id: "AddFingerDialog_RecommandButton_2"
                         Layout.fillWidth: true
                         text: qsTr("Retry Enroll")
                         onClicked: {
@@ -223,6 +230,7 @@ D.DialogWindow {
                     Layout.rightMargin: 0
 
                     Button {
+                        Accessible.id: "AddFingerDialog_Button_3"
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         onClicked: {

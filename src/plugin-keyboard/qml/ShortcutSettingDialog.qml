@@ -82,6 +82,7 @@ D.DialogWindow {
         }
 
         D.LineEdit {
+            Accessible.id: "ShortcutSettingDialog_LineEdit"
             id: nameEdit
             Layout.rightMargin: 20
             Layout.preferredWidth: parent.width
@@ -125,12 +126,14 @@ D.DialogWindow {
 
         D.LineEdit {
             id: commandEdit
+            Accessible.id: "ShortcutSettingDialog_CommandLineEdit"
             Layout.rightMargin: 20
             Layout.preferredWidth: parent.width
             font: D.DTK.fontManager.t6
             clearButton.visible: false
             placeholderText: qsTr("Required")
             D.ActionButton {
+                Accessible.id: "ShortcutSettingDialog_ActionButton"
                 anchors {
                     right: commandEdit.right
                     rightMargin: 10
@@ -158,6 +161,7 @@ D.DialogWindow {
         }
 
         KeySequenceDisplay {
+            accessibleId: "ShortcutSettingDialog_KeySequence"
             id: edit
             property bool showAlertColor: false
             property string accels
@@ -206,6 +210,7 @@ D.DialogWindow {
             Layout.topMargin: 0
             spacing: 10
             Button {
+                Accessible.id: "ShortcutSettingDialog_Button"
                 Layout.bottomMargin: 14
                 Layout.fillWidth: true
                 font: D.DTK.fontManager.t6
@@ -217,6 +222,7 @@ D.DialogWindow {
                 }
             }
             Button {
+                Accessible.id: "ShortcutSettingDialog_Button_2"
                 Layout.bottomMargin: 14
                 Layout.fillWidth: true
                 Layout.rightMargin: 24

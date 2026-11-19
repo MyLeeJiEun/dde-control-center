@@ -56,6 +56,7 @@ D.DialogWindow {
             Layout.topMargin: 10
             Layout.bottomMargin: 10
             D.RecommandButton {
+                Accessible.id: "TimeoutDialog_RecommandButton"
                 Layout.fillWidth: true
                 text: qsTr("Revert")
                 onClicked: close()
@@ -67,6 +68,7 @@ D.DialogWindow {
             }
 
             D.Button {
+                Accessible.id: "TimeoutDialog_Button"
                 Layout.fillWidth: true
                 text: qsTr("Save")
                 onClicked: {

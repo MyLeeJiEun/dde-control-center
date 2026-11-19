@@ -9,6 +9,7 @@ import org.deepin.dcc 1.0
 import org.deepin.dtk 1.0 as D
 
 FocusScope {
+    Accessible.id: "ThemeSelectView_FocusScope"
     id: root
     activeFocusOnTab: true
 
@@ -96,11 +97,13 @@ FocusScope {
     // 使用Item容器，支持触控板手势和鼠标拖拽翻页
     // MouseArea处理wheel事件，ListView处理拖拽
     Item {
+        Accessible.id: "ThemeSelectView_Item"
         anchors.fill: parent
 
         // ListView放在前面（底层），处理鼠标拖拽翻页
         ListView {
             id: listview
+            Accessible.id: "ThemeSelectView_ListView"
             anchors.fill: parent
 
             // 启用交互性以支持鼠标拖拽翻页
@@ -163,6 +166,9 @@ FocusScope {
                     }
 
                     delegate: Rectangle {
+                        Accessible.id: "ThemeSelectView_Card_" + model.id
+                        Accessible.role: Accessible.ListItem
+                        Accessible.checked: delegateRoot.isCurrent
                         id: delegateRoot
                         Layout.fillHeight: true
                         Layout.fillWidth: true
@@ -239,6 +245,9 @@ FocusScope {
                     }
 
                     Rectangle {
+                        Accessible.id: "ThemeSelectView_MoreWallpapers"
+                        Accessible.role: Accessible.Button
+                        Accessible.onPressAction: dccData.worker.goDownloadTheme()
                         id: moreWallpapersItem
                         Layout.fillHeight: true
                         Layout.fillWidth: true

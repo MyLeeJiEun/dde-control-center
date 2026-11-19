@@ -87,6 +87,7 @@ D.DialogWindow {
     }
 
     header: D.DialogTitleBar {
+        Accessible.id: "AvatarSettingsDialog_DialogTitleBar"
         // titlebar do not enbale blur again
         // enableInWindowBlendBlur: true
         icon.name: dialog.icon
@@ -175,6 +176,7 @@ D.DialogWindow {
 
             D.ListView {
                 id: leftView
+                Accessible.id: "AvatarSettingsDialog_ListView"
                 clip: true
                 implicitHeight: 400
                 implicitWidth: parent.width
@@ -182,6 +184,7 @@ D.DialogWindow {
                 model: listModel
                 delegate: D.ItemDelegate {
                     id: itemDelegate
+                    Accessible.id: "AvatarSettingsDialog_ItemDelegate_" + index
                     text: qsTr(model.name)
                     font: D.DTK.fontManager.t6
                     hoverEnabled: true
@@ -283,8 +286,13 @@ D.DialogWindow {
 
                 Connections {
                     target: dccData
-                    function onAvatarChanged(userId, avatar) {
+                    function onCustomAvatarListChanged(userId) {
                         if (userId === dialog.userId && scrollView.isCustom) {
+                            const icons = dccData.avatars(dialog.userId, "icons/local", "")
+                            if (icons.indexOf(cropper.iconSource) < 0) {
+                                cropper.iconSource = icons.length > 1 ? icons[1] : ""
+                                cropper.imgScale = 1.0
+                            }
                             customEmptyAvatar.visible = customEmptyAvatar.needShow()
                         }
                     }
@@ -292,6 +300,7 @@ D.DialogWindow {
             }
 
             ScrollView {
+                Accessible.id: "AvatarSettingsDialog_ScrollView"
                 id: scrollView
                 property list<string> sections: []
                 property string filter
@@ -310,6 +319,7 @@ D.DialogWindow {
                 contentWidth: width
 
                 ScrollBar.vertical: ScrollBar {
+                    Accessible.id: "AvatarSettingsDialog_ScrollBar"
                     parent: scrollView
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
@@ -472,6 +482,7 @@ D.DialogWindow {
                 Layout.rightMargin: 59
 
                 Button {
+                    Accessible.id: "AvatarSettingsDialog_Button"
                     Layout.fillWidth: true
                     text: qsTr("Cancel")
                     onClicked: {
@@ -481,13 +492,15 @@ D.DialogWindow {
                     }
                 }
                 D.RecommandButton {
+                    Accessible.id: "AvatarSettingsDialog_RecommandButton"
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     onClicked: {
-                        if (scrollView.isCustom && cropper.visible && dialog.currentAvatar.length > 0) {
+                        if (scrollView.isCustom && cropper.visible && cropper.iconSource.length > 0) {
+                            const originalFile = cropper.iconSource
                             cropper.cropToTemp(function (tmpFile) {
                                 if (tmpFile && tmpFile.length > 0) {
-                                    const saved = dccData.saveCustomAvatar(dialog.userId, tmpFile, dialog.currentAvatar)
+                                    const saved = dccData.saveCustomAvatar(dialog.userId, tmpFile, originalFile)
                                     if (saved && saved.length > 0) {
                                         dialog.currentAvatar = saved
                                     }

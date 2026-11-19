@@ -14,6 +14,7 @@ import org.deepin.dcc 1.0
 DccObject {
 
     DccObject {
+        accessibleId: "CommoninfoGrubSettingText"
         name: "grubSettingText"
         parentName: "bootMenu"
         displayName: qsTr("Startup Settings")
@@ -30,11 +31,38 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoGrubSettingList"
+        id: grubSettingList
         name: "grubSettingList"
         parentName: "bootMenu"
         weight: 20
         pageType: DccObject.Item
+        DccObject {
+            id: bootWallpaper
+            name: "bootWallpaper"
+            parentName: "root/system/bootMenu/grubSettingList"
+            pageType: DccObject.Item
+            canSearch: false
+            enabled: dccData.mode().bootWallpaperEnabled
+            page: DropArea {
+                keys: ["text/uri-list"]
+                onDropped: (drop) => {
+                    if (!visible || !enabled || !bootWallpaper.visibleToApp
+                            || !bootWallpaper.enabledToApp || !drop.hasUrls)
+                        return
+
+                    let filePath = drop.urls[0].toString()
+                    if (filePath.endsWith(".png") || filePath.endsWith(".jpg")
+                            || filePath.endsWith(".jpeg") || filePath.endsWith(".bmp")) {
+                        if (filePath.startsWith("file://"))
+                            filePath = filePath.substring(7)
+                        dccData.work().setBackground(filePath)
+                    }
+                }
+            }
+        }
         page: Rectangle {
+            Accessible.id: "BootPage_Rectangle_1"
 
             readonly property int itemDelegateMinWidth: parent.width
             readonly property int itemDelegateMaxWidth: 600
@@ -47,25 +75,12 @@ DccObject {
             Layout.fillWidth: true
             Layout.topMargin: 0
 
-            DropArea {
+            DccLoader {
                 anchors.fill: parent
-                keys: ["text/uri-list"]
-                enabled: dccData.mode().bootWallpaperEnabled
-
-                onDropped: (drop) => {
-                    if (drop.hasUrls) {
-                        let filePath = drop.urls[0].toString()
-                        if (filePath.endsWith(".png") || filePath.endsWith(".jpg") || filePath.endsWith(".jpeg") || filePath.endsWith(".bmp")) {
-                            console.log("Image dropped:", filePath)
-                            if (filePath.startsWith("file://")) {
-                                filePath = filePath.substring(7)
-                            }
-                            dccData.work().setBackground(filePath)
-                        } else {
-                            console.log("Dropped file is not a supported image:", filePath)
-                        }
-                    }
-                }
+                dccObj: bootWallpaper
+                dccObjItem: this
+                visible: bootWallpaper.visibleToApp
+                active: visible
             }
 
             Image {
@@ -175,11 +190,13 @@ DccObject {
                     model: dccData.mode().grubMenuListModel()
 
                     delegate: Rectangle {
+                        Accessible.id: "BootPage_Rectangle_2"
                         width: grublist.width - 20
                         height: 30
                         color: "transparent"
                         
                         Rectangle {
+                            Accessible.id: "BootPage_Rectangle_Background"
                             id: backgru
                             property bool isHovered: false
 
@@ -213,6 +230,7 @@ DccObject {
                                 }
 
                                 DccCheckIcon {
+                                    accessibleId: "BootPage_BootMenuCheck_" + index
                                     Layout.alignment: Qt.AlignRight
                                     Layout.rightMargin: 10
                                     checked: model.checkStatus
@@ -242,6 +260,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoStartDelay"
         name: "startDelay"
         parentName: "bootMenu"
         displayName: qsTr("grub start delay")
@@ -250,6 +269,7 @@ DccObject {
         backgroundType: DccObject.Normal
         page: Switch {
             id: bootDelaySwitch
+            Accessible.id: "BootPage_Switch"
             Layout.alignment: Qt.AlignRight
             checked: dccData.mode().bootDelay
 
@@ -269,6 +289,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoGrubTheme"
         name: "grubTheme"
         parentName: "bootMenu"
         displayName: qsTr("theme")
@@ -277,6 +298,7 @@ DccObject {
         pageType: DccObject.Editor
         backgroundType: DccObject.Normal
         page: Switch {
+            Accessible.id: "BootPage_Switch_2"
             Layout.alignment: Qt.AlignRight
             checked: dccData.mode().themeEnabled
 
@@ -289,6 +311,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoBootMenuVerification"
         name: "bootMenuVerification"
         parentName: "bootMenu"
         visible: !dccData.mode().isCommunitySystem()
@@ -354,6 +377,7 @@ DccObject {
                     }
 
                     Label {
+                        Accessible.id: "BootPage_Label"
                         id: changePasswordLabel
                         text: "<a href=\"Change Password\">" + qsTr("Change Password") +"</a>"
                         visible: dccData.mode().grubEditAuthEnabled
@@ -381,6 +405,7 @@ DccObject {
                 Layout.alignment: Qt.AlignRight
                 Switch {
                     id: verificationSwitch
+                    Accessible.id: "BootPage_Switch_3"
 
                     rightPadding: 13
                     bottomPadding: 5
@@ -400,6 +425,8 @@ DccObject {
                 DialogWindow {
                     id: passwordDlg
                     width: 360
+                    leftPadding: 6
+                    rightPadding: 6
                     height: columnLayout.implicitHeight + 50
 
                     icon: "preferences-system"
@@ -431,13 +458,11 @@ DccObject {
 
                         Label {
                             id: passwdTitle
-                            Layout.topMargin: 10
+                            Layout.topMargin: 0
                             Layout.bottomMargin: 10
                             Layout.alignment: Qt.AlignHCenter
-                            Layout.preferredWidth: parent.width - 20
-                            Layout.leftMargin: 10
-                            Layout.rightMargin: 10
-                            font: DTK.fontManager.t5
+                            Layout.preferredWidth: parent.width
+                            font: DTK.fontManager.t6
                             text: dccData.mode().grubEditAuthEnabled ? qsTr("Change boot menu verification password") : qsTr("Set the boot menu authentication password")
                             wrapMode: Text.Wrap
                             horizontalAlignment: Text.AlignHCenter
@@ -447,7 +472,7 @@ DccObject {
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
-                            Layout.leftMargin: 5
+                            Layout.leftMargin: 0
                             font: DTK.fontManager.t6
                             text: qsTr("User Name :")
                             Layout.preferredWidth: 50
@@ -471,12 +496,13 @@ DccObject {
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
-                            Layout.leftMargin: 5
+                            Layout.leftMargin: 0
                             font: DTK.fontManager.t6
                             text: qsTr("New Password :")
                         }
 
                         PasswordEdit {
+                            Accessible.id: "BootPage_PasswordEdit_1"
                             id: newPasswordEdit
                             placeholderText: qsTr("Required")
                             Layout.preferredWidth: parent.width
@@ -542,12 +568,13 @@ DccObject {
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
-                            Layout.leftMargin: 5
+                            Layout.leftMargin: 0
                             font: DTK.fontManager.t6
                             text: qsTr("Repeat password:")
                         }
 
                         PasswordEdit {
+                            Accessible.id: "BootPage_PasswordEdit_2"
                             id: repeatPasswordEdit
                             Layout.preferredWidth: parent.width
                             placeholderText: qsTr("Required")
@@ -608,12 +635,14 @@ DccObject {
                         }
 
                         RowLayout {
-                            Layout.topMargin: 15
+                            Layout.topMargin: 20
                             Layout.bottomMargin: 6
                             Layout.preferredWidth: parent.width
+                            spacing: 6
                             Layout.fillWidth: true
 
                             Button {
+                                Accessible.id: "BootPage_Button"
                                 Layout.alignment: Qt.AlignLeft
                                 text: qsTr("Cancel")
                                 Layout.preferredWidth: 170
@@ -624,6 +653,7 @@ DccObject {
                             }
 
                             RecommandButton {
+                                Accessible.id: "BootPage_RecommandButton"
                                 id: submitbtn
                                 text: qsTr("Sure")
                                 enabled: false
@@ -644,6 +674,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoStartAnimation"
         name: "startAnimation"
         parentName: "bootMenu"
         displayName: qsTr("Start animation")
@@ -713,6 +744,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoCheckAnimation"
         name: "checkAnimation"
         parentName: "bootMenu"
         weight: 70
@@ -733,6 +765,7 @@ DccObject {
                     id: repeater
                     model: dccData.mode().grubAnimationModel()
                     delegate: ItemDelegate {
+                        Accessible.id: "BootPage_ItemDelegate_" + index
 
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -753,6 +786,7 @@ DccObject {
                         content: ColumnLayout {
                             spacing: 0
                             Rectangle {
+                                Accessible.id: "BootPage_Rectangle_3"
                                 id: externalRect
                                 width: 228
                                 height: 148
@@ -764,6 +798,7 @@ DccObject {
 
                                 Rectangle {
                                     id: imgRect
+                                    Accessible.id: "BootPage_Rectangle_ImgRect"
                                     anchors.centerIn: parent
                                     width: 220
                                     height: 140
@@ -851,6 +886,7 @@ DccObject {
                             }
 
                             RadioButton {
+                                Accessible.id: "BootPage_RadioButton_" + index
                                 autoExclusive: false
                                 text: model.text
                                 checked: model.checkStatus

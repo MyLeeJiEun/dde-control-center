@@ -29,11 +29,22 @@ DccObject {
 
     // 语言列表抬头
     DccObject {
+        accessibleId: "DatetimeLanguageListTiltle"
         id: languageListTiltle
         property bool isEditing: false
         name: "languageListTiltle"
         parentName: "langAndFormat"
         displayName: qsTr("Language")
+        visible: languageList.visibleToApp
+        enabled: languageList.enabledToApp
+        onVisibleToAppChanged: {
+            if (!languageListTiltle.visibleToApp)
+                isEditing = false
+        }
+        onEnabledToAppChanged: {
+            if (!languageListTiltle.enabledToApp)
+                isEditing = false
+        }
         weight: 10
         pageType: DccObject.Item
         page: RowLayout {
@@ -48,6 +59,7 @@ DccObject {
 
             Button {
                 id: button
+                Accessible.id: "LangAndFormat_Button"
                 checkable: true
                 visible: langRepeater.count > 1
                 font.pixelSize: DTK.fontManager.t8.pixelSize
@@ -77,6 +89,7 @@ DccObject {
         // 语言列表项
         DccObject {
             id: languageList
+            readonly property bool canManage: visibleToApp && enabledToApp && dccData.langState === 0
             name: "languageList"
             parentName: "langAndFormat"
             weight: 20
@@ -105,9 +118,10 @@ DccObject {
                     weight: 20 + 10 * (index + 1)
                     backgroundType: DccObject.Normal
                     pageType: DccObject.Item
-                    enabled: dccData.langState === 0 // language set finished
+                    enabled: languageList.canManage // language set finished and policy allows edits
                     page: ItemDelegate {
                         id: itemDelegate
+                        Accessible.id: "LangAndFormat_ItemDelegate_" + index
                         property bool isCurrentLang: dccData.currentLang === dccObj.displayName
                         property bool isLoading: itemDelegate.isCurrentLang && !dccObj.enabled
                                                 && (dccData.langState & langAndFormat.localeStateSetLang)
@@ -179,6 +193,7 @@ DccObject {
                         }
 
                         IconButton {
+                            Accessible.id: "LangAndFormat_IconButton"
                             id: removeButton
                             visible: !itemDelegate.isLoading && (
                                      (itemDelegate.isCurrentLang && dccObj.enabled) ||
@@ -197,7 +212,9 @@ DccObject {
                             }
                             background: null
                             onClicked: {
-                                if (!languageListTiltle.isEditing
+                                if (!languageList.canManage || !visible || !enabled
+                                        || !languageListTiltle.visibleToApp || !languageListTiltle.enabledToApp
+                                        || !languageListTiltle.isEditing
                                         || itemDelegate.isCurrentLang)
                                     return
 
@@ -224,7 +241,7 @@ DccObject {
                         }
 
                         onClicked: {
-                            if (languageListTiltle.isEditing)
+                            if (!languageList.canManage || !visible || !enabled || languageListTiltle.isEditing)
                                 return
 
                             dccData.setCurrentLang(dccObj.displayName)
@@ -237,7 +254,10 @@ DccObject {
 
     // 其他语言列表 +
     DccObject {
+        id: otherLanguagesTitle
         name: "otherLanguagesTitle"
+        visible: languageList.visibleToApp
+        enabled: languageList.enabledToApp
         parentName: "langAndFormat"
         weight: 30
         pageType: DccObject.Item
@@ -246,6 +266,8 @@ DccObject {
         onParentItemChanged: item => { if (item) item.topPadding = 3 }
 
         DccObject {
+            id: addLanguage
+            accessibleId: "DatetimeLangItem0"
             name: "langItem0"
             parentName: "otherLanguagesTitle"
             displayName: qsTr("Other languages")
@@ -253,18 +275,25 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: Button {
+                Accessible.id: "LangAndFormat_Button_2"
                 implicitWidth: fm.advanceWidth(text) + fm.averageCharacterWidth * 2
                 implicitHeight: 30
                 text: qsTr("add")
                 LangsChooserDialog {
                     id: dialogLoader
                     viewModel: dccData.langSearchModel()
+                    selectionAllowed: languageList.canManage
+                                      && otherLanguagesTitle.visibleToApp && otherLanguagesTitle.enabledToApp
+                                      && addLanguage.visibleToApp && addLanguage.enabledToApp
                     onSelectedLang: function (lang) {
-                        dccData.addLang(lang)
+                        if (selectionAllowed)
+                            dccData.addLang(lang)
                     }
                 }
 
                 onClicked: {
+                    if (!dialogLoader.selectionAllowed || !visible || !enabled)
+                        return
                     dialogLoader.active = true
                     languageListTiltle.isEditing = false
                 }
@@ -280,6 +309,7 @@ DccObject {
 
     // 区域格式抬头
     DccObject {
+        accessibleId: "DatetimeRegionlistTitle"
         name: "regionlistTitle"
         parentName: "langAndFormat"
         displayName: qsTr("Region")
@@ -301,6 +331,7 @@ DccObject {
 
     // 地区
     DccObject {
+        accessibleId: "DatetimeRegions"
         name: "regions"
         parentName: "langAndFormat"
         weight: 45
@@ -309,6 +340,7 @@ DccObject {
         backgroundType: DccObject.Normal
         pageType: DccObject.Editor
         page: Item {
+            Accessible.id: "LangAndFormat_Item_1"
             implicitWidth: rowlayout.implicitWidth + 20
             implicitHeight: 30
 
@@ -377,6 +409,7 @@ DccObject {
 
     // 区域格式
     DccObject {
+        accessibleId: "DatetimeRegionAndFormat"
         id: regionAndFormat
         name: "regionAndFormat"
         parentName: "langAndFormat"
@@ -400,6 +433,7 @@ DccObject {
             })
         }
         page: Item {
+            Accessible.id: "LangAndFormat_Item_2"
             id: regionAndFormatItem
             implicitWidth: regionAndFormat.localeGenRunning ? 36 : layout.implicitWidth + 20
             implicitHeight: regionAndFormat.localeGenRunning ? 36 : 30
@@ -609,6 +643,7 @@ DccObject {
 
     // Number example
     DccObject {
+        accessibleId: "DatetimeNumberExample"
         name: "numberExample"
         parentName: "langAndFormat"
         weight: 90

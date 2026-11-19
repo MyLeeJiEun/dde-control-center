@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 // import org.deepin.dtk 1.0 as D
 import QtQuick 2.15
@@ -15,6 +15,7 @@ DccObject{
     property bool hideWhenUserClosing: false  // 接收来自父组件的隐藏状态
     
     DccObject {
+        accessibleId: "BluetoothBlueToothSwitch"
         name: "blueToothSwitch"
         parentName: "blueToothCtl" + model.id
         displayName: model.name
@@ -106,6 +107,7 @@ DccObject{
 
                     ToolButton {
                         id: editBtn
+                        Accessible.id: "BluetoothCtl_ToolButton"
                         anchors.left: nameDetail.right
                         anchors.verticalCenter: nameDetail.verticalCenter
                         font: DTK.fontManager.t10
@@ -140,6 +142,7 @@ DccObject{
             }
 
             LineEdit {
+                Accessible.id: "BluetoothCtl_LineEdit"
                 id: nameEdit
                 visible: false
                 Layout.fillWidth: true
@@ -207,6 +210,7 @@ DccObject{
 
             Switch {
                 id: deviceSwitch
+                Accessible.id: "BluetoothCtl_Switch"
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 Layout.rightMargin: 10
 
@@ -256,6 +260,7 @@ DccObject{
     }
 
     DccObject {
+        accessibleId: "BluetoothBlueToothSwitch_2"
         name: "blueToothSwitch"
         parentName: "blueToothCtl"  + model.id
         icon: "audio"
@@ -265,6 +270,7 @@ DccObject{
 
         page: RowLayout {
             CheckBox {
+                Accessible.id: "BluetoothCtl_CheckBox"
                 checked: model.discoverabled
                 Layout.alignment: Qt.AlignLeft
                 leftPadding: 10
@@ -278,6 +284,7 @@ DccObject{
     }
 
     DccObject {
+        accessibleId: "BluetoothAirplaneModeTips"
         name: "airplaneModeTips"
         parentName: "blueToothCtl"  + model.id
         pageType: DccObject.Item
@@ -295,6 +302,7 @@ DccObject{
                 width: implicitWidth
             }
             Label {
+                Accessible.id: "BluetoothCtl_Label"
                 id: airplaneModeLinkLabel
                 text: "<a href=\"airplaneMode\" style=\"text-decoration:none;\">" + qsTr("Airplane Mode") +"</a>"
                 anchors.left: airplaneModeTextLabel.right

@@ -6,6 +6,7 @@
 #include "dccapp.h"
 #include "dccbenchmark.h"
 #include "dccimageprovider.h"
+#include "dccmoduleconfig.h"
 #include "dccobject_p.h"
 #include "navigationmodel.h"
 #include "pluginmanager.h"
@@ -30,6 +31,7 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QScreen>
+#include <QScopedPointer>
 #include <QTimer>
 #include <QTranslator>
 #include <QWindow>
@@ -45,8 +47,71 @@ DCORE_USE_NAMESPACE
 
 namespace dccV25 {
 
+const QString kAppId = QStringLiteral("org.deepin.dde.control-center");
+
+namespace {
+
+const QString kModulePathsConfigName = QStringLiteral("org.deepin.dde.control-center.modulepaths");
+
+QStringList collectModulePathSubpaths(const QStringList &dirs, const QStringList &plugins)
+{
+    // 空 subpath 只读取控制中心自身的清单，插件清单按插件名读取。
+    QStringList subpaths { QString() };
+    for (const QString &dir : dirs) {
+        QDir pluginDir(dir);
+        if (!pluginDir.exists())
+            continue;
+        QFileInfoList pluginList = pluginDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+        if (!pluginDir.isEmpty(QDir::Files))
+            pluginList.prepend(QFileInfo(pluginDir.absolutePath()));
+        for (const QFileInfo &plugin : pluginList) {
+            const QString name = plugin.baseName();
+            if (!plugins.isEmpty() && !plugins.contains(name))
+                continue;
+            subpaths.append(QLatin1Char('/') + name.toLower());
+        }
+    }
+    subpaths.removeDuplicates();
+    return subpaths;
+}
+
+QSet<QString> readModulePaths(const QStringList &subpaths)
+{
+    QSet<QString> paths;
+    for (const QString &subpath : subpaths) {
+        QScopedPointer<DConfig> config(DConfig::create(kAppId, kModulePathsConfigName, subpath));
+        if (!config || !config->isValid()) {
+            qWarning() << "Failed to read module paths config:" << kModulePathsConfigName << subpath;
+            continue;
+        }
+
+        const QVariant entries = config->value(QStringLiteral("modulePaths"));
+        if (!entries.canConvert<QVariantList>()) {
+            qWarning() << "Expected a modulePaths list in:" << kModulePathsConfigName << subpath;
+            continue;
+        }
+
+        const QVariantList list = entries.toList();
+        for (const QVariant &entry : list) {
+            const QString path = entry.toString().trimmed();
+            const QStringList parts = path.split(QLatin1Char('/'), Qt::SkipEmptyParts);
+            if (entry.metaType().id() != QMetaType::QString || parts.size() < 2 || parts.first() != QLatin1String("root")
+                || parts.contains(QStringLiteral(".")) || parts.contains(QStringLiteral(".."))
+                || path.contains(QLatin1Char('*'))) {
+                qWarning() << "Invalid module path in:" << kModulePathsConfigName << subpath << entry;
+                continue;
+            }
+            paths.insert(parts.join(QLatin1Char('/')));
+        }
+    }
+    return paths;
+}
+
+} // namespace
+
 const QString WidthConfig = QStringLiteral("width");
 const QString HeightConfig = QStringLiteral("height");
+const QString SearchBarStateConfig = QStringLiteral("searchBarState");
 const QString MaximizedConfig = QStringLiteral("maximized");
 const QString HideConfig = QStringLiteral("hideModule");
 const QString DisableConfig = QStringLiteral("disableModule");
@@ -72,7 +137,6 @@ DccManager::DccManager(QObject *parent)
     , m_showFallbackTimer(nullptr)
     , m_showPagePending(false)
     , m_showLoadPage(!isTreeland())
-    , m_showOnNavigationReady(false)
     , m_needShow(false)
     , m_windowShown(false)
     , m_pageShown(false)
@@ -209,7 +273,7 @@ void DccManager::setPlugins(const QStringList &plugins)
 
 void DccManager::setShowOnNavigationReady(bool enabled)
 {
-    m_showOnNavigationReady = enabled;
+    m_plugins->setShowOnNavigationReady(enabled);
 }
 
 void DccManager::loadModules(bool async, const QStringList &dirs)
@@ -311,12 +375,8 @@ void DccManager::addObject(DccObject *obj)
         if (o->parentName().isEmpty()) {
             DccObject::Private::FromObject(m_noParentObjects)->addChild(o, false);
         } else {
-            if (contains(m_hideModule, o)) {
-                DccObject::Private::FromObject(o)->setFlagState(DCC_CONFIG_HIDDEN, true);
-            }
-            if (contains(m_disableModule, o)) {
-                DccObject::Private::FromObject(o)->setFlagState(DCC_CONFIG_DISABLED, true);
-            }
+            updateConfigState(o, DCC_CONFIG_HIDDEN);
+            updateConfigState(o, DCC_CONFIG_DISABLED);
             if (!o->isVisibleToApp()) {
                 connect(o, &DccObject::visibleToAppChanged, this, &DccManager::onVisible, Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
                 DccObject::Private::FromObject(m_hideObjects)->addChild(o, false);
@@ -603,6 +663,7 @@ void DccManager::initConfig()
 
     updateModuleConfig(HideConfig);
     updateModuleConfig(DisableConfig);
+    updateSearchBarState();
     m_sidebarWidth = m_dconfig->value("sidebarWidth", -1).toInt();
     if (m_sidebarWidth <= 0) {
         // 英文环境做特殊处理，加宽侧边栏
@@ -610,6 +671,25 @@ void DccManager::initConfig()
         m_sidebarWidth = locale.language() == QLocale::English ? 210 : 180;
     }
     connect(m_dconfig, &DConfig::valueChanged, this, &DccManager::updateModuleConfig);
+    connect(m_dconfig, &DConfig::valueChanged, this, [this](const QString &key) {
+        if (key == SearchBarStateConfig)
+            updateSearchBarState();
+    });
+}
+
+void DccManager::updateSearchBarState()
+{
+    // FileBackend cannot safely read keys missing from older metadata.
+    const int value = m_dconfig->keyList().contains(SearchBarStateConfig)
+        ? m_dconfig->value(SearchBarStateConfig, SearchBarVisible).toInt()
+        : SearchBarVisible;
+    const auto state = value >= SearchBarVisible && value <= SearchBarHidden
+        ? static_cast<SearchBarState>(value) : SearchBarVisible;
+    if (m_searchBarState == state)
+        return;
+
+    m_searchBarState = state;
+    Q_EMIT searchBarStateChanged(state);
 }
 
 bool DccManager::contains(const QSet<QString> &urls, const DccObject *obj)
@@ -940,11 +1020,6 @@ void DccManager::waitShowPage(const QString &url, const QDBusMessage message)
         obj = m_root;
         showPage(obj, QString());
     } else {
-        if (!m_plugins->loadFinished()) {
-            startPendingShow(url, message);
-            return;
-        }
-
         const QString path = parseShowPageUrl(url, cmd);
         const auto objs = findObjects(path);
         const auto it = std::find_if(objs.cbegin(), objs.cend(), [this](const DccObject *candidate) {
@@ -953,6 +1028,9 @@ void DccManager::waitShowPage(const QString &url, const QDBusMessage message)
         obj = it == objs.cend() ? nullptr : *it;
         if (obj) {
             showPage(obj, cmd);
+        } else if (!m_plugins->loadFinished()) {
+            startPendingShow(url, message);
+            return;
         }
     }
 
@@ -970,13 +1048,8 @@ void DccManager::clearShowParam()
 
 void DccManager::handleNavigationReady()
 {
-    if (m_showOnNavigationReady) {
-        if (m_showUrl.isEmpty()) {
-            handleShowReady();
-        }
-        QTimer::singleShot(100, m_plugins, &DccPluginManager::startDataPhase);
-    } else {
-        m_plugins->startDataPhase();
+    if (m_plugins->showOnNavigationReady() && m_showUrl.isEmpty()) {
+        handleShowReady();
     }
 }
 
@@ -1239,17 +1312,113 @@ void DccManager::updateModuleConfig(const QString &key)
     for (auto &&url : addModuleConfig) {
         QVector<DccObject *> objs = findObjects(url);
         for (auto &&obj : objs) {
-            DccObject::Private::FromObject(obj)->setFlagState(type, true);
+            updateConfigState(obj, type);
         }
     }
     for (auto &&url : removeModuleConfig) {
         QVector<DccObject *> objs = findObjects(url);
         for (auto &&obj : objs) {
-            DccObject::Private::FromObject(obj)->setFlagState(type, false);
+            updateConfigState(obj, type);
         }
     }
     if (newModuleConfig == &m_hideModule && (!addModuleConfig.isEmpty() || !removeModuleConfig.isEmpty())) {
         Q_EMIT hideModuleChanged(m_hideModule);
+    }
+}
+
+void DccManager::loadModuleConfigs(const QStringList &dirs, const QStringList &plugins)
+{
+    const QStringList subpaths = collectModulePathSubpaths(dirs, plugins);
+    const QSet<QString> modulePaths = readModulePaths(subpaths);
+    loadModuleConfigValues(modulePaths);
+}
+
+void DccManager::loadModuleConfigValues(const QSet<QString> &modulePaths)
+{
+    m_moduleConfigPending = int(modulePaths.size());
+    if (modulePaths.isEmpty()) {
+        m_moduleConfigReady = true;
+        refreshModuleConfigState();
+        return;
+    }
+
+    // 与 QML 初始化、插件加载并行读取，结果全部返回后再统一生效。
+    for (const QString &path : modulePaths) {
+        auto *config = DccModuleConfig::create(kAppId, QLatin1Char('/') + path, this);
+        if (!config) {
+            qCWarning(dccLog) << "Failed to create module config for path:" << path;
+            finishModuleConfigItem();
+            continue;
+        }
+        // path 是配置路径，保留占位符用于读取 DConfig 和定位 override 目录；
+        // target 是对象匹配路径，仅在这里把保留标记 __wildcard__ 还原为 *。
+        // 例如 root/network/wired__wildcard__/page -> root/network/wired*/page。
+        // 沿用 contains()/findObjects() 的规则：* 只匹配单个路径段内的名称。
+        QString target = path;
+        target.replace(QStringLiteral("__wildcard__"), QStringLiteral("*"));
+        connect(config, &DccModuleConfig::configInitializeSucceed, this, [this, target, config](DConfig *) {
+            // 读生成类缓存的属性（值已在配置线程写入 Data）：不要用 config->config()->value()，
+            // DConfig 实例不在主线程，每次读值都是一次跨线程阻塞往返
+            if (!config->visible())
+                m_moduleHiddenPaths.insert(target);
+            if (config->disable())
+                m_moduleDisabledPaths.insert(target);
+            config->deleteLater();
+            finishModuleConfigItem();
+        });
+        // 初始化失败（如配置元数据未安装）：记录日志并释放实例，避免静默失效
+        connect(config, &DccModuleConfig::configInitializeFailed, this, [this, path, config] {
+            qCWarning(dccLog) << "Failed to init module config:" << path;
+            config->deleteLater();
+            finishModuleConfigItem();
+        });
+    }
+}
+
+void DccManager::finishModuleConfigItem()
+{
+    if (--m_moduleConfigPending > 0)
+        return;
+
+    // 所有配置都加载完了：此时才让单模块配置生效，并统一刷一次
+    m_moduleConfigReady = true;
+
+    refreshModuleConfigState();
+}
+
+void DccManager::refreshModuleConfigState()
+{
+    if (!m_moduleConfigReady)
+        return;
+
+    for (const QString &url : std::as_const(m_moduleHiddenPaths)) {
+        const QVector<DccObject *> objs = findObjects(url);
+        for (DccObject *obj : objs)
+            DccObject::Private::FromObject(obj)->setFlagState(DCC_CONFIG_HIDDEN, true);
+    }
+    for (const QString &url : std::as_const(m_moduleDisabledPaths)) {
+        const QVector<DccObject *> objs = findObjects(url);
+        for (DccObject *obj : objs)
+            DccObject::Private::FromObject(obj)->setFlagState(DCC_CONFIG_DISABLED, true);
+    }
+}
+
+void DccManager::updateConfigState(DccObject *obj, uint32_t type)
+{
+    // 两个来源在这里按“任一要求即生效”合并：
+    //   ① 主配置列表 hideModule / disableModule
+    //   ② 单模块配置（各 subpath 的 visible / disable），全部读完前不参与，避免边读边生效
+    switch (type) {
+    case DCC_CONFIG_HIDDEN:
+        DccObject::Private::FromObject(obj)->setFlagState(type,
+            contains(m_hideModule, obj) || (m_moduleConfigReady && contains(m_moduleHiddenPaths, obj)));
+        break;
+    case DCC_CONFIG_DISABLED:
+        DccObject::Private::FromObject(obj)->setFlagState(type,
+            contains(m_disableModule, obj) || (m_moduleConfigReady && contains(m_moduleDisabledPaths, obj)));
+        break;
+    default:
+        break;
     }
 }
 

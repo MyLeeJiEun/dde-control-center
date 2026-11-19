@@ -20,6 +20,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "TouchscreenTouchScreenTips"
         name: "TouchScreenTips"
         parentName: "touchscreen"
         pageType: DccObject.Item
@@ -35,6 +36,8 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "TouchscreenItem"
+        name: "associations"
         parentName: "touchscreen"
         backgroundType: DccObject.Normal
         pageType: DccObject.Item
@@ -43,6 +46,7 @@ DccObject {
                 model: dccData.touchScreenMatchModel()
                 delegate: ItemDelegate{
                     id: touchItem
+                    Accessible.id: "TouchScreen_ItemDelegate_" + index
                     property var data: model
                     text: model.name
                     checkable: false
@@ -58,6 +62,7 @@ DccObject {
                         }
                         D.ComboBox{
                             id: combo
+                            Accessible.id: "TouchScreen_ComboBox_" + index
                             flat: true
                             model: dccData.monitors
                             currentIndex: dccData.monitors.indexOf(touchItem.data.screenName)

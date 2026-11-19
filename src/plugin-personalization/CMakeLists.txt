@@ -8,7 +8,7 @@ if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
 endif()
 
 if (Enable_TreelandSupport)
-find_package(TreelandProtocols REQUIRED)
+find_package(TreelandProtocols 0.7.0 REQUIRED)
 endif()
 
 file(GLOB_RECURSE Personalization_SRCS
@@ -28,7 +28,8 @@ add_library(${LIB_NAME} MODULE
 
 if (Enable_TreelandSupport)
 qt6_generate_wayland_protocol_client_sources(${LIB_NAME} FILES
-    ${TREELAND_PROTOCOLS_DATA_DIR}/treeland-personalization-manager-v1.xml
+    ${TREELAND_PROTOCOLS_DATA_DIR}/treeland-appearance-manager-unstable-v1.xml
+    ${TREELAND_PROTOCOLS_DATA_DIR}/treeland-appearance-unstable-v1.xml
     ${TREELAND_PROTOCOLS_DATA_DIR}/treeland-wallpaper-manager-unstable-v1.xml
 )
 
@@ -55,3 +56,7 @@ target_link_libraries(${LIB_NAME} PRIVATE
 )
 
 dcc_install_plugin(NAME ${LIB_NAME} TARGET ${LIB_NAME})
+
+if(UNITTEST)
+    add_subdirectory(tests)
+endif()

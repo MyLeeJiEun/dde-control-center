@@ -25,6 +25,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "SoundNoOutput"
         name: "noOutput"
         parentName: "sound/outPut"
         weight: 20
@@ -53,6 +54,7 @@ DccObject {
         pageType: DccObject.Item
         page: DccGroupView { }
         DccObject {
+            accessibleId: "SoundOutputVolume"
             name: "outputVolume"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Output Volume")
@@ -65,6 +67,7 @@ DccObject {
                     text: root.toPercent(voiceTipsSlider.value)
                 }
                 ActionButton {
+                    Accessible.id: "SpeakerPage_ActionButton"
                     Layout.alignment: Qt.AlignVCenter
                     icon {
                         name: dccData.model().speakerOn ? "sound_off" : "small_volume"
@@ -99,6 +102,7 @@ DccObject {
                 }
                 Slider {
                     id: voiceTipsSlider
+                    Accessible.id: "SpeakerPage_Slider"
                     Layout.alignment: Qt.AlignVCenter
                     implicitHeight: 24
                     handleType: Slider.HandleType.NoArrowHorizontal
@@ -117,6 +121,7 @@ DccObject {
                     }
                 }
                 IconButton {
+                    Accessible.id: "SpeakerPage_IconButton"
                     icon {
                         name: "big_volume"
                         width: 16
@@ -132,6 +137,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundVolumeEnhancement"
             name: "volumeEnhancement"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Volume Boost")
@@ -139,6 +145,7 @@ DccObject {
             weight: 20
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "SpeakerPage_Switch"
                 Layout.alignment: Qt.AlignRight
                 checked: dccData.model().increaseVolume
                 onCheckedChanged: {
@@ -149,6 +156,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundVolumeBalance"
             name: "volumeBalance"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Left Right Balance")
@@ -166,6 +174,7 @@ DccObject {
                 }
                 Slider {
                     id: balanceSlider
+                    Accessible.id: "SpeakerPage_Slider_2"
                     Layout.alignment: Qt.AlignVCenter
                     implicitHeight: 24
                     from: -1
@@ -190,6 +199,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundMonoAudio"
             name: "monoAudio"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Mono Audio")
@@ -197,6 +207,7 @@ DccObject {
             weight: 30
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "SpeakerPage_Switch_2"
                 checked: dccData.model().audioMono
                 onCheckedChanged: {
                     if (dccData.model().audioMono !== checked) {
@@ -206,6 +217,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundPlugAndUnplugManagement"
             name: "plugAndUnplugManagement"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Auto Pause")
@@ -213,6 +225,7 @@ DccObject {
             weight: 50
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "SpeakerPage_Switch_3"
                 checked: dccData.model().pausePlayer
                 onCheckedChanged: {
                     if (dccData.model().pausePlayer !== checked) {
@@ -222,6 +235,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SoundOutputDevice"
             name: "outputDevice"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Output Device")
@@ -229,6 +243,7 @@ DccObject {
             pageType: DccObject.Editor
             page: ComboBox {
                 id: control
+                Accessible.id: "SpeakerPage_ComboBox"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 10
                 flat: true
@@ -257,6 +272,7 @@ DccObject {
 
                     T.TextField {
                         id: textField
+                        Accessible.id: "SpeakerPage_TextField"
 
                         function getDisplayText() {
                             return control.editable ? control.editText : fm.elidedText(control.displayText,
@@ -307,6 +323,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
+                    Accessible.id: "SpeakerPage_MenuItem_" + index
                     useIndicatorPadding: true
                     width: control.width
                     text: model.name
@@ -349,6 +366,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SoundBluetoothMode"
             name: "bluetoothMode"
             parentName: "sound/outPut/outputGroup"
             displayName: qsTr("Mode")
@@ -357,6 +375,7 @@ DccObject {
             visible: dccData.model().showBluetoothMode
             page: ComboBox {
                 id: bluetoothControl
+                Accessible.id: "SpeakerPage_ComboBox_2"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 10
                 flat: true
@@ -370,6 +389,7 @@ DccObject {
 
                     T.TextField {
                         id: textField
+                        Accessible.id: "SpeakerPage_TextField_2"
 
                         function getDisplayText() {
                             return bluetoothControl.editable ? bluetoothControl.editText : fm.elidedText(bluetoothControl.displayText,
@@ -418,6 +438,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
+                    Accessible.id: "SpeakerPage_MenuItem_2_" + index
                     useIndicatorPadding: true
                     width: bluetoothControl.width
                     text: modelData

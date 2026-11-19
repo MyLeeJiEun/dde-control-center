@@ -1,10 +1,13 @@
-//SPDX-FileCopyrightText: 2018 - 2023 UnionTech Software Technology Co., Ltd.
+//SPDX-FileCopyrightText: 2018 - 2026 UnionTech Software Technology Co., Ltd.
 //
 //SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "usermodel.h"
 
 #include <QDebug>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusReply>
 
 using namespace dccV25;
 
@@ -17,6 +20,7 @@ UserModel::UserModel(QObject *parent)
     , m_isJoinADDomain(false)
     , m_isADUserLogind(false)
     , m_isSecurityHighLever(false)
+    , m_hideUserlistForNonadmin(false)
 {
 
 }
@@ -62,11 +66,11 @@ void UserModel::addUser(const QString &id, User *user)
     connect(user, &User::groupsChanged, this, [this, user](const QStringList &groups){
         Q_EMIT groupsChanged(user->id(), groups);
     });
-    connect(user, &User::passwordModifyFinished, this, [this, user](const int exitCode, const QString &errorTxt){
-        Q_EMIT passwordModifyFinished(user->id(), exitCode, errorTxt);
+    connect(user, &User::passwordModifyFinished, this, [this, user](const int exitCode, const bool domainUser, const QString &errorTxt){
+        Q_EMIT passwordModifyFinished(user->id(), exitCode, domainUser, errorTxt);
     });
     connect(user, &User::passwordResetFinished, this, [this, user](const QString &errorTxt){
-        Q_EMIT passwordModifyFinished(user->id(), errorTxt.isEmpty() ? 0 : -1, errorTxt);
+        Q_EMIT passwordModifyFinished(user->id(), errorTxt.isEmpty() ? 0 : -1, false, errorTxt);
     });
     connect(user, &User::onlineChanged, this, [this, user](const bool &online){
         Q_EMIT onlineChanged(user->id(), online);
@@ -189,6 +193,54 @@ void UserModel::setIsSecurityHighLever(bool isSecurityHighLever)
     m_isSecurityHighLever = isSecurityHighLever;
 }
 
+bool UserModel::hideUserlistForNonadmin() const
+{
+    return m_hideUserlistForNonadmin;
+}
+
+void UserModel::setHideUserlistForNonadmin(bool hide)
+{
+    if (m_hideUserlistForNonadmin == hide)
+        return;
+
+    m_hideUserlistForNonadmin = hide;
+    Q_EMIT hideUserlistForNonadminChanged(hide);
+}
+
+bool UserModel::isUserVisible(const User *user) const
+{
+    if (!user)
+        return false;
+
+    // 配置未开启，全部可见
+    if (!m_hideUserlistForNonadmin)
+        return true;
+
+    // 查找当前登录用户
+    const User *curUser = nullptr;
+    for (auto *u : m_userList) {
+        if (u->isCurrentUser()) {
+            curUser = u;
+            break;
+        }
+    }
+
+    // 当前用户未确定（异步 D-Bus 未就绪），暂全部可见
+    if (!curUser)
+        return true;
+
+    // 管理员用户不受限制
+    // 本地管理员账户不一定是等保三级的管理员账户，要区分判断
+    const bool curUserIsAdmin = m_isSecurityHighLever
+            ? curUser->securityLever() == SecurityLever::Sysadm
+            : curUser->userType() == User::UserType::Administrator;
+    if (curUserIsAdmin)
+        return true;
+
+    // 非管理员用户只能看到自己
+    return user->isCurrentUser();
+}
+
 bool UserModel::isDisabledGroup(const QString &groupName)
 {
     return m_DisabledGroups.contains(groupName);
@@ -223,4 +275,39 @@ void UserModel::setADUserLogind(bool isADUserLogind)
     m_isADUserLogind = isADUserLogind;
 
     Q_EMIT isADUserLoginChanged(isADUserLogind);
+}
+
+bool UserModel::isDomainUser(const QString &userName)
+{
+    // LDAP域账户
+    for (const auto &user : userList()) {
+        if (user->name() == userName && user->groups().contains("domain users")) {
+            return true;
+        }
+    }
+    
+    QDBusInterface interface("com.deepin.udcp.iam",
+                             "/com/deepin/udcp/iam",
+                             "com.deepin.udcp.iam",
+                             QDBusConnection::systemBus());
+    if (!interface.isValid()) {
+        return false;
+    }
+
+    // 调用域管接口获取用户组，不为空则为域管用户
+    QDBusReply<QStringList> reply = interface.call("GetUserGroups", userName);
+    if (reply.error().type() == QDBusError::NoError && !reply.value().isEmpty()) {
+        return true;
+    }
+
+    return false;
+}
+
+void UserModel::setDomainUserModifyPasswordEnable(bool enable)
+{
+    if (m_domainUserModifyPasswordEnable == enable)
+        return;
+
+    m_domainUserModifyPasswordEnable = enable;
+    Q_EMIT domainUserModifyPasswordEnableChanged();
 }

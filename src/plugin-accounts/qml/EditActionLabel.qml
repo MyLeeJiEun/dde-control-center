@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
@@ -8,11 +8,15 @@ import org.deepin.dtk.style 1.0 as DS
 
 D.LineEdit {
     id: edit
+    property string accessibleId: ""
+    Accessible.id: accessibleId !== "" ? accessibleId : "EditActionLabel_LineEdit"
+    Accessible.role: Accessible.EditableText
     property alias editBtn: editButton
     property alias alertText: panel.alertText
     property alias showAlert: panel.showAlert
     property alias metrics: fontMetrics
     property var completeText: ""
+    property bool finishOnEditingFinished: true
     signal finished()
 
     readOnly: true
@@ -41,7 +45,7 @@ D.LineEdit {
         }
     }
     onEditingFinished: {
-        if (edit.readOnly)
+        if (edit.readOnly || !edit.finishOnEditingFinished)
             return
         if (showAlert)
             showAlert = false
@@ -55,6 +59,7 @@ D.LineEdit {
     }
 
     D.ActionButton {
+        Accessible.id: "EditActionLabel_ActionButton"
         id: editButton
         focusPolicy: Qt.StrongFocus
         width: 30

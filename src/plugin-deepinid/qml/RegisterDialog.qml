@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -33,6 +33,7 @@ D.DialogWindow {
         }
 
         D.PasswordEdit {
+            Accessible.id: "RegisterDialog_PasswordEdit_1"
             id: edit0
             Layout.fillWidth: true
             placeholderText: qsTr("8-64 characters")
@@ -47,6 +48,7 @@ D.DialogWindow {
         }
 
         D.PasswordEdit {
+            Accessible.id: "RegisterDialog_PasswordEdit_2"
             id: edit1
             Layout.fillWidth: true
             placeholderText: qsTr("Repeat the password")
@@ -66,6 +68,7 @@ D.DialogWindow {
             Layout.fillWidth: true
             spacing: 10
             Button {
+                Accessible.id: "RegisterDialog_Button"
                 text: qsTr("Cancel")
                 Layout.fillWidth: true
                 onClicked: {
@@ -73,6 +76,7 @@ D.DialogWindow {
                 }
             }
             D.RecommandButton {
+                Accessible.id: "RegisterDialog_RecommandButton"
                 text: qsTr("Confirm")
                 Layout.fillWidth: true
                 onClicked: {

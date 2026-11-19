@@ -46,7 +46,9 @@ MouseWorker::MouseWorker(MouseModel *model, QObject *parent)
 #endif
     QMetaObject::invokeMethod(m_mouseProxy, "active", Qt::QueuedConnection);
 #ifdef Enable_Treeland
-    m_treelandWorker->active();
+    if (m_isTreelandSession) {
+        m_treelandWorker->active();
+    }
 #endif
 }
 
@@ -134,6 +136,8 @@ void MouseWorker::bindProxySignals()
     connect(m_mouseProxy, &MouseDBusProxy::cursorSizeChanged, this, &MouseWorker::setCursorSize);
     connect(m_mouseProxy, &MouseDBusProxy::availableCursorSizesChanged, this, &MouseWorker::setAvailableCursorSizes);
     connect(m_mouseProxy, &MouseDBusProxy::lidIsPresentChanged, this, &MouseWorker::setLidIsPresent);
+    connect(m_mouseProxy, &MouseDBusProxy::systemTouchpadExpandExistChanged, this, &MouseWorker::setSystemTouchpadExpandExist);
+    connect(m_mouseProxy, &MouseDBusProxy::touchpadExpandEnableChanged, this, &MouseWorker::setTouchpadExpandEnable);
 }
 
 void MouseWorker::bindRequestSignals()
@@ -144,6 +148,7 @@ void MouseWorker::bindRequestSignals()
     connect(this, &MouseWorker::requestSetTrackPointMotionAcceleration, m_mouseProxy, &MouseDBusProxy::setTrackPointMotionAcceleration);
     connect(this, &MouseWorker::requestSetGesture, m_mouseProxy, &MouseDBusProxy::setGesture);
     connect(this, &MouseWorker::requestSetCursorSize, m_mouseProxy, &MouseDBusProxy::setCursorSize);
+    connect(this, &MouseWorker::requestSetTouchpadExpandEnable, m_mouseProxy, &MouseDBusProxy::setTouchpadExpandEnable);
     // treeland 下由 MouseWaylandProxy 处理的写请求，X11 下走 DBus
     if (!m_isTreelandSession) {
         connect(this, &MouseWorker::requestSetDouClick, m_mouseProxy, &MouseDBusProxy::setDouClick);
@@ -206,6 +211,18 @@ void MouseWorker::setTpadEnabled(bool enabled)
 {
     m_model->m_syncingFromBackend = true;
     m_model->setTapEnabled(enabled);
+    m_model->m_syncingFromBackend = false;
+}
+
+void MouseWorker::setSystemTouchpadExpandExist(bool exist)
+{
+    m_model->setSystemTouchpadExpandExist(exist);
+}
+
+void MouseWorker::setTouchpadExpandEnable(bool enabled)
+{
+    m_model->m_syncingFromBackend = true;
+    m_model->setTouchpadExpandEnable(enabled);
     m_model->m_syncingFromBackend = false;
 }
 
@@ -356,6 +373,11 @@ void MouseWorker::onScrollSpeedChanged(int speed)
 void MouseWorker::onTouchpadEnabledChanged(const bool state)
 {
     Q_EMIT requestSetTouchpadEnabled(state);
+}
+
+void MouseWorker::onTouchpadExpandEnable(const bool state)
+{
+    Q_EMIT requestSetTouchpadExpandEnable(state);
 }
 
 void MouseWorker::onCursorSizeChanged(const int cursorSize)

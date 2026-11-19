@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 - 2027 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 import QtQuick 2.15
 import QtQuick.Controls 2.0
@@ -9,7 +9,9 @@ import org.deepin.dcc 1.0
 
 DccRepeater {
     id: repeater
+    property bool selectionAllowed: true
     delegate: DccObject {
+        id: plan
         visible: {
             if (modelData.mode === "performance") {
                 return dccData.model.isHighPerformanceSupported
@@ -28,10 +30,11 @@ DccRepeater {
         // pageType: DccObject.Item
         backgroundType: DccObject.ClickStyle
         page: DccCheckIcon {
+            accessibleId: "PowerPlanCheck_" + modelData.mode
             visible: modelData.mode === dccData.model.powerPlan
         }
         onActive: function (cmd) {
-            if (cmd === "") {
+            if (cmd === "" && repeater.selectionAllowed && plan.visibleToApp && plan.enabledToApp) {
                 dccData.worker.setPowerPlan(modelData.mode)
             }
         }

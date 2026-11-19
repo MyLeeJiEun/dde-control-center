@@ -14,6 +14,7 @@ import ZoneInfoModel 1.0
 // 时间和日期
 DccObject {
     DccObject {
+        accessibleId: "DatetimeDateTimeContent"
         id: dateTimeContent
         name: "dateTimeContent"
         parentName: "datetime"
@@ -84,6 +85,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DatetimeNtpSettings"
             id: ntpSettings
             property bool ntpOn: dccData.ntpEnabled
             name: "ntpSettings"
@@ -93,6 +95,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "TimeAndDate_Switch"
                 checked: ntpSettings.ntpOn
                 onCheckedChanged: {
                     dccData.ntpEnabled = checked
@@ -101,6 +104,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DatetimeDateAndTimeSettings"
             id: dateAndTimeSettings
             name: "dateAndTimeSettings"
             parentName: "dateTimeGroup"
@@ -111,12 +115,33 @@ DccObject {
             property bool showCustom: false
             property string customAddr
 
+            DccObject {
+                id: dateTimeConfirm
+                name: "confirm"
+                parentName: "root/system/datetime/dateTimeGroup/dateAndTimeSettings"
+                pageType: DccObject.Item
+                canSearch: false
+                page: Button {
+                    property var dialog: null
+                    Accessible.id: "DateTimeSettingDialog_Button_2"
+                    text: qsTranslate("DateTimeSettingDialog", "Confirm")
+                    font: D.DTK.fontManager.t6
+                    highlighted: true
+                    onClicked: {
+                        if (dialog && visible && enabled
+                                && dateTimeConfirm.visibleToApp && dateTimeConfirm.enabledToApp)
+                            dialog.submit()
+                    }
+                }
+            }
+
             page: Item {
                 implicitWidth: dccData.ntpEnabled ? comboBox.implicitWidth : settingsButton.implicitWidth
                 implicitHeight: dccData.ntpEnabled ? comboBox.implicitHeight : settingsButton.implicitHeight
 
                 ComboBox {
                     id: comboBox
+                    Accessible.id: "TimeAndDate_ComboBox"
                     property var serverList: dccData.ntpServerList
                     flat: true
                     padding: 10
@@ -191,6 +216,7 @@ DccObject {
 
                 Button {
                     id: settingsButton
+                    Accessible.id: "TimeAndDate_Button"
                     visible: !dccData.ntpEnabled
                     anchors.fill: parent
                     property bool needShowDialog: false
@@ -202,6 +228,11 @@ DccObject {
                         id: loader
                         active: settingsButton.needShowDialog
                         sourceComponent: DateTimeSettingDialog {
+                            confirmAction: dateTimeConfirm
+                            modificationAllowed: dateAndTimeSettings.visibleToApp
+                                                 && dateAndTimeSettings.enabledToApp
+                                                 && settingsButton.visible && settingsButton.enabled
+                                                 && !dccData.ntpEnabled
                             onClosing: {
                                 settingsButton.needShowDialog = false
                             }
@@ -227,6 +258,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "DatetimeCustomNTPServer"
             id: customNTPServer
             name: "customNTPServer"
             parentName: "dateTimeGroup"
@@ -240,6 +272,7 @@ DccObject {
                 implicitHeight: 40
                 implicitWidth: 300
                 D.LineEdit {
+                    Accessible.id: "TimeAndDate_LineEdit"
                     id: addr
                     implicitWidth: 200
                     text: dateAndTimeSettings.customAddr
@@ -269,6 +302,7 @@ DccObject {
                     }
                 }
                 D.IconButton {
+                    Accessible.id: "TimeAndDate_IconButton_1"
                     id: editBtn
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -313,6 +347,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "Datetime12_24h"
             visible: false // 暂时隐藏，会导致逻辑很复杂
             name: "12/24h"
             parentName: "dateTimeGroup"
@@ -321,6 +356,7 @@ DccObject {
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: Switch {
+                Accessible.id: "TimeAndDate_Switch_2"
                 checked: dccData.use24HourFormat
                 onCheckedChanged: {
                     dccData.use24HourFormat = checked
@@ -357,6 +393,7 @@ DccObject {
         onParentItemChanged: item => { if (item) item.topPadding = 5 }
 
         DccObject {
+            accessibleId: "DatetimeSystemTimezone"
             id: systemTimezone
             name: "systemTimezone"
             parentName: "timezoneGroup"
@@ -381,6 +418,7 @@ DccObject {
 
                 Button {
                     id: zoneButton
+                    Accessible.id: "TimeAndDate_Button_2"
                     flat: true
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -450,6 +488,7 @@ DccObject {
                         delegateModel: DelegateModel {
                             model: systemTimezoneItem.model
                             delegate: D.MenuItem {
+                                Accessible.id: "TimeAndDate_MenuItem_" + index
                                 useIndicatorPadding: true
                                 width: timezoneWindow.viewWidth
                                 text: model.display
@@ -513,16 +552,23 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "DatetimeTimezoneList"
             name: "timezoneList"
             parentName: "timezoneGroup"
             displayName: qsTr("Timezone list")
             weight: 12
             backgroundType: DccObject.Normal
             pageType: DccObject.Editor
-            page: RowLayout {
-                spacing: 10
-                Button {
+            page: DccRowView {}
+            DccObject {
+                id: addTimezone
+                name: "addTimezone"
+                parentName: "root/system/datetime/timezoneGroup/timezoneList"
+                pageType: DccObject.Item
+                canSearch: false
+                page: Button {
                     id: addButton
+                    Accessible.id: "TimeAndDate_Button_3"
                     text: qsTr("Add")
                     implicitHeight: 30
                     implicitWidth: 60
@@ -532,6 +578,7 @@ DccObject {
                         delegateModel: DelegateModel {
                             model: dccData.zoneSearchModel()
                             delegate: D.MenuItem {
+                                Accessible.id: "TimeAndDate_MenuItem_2_" + index
                                 useIndicatorPadding: true
                                 width: timezoneListWindow.viewWidth
                                 text: model.display
@@ -563,6 +610,9 @@ DccObject {
                                     }
                                 }
                                 onClicked: {
+                                    if (!addTimezone.visibleToApp || !addTimezone.enabledToApp
+                                            || !addButton.visible || !addButton.enabled)
+                                        return
                                     let zoneId = model.zoneId
                                     if (!dccData.hasUserTimeZone(zoneId)) {
                                         dccData.addUserTimeZoneById(zoneId)
@@ -579,12 +629,50 @@ DccObject {
                     }
 
                     onClicked: {
-                        if (!timezoneListWindow.isVisible()) {
+                        if (visible && enabled && addTimezone.visibleToApp && addTimezone.enabledToApp
+                                && !timezoneListWindow.isVisible()) {
                             timezoneListWindow.setPositionByItem(parent)
                             timezoneListWindow.highlightedIndex = 0
                             timezoneListWindow.show()
                         }
                     }
+                }
+            }
+        }
+    }
+
+    // 任务栏时间显示秒数
+    DccObject {
+        visible: dccData.showSecondsAvailable
+        name: "traySecondsGroup"
+        parentName: "datetime"
+        weight: 30
+        pageType: DccObject.Item
+        page: DccGroupView {}
+
+        onParentItemChanged: item => {
+            if (item) {
+                item.topPadding = 10
+                item.bottomPadding = 5
+            }
+        }
+
+        DccObject {
+            accessibleId: "DatetimeShowSeconds"
+            id: showSecondsSettings
+            property bool secondsOn: dccData.showSeconds
+            name: "showSeconds"
+            parentName: "traySecondsGroup"
+            displayName: qsTr("Show seconds in the dock clock")
+            weight: 10
+            backgroundType: DccObject.Normal
+            pageType: DccObject.Editor
+            page: Switch {
+                Accessible.id: "TimeAndDate_Switch_3"
+                enabled: dccData.showSecondsEnabled
+                checked: showSecondsSettings.secondsOn
+                onCheckedChanged: {
+                    dccData.showSeconds = checked
                 }
             }
         }
@@ -597,6 +685,7 @@ DccObject {
         pageType: DccObject.Item
         page: ItemDelegate {
             id: itemZoneCompItemDelegate
+            Accessible.id: "TimeAndDate_ItemDelegate_" + index
             visible: dccObj
             hoverEnabled: true
             implicitHeight: Math.max(50, textColumn.implicitHeight + 2)
@@ -645,6 +734,7 @@ DccObject {
             }
 
             D.IconButton {
+                Accessible.id: "TimeAndDate_IconButton_2"
                 id: removeButton
                 visible: itemZoneCompItemDelegate.hovered
                 icon.name: "dcc-delete"

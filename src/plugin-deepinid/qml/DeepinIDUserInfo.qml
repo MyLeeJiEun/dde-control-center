@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -18,11 +18,13 @@ DccObject {
     parentName: "deepinid"
     pageType: DccObject.Item
     page: DccRightView {
+        accessibleId: "DeepinIDUserInfoRightView"
         Layout.fillWidth: true
         Layout.fillHeight: true
     }
 
     DccObject {
+        accessibleId: "DeepinidTitle"
         name: "title"
         parentName: "deepinid/userinfo"
         weight: 10
@@ -85,6 +87,7 @@ DccObject {
                 }
 
                 D.ActionButton {
+                    Accessible.id: "DeepinIDUserInfo_ActionButton"
                     id: editButton
                     anchors.left: nameLabel.right
                     anchors.leftMargin: 10
@@ -123,6 +126,7 @@ DccObject {
                 }
 
                 D.LineEdit {
+                    Accessible.id: "DeepinIDUserInfo_LineEdit"
                     id: nameEdit
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: parent.top
@@ -189,12 +193,14 @@ DccObject {
     DeepinIDAccountSecurity{}
 
     DccObject {
+        accessibleId: "DeepinidButtonGrp"
         name: "buttonGrp"
         parentName: "deepinid/userinfo"
         pageType: DccObject.Item
         weight: 60
         page: RowLayout {
             Button {
+                Accessible.id: "DeepinIDUserInfo_Button_1"
                 text: qsTr("Sign out")
                 onClicked: {
                     dccData.worker.logoutUser()
@@ -204,6 +210,7 @@ DccObject {
                 Layout.fillWidth: true
             }
             Button {
+                Accessible.id: "DeepinIDUserInfo_Button_2"
                 text: qsTr("Go to web settings")
                 onClicked: {
                     dccData.worker.openWeb()

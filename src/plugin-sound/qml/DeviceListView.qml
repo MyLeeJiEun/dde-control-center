@@ -29,6 +29,7 @@ Rectangle {
             id: repeater
             delegate: ItemDelegate {
                 id: itemCtl
+                Accessible.id: "DeviceListView_ItemDelegate_" + index
                 Layout.fillWidth: true
                 leftPadding: 16
                 rightPadding: 10
@@ -76,6 +77,7 @@ Rectangle {
                         spacing: 10
                         Layout.alignment: Qt.AlignRight
                         IconButton {
+                            Accessible.id: "DeviceListView_IconButton"
                             Layout.alignment: Qt.AlignLeft
                             icon.name: "play_back"
                             flat: true
@@ -94,6 +96,7 @@ Rectangle {
                         }
 
                         DccCheckIcon {
+                            accessibleId: "DeviceListView_DeviceCheck_" + index
                             checked: model.isEnabled
                             size: 16
                             onClicked: {

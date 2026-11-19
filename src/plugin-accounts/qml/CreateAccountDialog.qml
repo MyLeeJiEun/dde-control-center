@@ -14,6 +14,7 @@ import AccountsController 1.0
 
 D.DialogWindow {
     id: dialog
+    property bool creationAllowed: true
     width: 460
     minimumWidth: width
     minimumHeight: height
@@ -155,7 +156,7 @@ D.DialogWindow {
 
             ComboBox {
                 id: userType
-                implicitHeight: 30
+                Accessible.id: "CreateAccountDialog_ComboBox"
                 Layout.alignment: Qt.AlignVCenter
                 Layout.fillWidth: true
                 model: dccData.userTypes(true)
@@ -221,6 +222,7 @@ D.DialogWindow {
                 Repeater {
                     model: namesModel
                     delegate: D.ItemDelegate {
+                        Accessible.id: "CreateAccountDialog_ItemDelegate_" + index
                         Layout.fillWidth: true
                         backgroundVisible: false
                         checkable: false
@@ -246,6 +248,7 @@ D.DialogWindow {
                                 }
                             }
                             D.LineEdit {
+                                Accessible.id: "CreateAccountDialog_LineEdit"
                                 id: edit
                                 Layout.fillWidth: true
                                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
@@ -343,6 +346,7 @@ D.DialogWindow {
             Layout.rightMargin: 6 - DS.Style.dialogWindow.contentHMargin
 
             Button {
+                Accessible.id: "CreateAccountDialog_Button"
                 Layout.fillWidth: true
                 text: qsTr("Cancel")
                 font: D.DTK.fontManager.t7
@@ -352,11 +356,13 @@ D.DialogWindow {
             }
             D.RecommandButton {
                 id: createButton
+                Accessible.id: "CreateAccountDialog_CreateButton"
                 Layout.fillWidth: true
                 text: qsTr("Create account")
                 font: D.DTK.fontManager.t7
+                enabled: dialog.creationAllowed
                 onClicked: {
-                    if (!namesContainter.checkNames())
+                    if (!dialog.creationAllowed || !namesContainter.checkNames())
                         return
 
                     if (!pwdLayout.checkPassword())

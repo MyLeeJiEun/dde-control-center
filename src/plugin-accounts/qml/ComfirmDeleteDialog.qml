@@ -26,6 +26,7 @@ D.DialogWindow {
         }
         CheckBox {
             id: deleteHomeCheckbox
+            Accessible.id: "ComfirmDeleteDialog_CheckBox"
             Layout.alignment: Qt.AlignHCenter
             font: D.DTK.fontManager.t6
             checked: true // default checked
@@ -38,6 +39,7 @@ D.DialogWindow {
             Layout.topMargin: 30
             Layout.fillWidth: true
             Button {
+                Accessible.id: "ComfirmDeleteDialog_Button"
                 text: qsTr("Cancel")
                 Layout.preferredWidth: 180
                 onClicked: {
@@ -48,6 +50,7 @@ D.DialogWindow {
                 Layout.fillWidth: true
             }
             D.WarningButton {
+                Accessible.id: "ComfirmDeleteDialog_WarningButton"
                 text: qsTr("Delete")
                 Layout.preferredWidth: 180
                 Layout.alignment: Qt.AlignRight

@@ -96,6 +96,7 @@ Popup {
         anchors.fill: parent
         anchors.margins: 6
         SearchEdit {
+            Accessible.id: "RegionsChooserWindow_SearchEdit"
             id: searchEdit
             implicitHeight: Math.max(30, searchEditFontMetrics.height + (DS.Style.control.padding - DS.Style.control.borderWidth) * 2)
             Layout.fillWidth: true
@@ -131,6 +132,7 @@ Popup {
 
                 view.delegate: MenuItem {
                     id: menuItem
+                    Accessible.id: "RegionsChooserWindow_MenuItem_" + index
                     implicitWidth: itemsView.width
                     implicitHeight: 30
                     text: model.display
@@ -155,6 +157,7 @@ Popup {
 
             ScrollBar {
                 id: verticalScrollBar
+                Accessible.id: "RegionsChooserWindow_ScrollBar"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right

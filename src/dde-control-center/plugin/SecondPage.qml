@@ -11,6 +11,7 @@ import org.deepin.dtk.style 1.0 as DS
 import org.deepin.dcc 1.0
 
 Item {
+    Accessible.id: "SecondPage_Item"
     id: root
     property real oldX: 180 // 用于调整宽度时，自动调整侧边栏宽度
     property real oldSplitterX: 180 // 记录上次位置，用于恢复
@@ -74,12 +75,13 @@ Item {
         }
         ListView {
             id: list
+            Accessible.id: "SecondPageModuleList"
             visible: true
-            anchors.top: searchEdit.bottom
+            anchors.top: searchEdit.visible ? searchEdit.bottom : parent.top
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.topMargin: 3
+            anchors.topMargin: searchEdit.visible ? 3 : 50
             leftMargin: 10
             rightMargin: 10
             topMargin: 6
@@ -101,7 +103,9 @@ Item {
                 }
             }
 
-            ScrollBar.vertical: ScrollBar { }
+            ScrollBar.vertical: ScrollBar {
+                Accessible.id: "SecondPageModuleListScrollBar"
+            }
 
             Keys.enabled: true
             Keys.onPressed: function (event) {
@@ -162,6 +166,7 @@ Item {
                 font: D.DTK.fontManager.t6
                 activeFocusOnTab: false
                 focusPolicy: Qt.ClickFocus
+                Accessible.id: "SecondPageModuleList_ItemDelegate"
 
                 property bool isKeyboardNavigating: false
 
@@ -239,6 +244,7 @@ Item {
         }
         color: D.ColorSelector.bgColor
         StackView {
+            Accessible.id: "SecondPage_StackView"
             id: rightView
             clip: true
             hoverEnabled: true

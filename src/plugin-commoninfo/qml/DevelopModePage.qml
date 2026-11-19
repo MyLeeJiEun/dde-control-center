@@ -13,6 +13,7 @@ import org.deepin.dtk.style 1.0 as DS
 
 DccObject {
     DccObject {
+        accessibleId: "CommoninfoDevelopTitle"
         name: "developTitle"
         parentName: "developerMode"
         displayName: qsTr("Root Access")
@@ -42,6 +43,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "CommoninfoDeveloperModeStatus"
             name: "developerModeStatus"
             parentName: "developerModeSetting"
             displayName: qsTr("Request Root Access")
@@ -85,6 +87,7 @@ DccObject {
 
                 Button {
                     id: enterBtn
+                    Accessible.id: "DevelopModePage_Button"
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 10
                     implicitHeight: 30
@@ -160,6 +163,7 @@ DccObject {
                             Layout.alignment: Qt.AlignHCenter
                             RadioButton {
                                 id: radio1
+                                Accessible.id: "DevelopModePage_RadioButton"
                                 text: qsTr("Online")
                                 font: D.DTK.fontManager.t6
                                 checked: true
@@ -174,6 +178,7 @@ DccObject {
 
                             RadioButton {
                                 id: radio2
+                                Accessible.id: "DevelopModePage_RadioButton_2"
                                 text: qsTr("Offline")
                                 font: D.DTK.fontManager.t6
                                 onClicked: {
@@ -189,6 +194,7 @@ DccObject {
 
                         // StackView 用于显示不同页面
                         StackView {
+                            Accessible.id: "DevelopModePage_StackView"
                             visible: !developDlg.showSuccess
                             id: stackView
                             width: 340
@@ -197,6 +203,7 @@ DccObject {
                         }
 
                         D.RecommandButton {
+                            Accessible.id: "DevelopModePage_RecommandButton"
                             visible: !developDlg.showSuccess
                             id: confirmBtn
                             text: developDlg.currentStackIndex === 1 ? qsTr("Import Certificate") : (dccData.mode().isLogin ? qsTr("Request Root Access") : qsTr("Login UOS ID"))
@@ -330,6 +337,7 @@ DccObject {
                                         }
                                         Button {
                                             id: exportBtn
+                                            Accessible.id: "DevelopModePage_Button_2"
                                             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                                             Layout.rightMargin: 6
                                             implicitWidth: 60
@@ -358,6 +366,7 @@ DccObject {
                                     }
                                     contentItem: ColumnLayout {
                                         Label {
+                                            Accessible.id: "DevelopModePage_Label_1"
                                             id: offlineLinkLabel
                                             Layout.fillWidth: true
                                             Layout.leftMargin: 6
@@ -450,6 +459,7 @@ DccObject {
                                 font: D.DTK.fontManager.t8
                             }
                             D.RecommandButton {
+                                Accessible.id: "DevelopModePage_RecommandButton_2"
                                 Layout.fillWidth: true
                                 Layout.alignment: Qt.AlignHCenter
                                 Layout.bottomMargin: 6
@@ -477,12 +487,14 @@ DccObject {
 
 
         DccObject {
+            accessibleId: "CommoninfoDevelopTips"
             name: "developTips"
             parentName: "developerModeSetting"
             weight: 40
             pageType: DccObject.Item
             visible: dccData.work().isACLController() ? dccData.mode().isActivate : true
             page: Label {
+                Accessible.id: "DevelopModePage_Label_2"
                 id: securityCenterLinkLabel
                 leftPadding: 15
                 topPadding: 5
@@ -520,6 +532,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoDevelopDebugTitle"
         name: "developDebugTitle"
         parentName: "developerMode"
         displayName: qsTr("Development and debugging options")
@@ -549,6 +562,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "CommoninfoDevelopDebug"
             name: "developDebug"
             parentName: "developDebugGrp"
             displayName: qsTr("System logging level")
@@ -559,6 +573,7 @@ DccObject {
             page:  Row{
                 ComboBox {
                     id: debugLogCombo
+                    Accessible.id: "DevelopModePage_ComboBox"
                     model: [ qsTr("Off"), qsTr("Debug") ]
                     flat: true
                     font: D.DTK.fontManager.t8
@@ -574,6 +589,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "CommoninfoDevelopDebugTips"
             name: "developDebugTips"
             parentName: "developDebugGrp"
             weight: 20
@@ -594,6 +610,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "CommoninfoDevelopReadOnlyProtection"
         name: "developReadOnlyProtection"
         parentName: "developerMode"
         displayName: qsTr("Solid System Read-Only Protection")
@@ -628,6 +645,7 @@ DccObject {
             }
 
             Switch {
+                Accessible.id: "DevelopModePage_Switch"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 10
                 implicitWidth: 50

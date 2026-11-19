@@ -8,12 +8,15 @@ import "DccUtils.js" as DccUtils
 
 Flickable {
     id: control
+    Accessible.id: "DccRightView_Flickable"
+    property string accessibleId: ""
     property alias spacing: groupView.spacing
     property alias isGroup: groupView.isGroup
     property real margin: DccUtils.getMargin(width)
     property bool scrollBarVisible: false
 
     contentHeight: groupView.height
+    clip: true
 
     // 修复：内容缩小到视口以内时，Qt Flickable C++ 内部可能保留旧的滚动偏移，
     // 导致切换 app 回来后 contentY 越界使页面滚飞。
@@ -23,7 +26,9 @@ Flickable {
             contentY = 0
         }
     }
-    ScrollBar.vertical: ScrollBar { }
+    ScrollBar.vertical: ScrollBar {
+        Accessible.id: control.accessibleId !== "" ? (control.accessibleId + "ScrollBar") : "DccRightViewScrollBar"
+    }
 
     DccGroupView {
         id: groupView

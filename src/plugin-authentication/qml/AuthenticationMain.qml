@@ -26,6 +26,7 @@ DccObject {
         id: rep
         model: [
             {
+                key: "face",
                 authTitle: qsTr("Face"),
                 authDescription: qsTr("Up to 5 facial data can be entered"),
                 authIcon: "user_biometric_face",
@@ -34,6 +35,7 @@ DccObject {
                 max: 5
             },
             {
+                key: "fingerprint",
                 authTitle: qsTr("Fingerprint"),
                 authDescription: qsTr("Identifying user identity through scanning fingerprints"),
                 authIcon: "user_biometric_fingerprint",
@@ -42,6 +44,7 @@ DccObject {
                 max: 10
             },
             {
+                key: "iris",
                 authTitle: qsTr("Iris"),
                 authDescription: qsTr("Identity recognition through iris scanning"),
                 authIcon: "user_biometric_iris",
@@ -53,7 +56,7 @@ DccObject {
         property var listDatas: [dccData.model.facesList, dccData.model.thumbsList, dccData.model.irisList]
         delegate: DccObject {
             id: authenticationGroupView
-            name: "authenticationGroupView"
+            name: modelData.key
             parentName: root.objParentName
             weight: 20 + index
             pageType: DccObject.Item
@@ -61,9 +64,10 @@ DccObject {
             page: DccGroupView {}
 
             DccObject {
+                accessibleId: "AuthenticationRepeaterHeaderView_" + index
                 id: repeaterHeaderView
                 name: "repeaterHeaderView"
-                parentName: root.objParentName + "/authenticationGroupView"
+                parentName: root.objParentName + "/" + authenticationGroupView.name
                 description: modelData.authDescription
                 displayName: modelData.authTitle
                 icon: modelData.authIcon
@@ -111,6 +115,7 @@ DccObject {
                     pageType: DccObject.Item
                     weight: 30 + index
                     page: RowLayout {
+                        Accessible.id: "AuthenticationMain_RowLayout"
                         id: layout
                         property bool showActions: false
 
@@ -143,6 +148,7 @@ DccObject {
                         }
 
                         D.LineEdit {
+                            Accessible.id: "AuthenticationMain_LineEdit"
                             id: nameEditor
                             property int maxLength: 15
                             Layout.leftMargin: 10
@@ -262,6 +268,7 @@ DccObject {
                         }
 
                         D.ActionButton {
+                            Accessible.id: "AuthenticationMain_ActionButton_1"
                             id: editButton
                             visible: hoverHandler.hovered || layout.showActions
                             implicitWidth: 30
@@ -291,6 +298,7 @@ DccObject {
                             }
                         }
                         D.ActionButton {
+                            Accessible.id: "AuthenticationMain_ActionButton_2"
                             id: deleteButton
                             visible: hoverHandler.hovered || layout.showActions
                             implicitWidth: 30
@@ -333,6 +341,7 @@ DccObject {
             }
 
             DccObject {
+                accessibleId: "AuthenticationItem_" + index
                 name: root.objParentName + "FaceAuthentication"
                 visible: repeaterHeaderView.listVisible && rep.listDatas[index].length < modelData.max
                 parentName: authenticationGroupView.name
@@ -340,6 +349,7 @@ DccObject {
                 weight: 50
                 page: RowLayout {
                     D.ToolButton {
+                        Accessible.id: "AuthenticationMain_ToolButton_" + index
                         implicitHeight: DS.Style.itemDelegate.height
                         Layout.leftMargin: 5
                         textColor: D.Palette {

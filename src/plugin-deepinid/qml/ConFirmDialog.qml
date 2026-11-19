@@ -49,6 +49,7 @@ D.DialogWindow {
             Layout.bottomMargin: 10
             spacing: 10
             Button {
+                Accessible.id: "ConFirmDialog_Button"
                 text: dialog.leftBtnText
                 Layout.fillWidth: true
                 onClicked: {
@@ -56,6 +57,7 @@ D.DialogWindow {
                 }
             }
             D.WarningButton {
+                Accessible.id: "ConFirmDialog_WarningButton"
                 text: dialog.rightBtnText
                 Layout.fillWidth: true
                 onClicked: {

@@ -28,6 +28,14 @@ target_link_libraries(${pluginName} PRIVATE
     dcc-shared-utils
 )
 
+# security loader permission interfaces config
+install(FILES "misc/permission-interfaces/org.deepin.dcc-datetime.json"
+    DESTINATION share/dde-control-center/permission-interfaces)
+
 dcc_install_plugin(NAME ${pluginName} TARGET ${pluginName})
+
+if(UNITTEST)
+    add_subdirectory(tests)
+endif()
 
 # keyboard_language_*.ts生成使用脚本misc/translate_language2ts.sh手动执行

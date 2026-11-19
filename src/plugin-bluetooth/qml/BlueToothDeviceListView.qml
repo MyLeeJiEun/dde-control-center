@@ -33,6 +33,7 @@ Rectangle {
                 readonly property bool showSendFile: model.canSendFile && model.connectStatus === 2
 
                 id: itemCtl
+                Accessible.id: "BlueToothDeviceListView_ItemDelegate_" + index
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -54,6 +55,7 @@ Rectangle {
                 }
 
                 content: Rectangle {
+                    Accessible.id: "BlueToothDeviceListView_Rectangle"
                     width: parent.width
                     implicitHeight: Math.max(50, deviceRow.statusItem.implicitHeight + 10)
                     color: "transparent"
@@ -143,6 +145,7 @@ Rectangle {
                             Layout.bottomMargin: 10
 
                             sourceComponent: D.LineEdit {
+                                Accessible.id: "BlueToothDeviceListView_LineEdit"
                                 id: nameEdit
                                 text: model.name
 
@@ -187,6 +190,7 @@ Rectangle {
                             }
                             D.ToolButton {
                                 id: connectBtn
+                                Accessible.id: "BlueToothDeviceListView_ToolButton_" + index
                                 implicitHeight: 30
                                 background.visible: true
                                 text: model.connectStatus === 2 ? qsTr("Disconnect") : qsTr("Connect")
@@ -210,6 +214,7 @@ Rectangle {
                                 Layout.alignment: Qt.AlignRight
 
                                 sourceComponent: D.ActionButton {
+                                    Accessible.id: "BlueToothDeviceListView_ActionButton"
                                     id: moreBtn
                                     palette.windowText: D.ColorSelector.textColor
                                     icon.name: "bluetooth_option"
@@ -244,6 +249,7 @@ Rectangle {
 
                                         D.MenuItem {
                                             id: connectDev
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem_" + index
                                             padding: 0
                                             text: model.connectStatus === 2 ? qsTr("Disconnect") : qsTr("Connect")
                                             enabled: model.connectStatus === 2 || model.connectStatus === 0
@@ -257,6 +263,7 @@ Rectangle {
                                         }
                                         D.MenuItem {
                                             id: sendFile
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem_2_" + index
                                             padding: 0
                                             text: qsTr("Send Files")
                                             visible: itemCtl.showSendFile
@@ -272,6 +279,7 @@ Rectangle {
 
                                         D.MenuItem {
                                             id: rename
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem_3_" + index
                                             text: qsTr("Rename")
                                             padding: 0
                                             onTriggered: {
@@ -286,6 +294,7 @@ Rectangle {
 
                                         D.MenuItem {
                                             id: removeDev
+                                            Accessible.id: "BlueToothDeviceListView_MenuItem_4_" + index
                                             text: qsTr("Remove Device")
                                             enabled: model.connectStatus === 2 || model.connectStatus === 0
                                             padding: 0

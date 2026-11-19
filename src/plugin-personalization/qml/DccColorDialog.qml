@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 - 2027 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
@@ -15,6 +15,7 @@ import org.deepin.dcc.personalization 1.0
 import org.deepin.dcc 1.0
 
 ColorDialogImpl {
+    Accessible.id: "DccColorDialog_ColorDialogImpl"
     id: control
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -74,6 +75,7 @@ ColorDialogImpl {
             Layout.bottomMargin: 2
 
             D.IconButton {
+                Accessible.id: "DccColorDialog_IconButton"
                 id: eyeDropperButton
                 icon.name: "color_extractor"
                 icon.width: 20
@@ -107,6 +109,7 @@ ColorDialogImpl {
 
             Slider {
                 id: hueSlider
+                Accessible.id: "DccColorDialog_Slider"
                 orientation: Qt.Horizontal
                 value: control.hue
                 implicitHeight: 16
@@ -159,6 +162,7 @@ ColorDialogImpl {
             }
 
             D.TextField {
+                Accessible.id: "DccColorDialog_TextField"
                 text: control.color.toString().substring(1).toUpperCase()
                 Layout.preferredWidth: 74
                 Layout.preferredHeight: 28
@@ -180,6 +184,7 @@ ColorDialogImpl {
             Repeater {
                 model: [control.red, control.green, control.blue]
                 D.TextField {
+                    Accessible.id: "DccColorDialog_TextField_2_" + index
                     text: modelData
                     Layout.fillWidth: true
                     Layout.preferredWidth: 44
@@ -244,6 +249,7 @@ ColorDialogImpl {
             Layout.bottomMargin: 10
             spacing: 9
             D.Button {
+                Accessible.id: "DccColorDialog_Button"
                 text: qsTr("Cancel")
                 Layout.fillWidth: true
                 background: Rectangle {
@@ -255,6 +261,7 @@ ColorDialogImpl {
                 }
             }
             D.Button {
+                Accessible.id: "DccColorDialog_Button_2"
                 text: qsTr("Save")
                 Layout.fillWidth: true
                 background: Rectangle {

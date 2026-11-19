@@ -48,11 +48,23 @@ add_executable(${Control_Center_Name}
     qrc/dcc.qrc
 )
 
+# 用 dconfig2cpp 从 meta json 生成 DccModuleConfig 头文件（构建时生成，不纳入仓库）
+find_package(Dtk6Tools REQUIRED)
+set(DCC_MODULE_CONFIG_HEADERS "")
+dtk_add_config_to_cpp(
+    DCC_MODULE_CONFIG_HEADERS
+    ${DCC_PROJECT_ROOT_DIR}/misc/configs/org.deepin.dde.control-center.module.json
+    OUTPUT_FILE_NAME dccmoduleconfig.h
+    CLASS_NAME DccModuleConfig
+)
+target_sources(${Control_Center_Name} PRIVATE ${DCC_MODULE_CONFIG_HEADERS})
+
 target_compile_definitions(${Control_Center_Name} PRIVATE CVERSION="${CMAKE_PROJECT_VERSION}")
 
 target_include_directories(${Control_Center_Name} PRIVATE
     include
     plugin
+    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 set(Control_Center_Libraries
@@ -93,7 +105,7 @@ install(PROGRAMS "${DCC_PROJECT_ROOT_DIR}/misc/dde-control-center-loader-wrapper
     PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 #----------------------------install config------------------------------
 #desktop
-install(FILES ${DCC_PROJECT_ROOT_DIR}/misc/org.deepin.dde.control-center.desktop DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)
+install(FILES "${DCC_DESKTOP_FILE}" DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)
 
 #service
 configure_file(

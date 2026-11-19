@@ -26,6 +26,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "SoundNoIntput"
         name: "noIntput"
         parentName: "sound/inPut"
         weight: 20
@@ -53,6 +54,7 @@ DccObject {
         page: DccGroupView {}
         visible: dccData.model().inPutPortCombo.length !== 0
         DccObject{
+            accessibleId: "SoundInputVolume"
             name: "inputVolume"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Input Volume")
@@ -69,6 +71,7 @@ DccObject {
                 }
 
                 D.ActionButton {
+                    Accessible.id: "MicrophonePage_ActionButton"
                     Layout.alignment: Qt.AlignVCenter
                     icon {
                         name: dccData.model().microphoneOn ? "sound_off" : "small_volume"
@@ -103,6 +106,7 @@ DccObject {
                 }
                 Slider {
                     id: voiceTipsSlider1
+                    Accessible.id: "MicrophonePage_Slider"
                     Layout.alignment: Qt.AlignVCenter
                     implicitHeight: 24
                     handleType: Slider.HandleType.NoArrowHorizontal
@@ -118,6 +122,7 @@ DccObject {
                     }
                 }
                 D.IconButton {
+                    Accessible.id: "MicrophonePage_IconButton"
                     Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                     icon.name: "big_volume"
                     icon.width: 16
@@ -133,6 +138,7 @@ DccObject {
         }
 
         DccObject{
+            accessibleId: "SoundMicrophoneFeedback"
             name: "microphoneFeedback"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Input Level")
@@ -155,6 +161,7 @@ DccObject {
 
                     Slider {
                         id: slider
+                        Accessible.id: "MicrophonePage_Slider_2"
                         anchors.fill: parent
                         handleType: Slider.HandleType.NoArrowType
                         highlightedPassedGroove: true
@@ -178,6 +185,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SoundReduceNoise"
             name: "reduceNoise"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Automatic Noise Suppression")
@@ -185,6 +193,7 @@ DccObject {
             pageType: DccObject.Editor
             visible: !dccData.model().showInputBluetoothMode
             page: Switch {
+                Accessible.id: "MicrophonePage_Switch"
                 Layout.alignment: Qt.AlignRight | Qt.AlignTop
 
                 checked: dccData.model().reduceNoise
@@ -197,6 +206,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SoundInputDevice"
             name: "inputDevice"
             parentName: "sound/inPut/inputGroup"
             displayName: qsTr("Input Device")
@@ -204,6 +214,7 @@ DccObject {
             pageType: DccObject.Editor
             page: D.ComboBox {
                 id: control
+                Accessible.id: "MicrophonePage_ComboBox"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 10
                 currentIndex: dccData.model().inPutPortComboIndex
@@ -232,6 +243,7 @@ DccObject {
 
                     T.TextField {
                         id: textField
+                        Accessible.id: "MicrophonePage_TextField"
 
                         function getDisplayText() {
                             return control.editable ? control.editText : fm.elidedText(control.displayText,
@@ -280,6 +292,7 @@ DccObject {
 
                 delegate: MenuItem {
                     id: menuItem
+                    Accessible.id: "MicrophonePage_MenuItem_" + index
                     useIndicatorPadding: true
                     width: control.width
                     text: model.name

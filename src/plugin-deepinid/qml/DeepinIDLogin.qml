@@ -19,11 +19,14 @@ DccObject {
     parentName: "deepinid"
     pageType: DccObject.Item
     page: Flickable {
+        Accessible.id: "DeepinIDLogin_Flickable"
         Layout.fillWidth: true
         Layout.fillHeight: true
         contentHeight: groupView.height
-
-        ScrollBar.vertical: ScrollBar { }
+        clip: true
+        ScrollBar.vertical: ScrollBar {
+            Accessible.id: "DeepinIDLogin_ScrollBar"
+        }
 
         DccGroupView {
             id: groupView
@@ -40,6 +43,7 @@ DccObject {
         }
     }
     DccObject {
+        accessibleId: "DeepinidDccCloudLogo"
         parentName: "deepinid/login"
         weight: 10
         pageType: DccObject.Item
@@ -72,6 +76,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "DeepinidItem"
         parentName: "deepinid/login"
         weight: 20
         pageType: DccObject.Item
@@ -93,6 +98,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "DeepinidItem_2"
         parentName: "deepinid/login"
         weight: 30
         pageType: DccObject.Item
@@ -113,11 +119,13 @@ DccObject {
     }
     
     DccObject {
+        accessibleId: "DeepinidItem_3"
         parentName: "deepinid/login"
         weight: 40
         pageType: DccObject.Item
         page: RowLayout{
             Button {
+                Accessible.id: "DeepinIDLogin_Button"
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: 30
                 Layout.alignment: Qt.AlignHCenter

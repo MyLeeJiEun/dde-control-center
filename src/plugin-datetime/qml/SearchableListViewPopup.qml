@@ -129,6 +129,7 @@ Popup {
         spacing: control.delegateModel.count > 0 ? 14 : 0
 
         SearchEdit {
+            Accessible.id: "SearchableListViewPopup_SearchEdit"
             id: searchEdit
             implicitHeight: Math.max(30, searchEditFontMetrics.height + (DS.Style.control.padding - DS.Style.control.borderWidth) * 2)
             Layout.fillWidth: true
@@ -214,6 +215,7 @@ Popup {
 
                 ListView {
                     id: listView
+                    Accessible.id: "SearchableListViewPopup_ListView"
                     clip: true
                     anchors.fill: parent
                     model: control.delegateModel
@@ -266,6 +268,7 @@ Popup {
 
                 ScrollBar {
                     id: verticalScrollBar
+                    Accessible.id: "SearchableListViewPopup_ScrollBar"
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right

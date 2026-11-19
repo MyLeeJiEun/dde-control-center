@@ -23,6 +23,8 @@ class AccountsController : public QObject
     Q_PROPERTY(QStringList userIdList READ userIdList NOTIFY userIdListChanged FINAL)
     Q_PROPERTY(QStringList onlineUserList READ onlineUserList NOTIFY onlineUserListChanged FINAL)
     Q_PROPERTY(bool isQuickLoginVisible READ isQuickLoginVisible NOTIFY quickLoginVisibleChanged FINAL)
+    Q_PROPERTY(bool domainUserModifyPasswordEnable READ domainUserModifyPasswordEnable NOTIFY domainUserModifyPasswordEnableChanged FINAL)
+    Q_PROPERTY(bool hideUserlistForNonadmin READ hideUserlistForNonadmin NOTIFY hideUserlistForNonadminChanged FINAL)
 public:
     explicit AccountsController(QObject *parent = nullptr);
     virtual ~AccountsController();
@@ -53,6 +55,9 @@ public slots:
     void setAutoLogin(const QString &id, const bool enable);
     QString getOtherUserAutoLogin() const;
     bool isQuickLoginVisible() const;
+    bool domainUserModifyPasswordEnable() const;
+    bool isDomainUser(const QString &id) const;
+    bool hideUserlistForNonadmin() const;
     bool quickLogin(const QString &id) const;
     void setQuickLogin(const QString &id, const bool enable);
     bool isNoPassWordLoginVisable() const;
@@ -93,6 +98,7 @@ public slots:
     // Used by UI realtime validation (no safety-page popup side effects).
     QString checkPasswordSilently(const QString &name, const QString &pwd);
     QVariantMap checkPasswordResult(int code, const QString &msg, const QString &name, const QString &pwd);
+    QVariantMap parseDomainPasswordError(const QString &msg);
     void showDefender();
     void playSystemSound(int soundType);
 
@@ -108,13 +114,14 @@ signals:
     void userRemoved(const QString &userId);
     void onlineUserListChanged();
     void avatarChanged(const QString &userId, const QString &avatar);
+    void customAvatarListChanged(const QString &userId);
     void userTypeChanged(const QString &userId, const int userType);
     void fullnameChanged(const QString &userId, const QString &fullname);
     void autoLoginChanged(const QString &userId, bool enable);
     void quickLoginChanged(const QString &userId, bool enable);
     void nopasswdLoginChanged(const QString &userId, bool enable);
     void passwordAgeChanged(const QString &userId, const int age);
-    void passwordModifyFinished(const QString &userId, const int exitCode, const QString &msg);
+    void passwordModifyFinished(const QString &userId, const int exitCode, const bool domainUser, const QString &msg);
     void groupsChanged(const QString &userId, const QStringList &groups);
     void groupsUpdate(); // create/delete/modify
     void groupsUpdateFailed(const QString &groupName);
@@ -123,6 +130,8 @@ signals:
     void showSafetyPage(const QString &errorTips);
     void accountCreationFinished(CreationResult::ResultType resultType, const QString &message);
     void quickLoginVisibleChanged();
+    void domainUserModifyPasswordEnableChanged();
+    void hideUserlistForNonadminChanged();
 protected:
     bool isSystemAdmin(const User *user) const;
     int adminCount() const;

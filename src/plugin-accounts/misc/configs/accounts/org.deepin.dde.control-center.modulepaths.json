@@ -1,0 +1,38 @@
+{
+    "magic": "dsg.config.meta",
+    "version": "1.0",
+    "contents": {
+        "modulePaths": {
+            "value": [
+                "root/accounts",
+                "root/accounts/userAvatars/addAccount",
+                "root/accounts/accountsacountInfos/accountsacountFullname/editFullname",
+                "root/accounts/accountsBottomButtons/deleteAccount",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/userAvatars/addAccount",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsacountInfos/otherAccountSettingsacountFullname/editFullname",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsBottomButtons/deleteAccount",
+                "root/accounts/accountsloginMethod/accountsloginMethodItempassword/accountsPasswordGroupView/accountsPasswordModify",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsloginMethod/otherAccountSettingsloginMethodItempassword/otherAccountSettingsPasswordGroupView/otherAccountSettingsPasswordModify",
+                "root/accounts/accountsacountSettings/accountsautoLongin",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsacountSettings/otherAccountSettingsautoLongin",
+                "root/accounts/accountsloginMethod/accountsloginMethodItempassword/accountsPasswordGroupView/accountsPasswordValidityDaysbiometric",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsloginMethod/otherAccountSettingsloginMethodItempassword/otherAccountSettingsPasswordGroupView/otherAccountSettingsPasswordValidityDaysbiometric",
+                "root/accounts/accountsacountSettings/accountsnoPassword",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsacountSettings/otherAccountSettingsnoPassword",
+                "root/accounts/accountsacountSettings/accountsquickLogin",
+                "root/accounts/accountsacountInfos/accountsacountType",
+                "root/accounts/accountsBottomButtons/accountsGroupSettings",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsacountSettings/otherAccountSettingsquickLogin",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsacountInfos/otherAccountSettingsacountType",
+                "root/accounts/otherSettingsHolder/otherAccountSettings/otherAccountSettingsBottomButtons/otherAccountSettingsGroupSettings"
+            ],
+            "flags": [],
+            "name": "Module paths",
+            "name[zh_CN]": "模块路径列表",
+            "description": "DccObject paths whose visible/disable configuration is initialized at startup. The root list contains control-center groups and is merged with each plugin's list from same-name metadata under its plugin-name subpath; plugins without subpath metadata fall back to the root list.",
+            "description[zh_CN]": "启动时初始化 visible/disable 配置的 DccObject 路径。根清单包含控制中心自身的分组，并与各插件以插件名为 subpath 的同名元数据清单合并；未提供子路径元数据的插件回退到根清单。",
+            "permissions": "readonly",
+            "visibility": "private"
+        }
+    }
+}

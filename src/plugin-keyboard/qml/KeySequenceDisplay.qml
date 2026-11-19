@@ -12,6 +12,9 @@ import org.deepin.dcc 1.0
 
 Control {
     id: control
+    property string accessibleId: ""
+    Accessible.id: accessibleId !== "" ? accessibleId : "KeySequenceDisplay"
+    Accessible.role: Accessible.EditableText
     property string text
     property string placeholderText
     property list<string> keys
@@ -47,6 +50,7 @@ Control {
         }
 
         Loader {
+            Accessible.id: "KeySequenceDisplay_Loader"
             id: keyLoader
             Layout.rightMargin: DS.Style.keySequenceEdit.margin
             Layout.alignment: Qt.AlignVCenter
@@ -81,6 +85,7 @@ Control {
         RowLayout {
             spacing: DS.Style.keySequenceEdit.margin
             D.IconButton {
+                Accessible.id: "KeySequenceDisplay_IconButton_1"
                 id: warnningBtn
                 flat: true
                 background: null
@@ -102,6 +107,7 @@ Control {
                 spacing: 0
                 Layout.alignment: Qt.AlignRight
                 D.IconButton {
+                    Accessible.id: "KeySequenceDisplay_IconButton_2"
                     id: editButton
                     visible: control.showEditButtons
                     focusPolicy: Qt.NoFocus
@@ -134,6 +140,7 @@ Control {
                     }
                 }
                 D.IconButton {
+                    Accessible.id: "KeySequenceDisplay_IconButton_3"
                     id: removeButton
                     visible: control.showEditButtons
                     focusPolicy: Qt.NoFocus

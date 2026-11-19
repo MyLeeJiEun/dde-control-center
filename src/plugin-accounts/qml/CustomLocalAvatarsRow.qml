@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick 2.15
@@ -51,6 +51,7 @@ Item {
             model: row.icons
             delegate: D.ItemDelegate {
                 id: delegate
+                Accessible.id: "CustomLocalAvatarsRow_ItemDelegate_" + index
                 property bool isAddButton: modelData == "add"
                 property string modelPathNoQuery: (modelData || "").toString().replace("file://", "")
                 property string currentNoQuery: (root.currentAvatar || "").toString().replace("file://", "")
@@ -82,6 +83,7 @@ Item {
                         implicitWidth: 72
                         Button {
                             id: control
+                            Accessible.id: "CustomLocalAvatarsRow_Button"
                             width: 60
                             height: 60
                             padding: 0
@@ -191,6 +193,7 @@ Item {
                 }
 
                 D.ActionButton {
+                    Accessible.id: "CustomLocalAvatarsRow_ActionButton"
                     z: 99
                     visible: delegate.hovered && !delegate.isSelected && !delegate.isAddButton
                     focusPolicy: Qt.NoFocus
@@ -226,11 +229,6 @@ Item {
                 row.icons = [addBtn].concat([selected]).concat(others).slice(0, Math.min(5, row.allIcons.length))
             }
         }
-        if (root.currentAvatar && row.allIcons.indexOf(root.currentAvatar) < 0) {
-            const curNoQuery = (root.currentAvatar || "")
-            const existsNoQuery = row.allIcons.some(function(p){ return (p||"") === curNoQuery })
-            if (!existsNoQuery) root.currentAvatar = ""
-        }
         // Don't override currentAvatar from cache during refresh
         const tmp = row.icons
         row.icons = []
@@ -239,7 +237,7 @@ Item {
 
     Connections {
         target: dccData
-        function onAvatarChanged(userId, avatar) {
+        function onCustomAvatarListChanged(userId) {
             if (userId === root.userId)
                 root.refresh()
         }

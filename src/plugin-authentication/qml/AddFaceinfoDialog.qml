@@ -27,6 +27,7 @@ D.DialogWindow {
     }
 
     D.ListView {
+        Accessible.id: "AddFaceinfoDialog_ListView"
         id: listview
         implicitWidth: dialog.width - dialog.leftPadding - dialog.rightPadding
         implicitHeight: 500 - DS.Style.dialogWindow.titleBarHeight - DS.Style.dialogWindow.contentHMargin
@@ -64,6 +65,7 @@ D.DialogWindow {
                 }
 
                 ScrollView {
+                    Accessible.id: "AddFaceinfoDialog_ScrollView"
                     id: infoScrollView
                     Layout.fillHeight: true
                     Layout.fillWidth: true
@@ -120,6 +122,7 @@ To ensure successful entry:\n\
 
                         CheckBox {
                             id: agreeCheckbox
+                            Accessible.id: "AddFaceinfoDialog_AgreeCheckBox"
                             text: qsTr("I have read and agree to the")
                             anchors.verticalCenter: parent.verticalCenter
                             checked: firstPage.disclaimerAccepted
@@ -128,6 +131,7 @@ To ensure successful entry:\n\
 
                         D.ToolButton {
                             id: disclaimerButton
+                            Accessible.id: "AddFaceinfoDialog_DisclaimerButton"
                             text: qsTr("Disclaimer")
                             padding: 0
                             background: null
@@ -157,6 +161,7 @@ To ensure successful entry:\n\
 
                         CheckBox {
                             id: agreeCheckboxWrapped
+                            Accessible.id: "AddFaceinfoDialog_AgreeCheckBoxWrapped"
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: qsTr("I have read and agree to the")
                             checked: firstPage.disclaimerAccepted
@@ -168,6 +173,7 @@ To ensure successful entry:\n\
 
                         D.ToolButton {
                             id: disclaimerButtonWrapped
+                            Accessible.id: "AddFaceinfoDialog_DisclaimerButtonWrapped"
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: qsTr("Disclaimer")
                             padding: 0
@@ -193,6 +199,7 @@ To ensure successful entry:\n\
                 }
 
                 D.RecommandButton {
+                    Accessible.id: "AddFaceinfoDialog_RecommandButton_1"
                     spacing: 10
                     Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                     Layout.bottomMargin: DS.Style.dialogWindow.contentHMargin
@@ -330,6 +337,7 @@ To ensure successful entry:\n\
 
                     Button {
                         Layout.fillWidth: true
+                        Accessible.id: "AddFaceinfoDialog_DoneButton"
                         text: qsTr("Done")
                         onClicked: {
                             dccData.faceController.stopEnroll()
@@ -349,12 +357,14 @@ To ensure successful entry:\n\
 
                     Button {
                         Layout.fillWidth: true
+                        Accessible.id: "AddFaceinfoDialog_CancelButton"
                         text: qsTr("Cancel")
                         onClicked: {
                             dialog.close();
                         }
                     }
                     D.RecommandButton {
+                        Accessible.id: "AddFaceinfoDialog_RecommandButton_2"
                         Layout.fillWidth: true
                         text: qsTr("Retry Enroll")
                         onClicked: {

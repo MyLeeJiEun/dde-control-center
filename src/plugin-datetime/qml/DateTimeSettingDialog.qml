@@ -7,6 +7,7 @@ import QtQuick.Window
 import QtQuick.Layouts 1.15
 import org.deepin.dtk 1.0 as D
 import org.deepin.dtk.style 1.0 as DS
+import org.deepin.dcc 1.0
         
 D.DialogWindow {
     id: ddialog
@@ -19,8 +20,26 @@ D.DialogWindow {
     icon: "preferences-system"
     modality: Qt.WindowModal
     property date currentDate: new Date()
+    required property DccObject confirmAction
+    property bool modificationAllowed: true
+
+    function submit() {
+        if (!visible || !modificationAllowed || !confirmAction
+                || !confirmAction.visibleToApp || !confirmAction.enabledToApp
+                || !confirmLoader.item || !confirmLoader.item.visible || !confirmLoader.item.enabled)
+            return
+
+        const dateTime = new Date(currentDate.getTime())
+        dateTime.setFullYear(spYear.value, spMonth.value - 1, spDay.value)
+        dateTime.setHours(spHour.value)
+        dateTime.setMinutes(spMin.value)
+        dateTime.setSeconds(0)
+        dccData.setDateTime(dateTime)
+        close()
+    }
 
     component SpinboxTextInput: TextInput {
+        Accessible.id: "DateTimeSettingDialog_TextInput"
         property var spinbox: parent
 
         text: spinbox.displayText
@@ -126,6 +145,7 @@ D.DialogWindow {
                 horizontalAlignment: Text.AlignLeft
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Year"
                 id: spYear
                 unitText: qsTr("Year")
                 locale: Qt.locale("C")
@@ -150,6 +170,7 @@ D.DialogWindow {
                 }
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Month"
                 id: spMonth
                 unitText: qsTr("Month")
                 from: 1
@@ -168,6 +189,7 @@ D.DialogWindow {
                 }
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Day"
                 id: spDay
                 unitText: qsTr("Day")
                 from: 1
@@ -193,6 +215,7 @@ D.DialogWindow {
                 horizontalAlignment: Text.AlignLeft
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Hour"
                 id: spHour
                 from: 0
                 to: 23
@@ -209,6 +232,7 @@ D.DialogWindow {
                 }
             }
             SpinboxEx {
+                accessibleId: "DateTimeSettingDialog_Minute"
                 id: spMin
                 from: 0
                 to: 59
@@ -231,6 +255,7 @@ D.DialogWindow {
             Layout.topMargin: 20
             spacing: 10
             Button {
+                Accessible.id: "DateTimeSettingDialog_Button"
                 Layout.fillWidth: true
                 text: qsTr("Cancel")
                 font: D.DTK.fontManager.t6
@@ -238,23 +263,16 @@ D.DialogWindow {
                     ddialog.close()
                 }
             }
-            Button {
+            DccLoader {
+                id: confirmLoader
                 Layout.fillWidth: true
-                text: qsTr("Confirm")
-                font: D.DTK.fontManager.t6
-                highlighted: true
-                onClicked: {
-                    let dateTime = currentDate
-                    dateTime.setFullYear(spYear.value)
-                    dateTime.setMonth(spMonth.value - 1)
-                    dateTime.setDate(spDay.value)
-                    dateTime.setHours(spHour.value)
-                    dateTime.setMinutes(spMin.value)
-                    dateTime.setSeconds(0)
-
-                    dccData.setDateTime(dateTime)
-                    ddialog.close()
-                }
+                dccObj: ddialog.confirmAction
+                dccObjItem: this
+                visible: ddialog.confirmAction && ddialog.confirmAction.visibleToApp
+                active: visible
+                enabled: ddialog.modificationAllowed && ddialog.confirmAction
+                         && ddialog.confirmAction.enabledToApp
+                onLoaded: item.dialog = ddialog
             }
         }
     }

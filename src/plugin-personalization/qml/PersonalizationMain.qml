@@ -23,6 +23,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationThemeTitle"
             name: "themeTitle"
             parentName: "personalization/themeRoot"
             displayName: qsTr("Theme")
@@ -49,6 +50,7 @@ DccObject {
                     }
 
                     D.IconButton {
+                        Accessible.id: "PersonalizationMain_IconButton_1"
                         flat: true
                         enabled: themeSelectView.currentIndex !== 0
                         icon.name: "arrow_left"
@@ -67,6 +69,7 @@ DccObject {
                         }
                     }
                     D.IconButton {
+                        Accessible.id: "PersonalizationMain_IconButton_2"
                         flat: true
                         enabled: themeSelectView.currentIndex !== themeSelectView.count - 1
                         icon.name: "arrow_right"
@@ -95,6 +98,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "PersonalizationAppearance"
             name: "appearance"
             parentName: "personalization/themeRoot"
             displayName: qsTr("Appearance")
@@ -103,6 +107,7 @@ DccObject {
             pageType: DccObject.Editor
             icon: "appearance"
             page: D.ComboBox {
+                Accessible.id: "PersonalizationMain_ComboBox"
                 flat: true
                 textRole: "text"
                 model: dccData.model.appearanceSwitchModel
@@ -153,7 +158,6 @@ DccObject {
         description: qsTr("Personalize your wallpaper and screensaver")
         icon: "screensaver"
         weight: 400
-        visible: !DccApp.isTreeland()
         ScreenSaverPage {}
     }
     DccObject {

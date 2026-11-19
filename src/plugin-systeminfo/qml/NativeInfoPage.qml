@@ -13,6 +13,7 @@ import org.deepin.dtk.style 1.0 as DS
 DccObject {
     id: root11
     DccObject {
+        accessibleId: "SysteminfoSystemLogo"
         name: "systemLogo"
         weight: 10
         parentName: "systemInfo"
@@ -44,6 +45,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "SysteminfoSystemDetailLogo"
         name: "systemDetailLogo"
         weight: 20
         parentName: "systemInfo"
@@ -75,6 +77,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "SysteminfoNativeInfoGrp"
         name: "nativeInfoGrp"
         parentName: "systemInfo"
         weight: 40
@@ -84,6 +87,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SysteminfoProductName"
             name: "productName"
             weight: 10
             parentName: "nativeInfoGrp"
@@ -111,6 +115,7 @@ DccObject {
                 }
 
                 ActionButton {
+                    Accessible.id: "NativeInfoPage_ActionButton"
                     id: editBtn
                     icon.name: "dcc_systemInfo_edit"
                     icon.width: 16
@@ -151,6 +156,7 @@ DccObject {
                 }
 
                 LineEdit {
+                    Accessible.id: "NativeInfoPage_LineEdit"
                     id: hostNameEdit
                     horizontalAlignment: TextInput.AlignLeft
                     text: dccData.systemInfoMode().hostName
@@ -247,6 +253,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SysteminfoHostName"
             name: "hostName"
             weight: 20
             parentName: "nativeInfoGrp"
@@ -259,6 +266,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SysteminfoVersion"
             name: "version"
             weight: 30
             parentName: "nativeInfoGrp"
@@ -270,6 +278,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SysteminfoEdition"
             name: "edition"
             weight: 40
             parentName: "nativeInfoGrp"
@@ -281,6 +290,7 @@ DccObject {
             }
         }
         DccObject {
+            accessibleId: "SysteminfoType"
             name: "type"
             weight: 50
             parentName: "nativeInfoGrp"
@@ -293,31 +303,46 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SysteminfoAuthorization"
             name: "authorization"
             weight: 60
             parentName: "nativeInfoGrp"
             pageType: DccObject.Editor
             displayName: qsTr("Authorization") + ":"
             visible: dccData.systemInfoMode().showAuthorization()
-            page: RowLayout {
-                spacing: 8
-                Label {
+            page: DccRowView { spacing: 8 }
+            DccObject {
+                name: "status"
+                parentName: "root/system/systemInfo/nativeInfoGrp/authorization"
+                weight: 10
+                pageType: DccObject.Item
+                canSearch: false
+                page: Label {
                     id: jihuo
                     color: dccData.systemInfoMode().licenseStatusColor
                     horizontalAlignment: Text.AlignLeft
                     text: dccData.systemInfoMode().licenseStatusText
                 }
-
-                Button {
+            }
+            DccObject {
+                id: activate
+                name: "activate"
+                parentName: "root/system/systemInfo/nativeInfoGrp/authorization"
+                weight: 20
+                pageType: DccObject.Item
+                canSearch: false
+                visible: dccData.systemInfoMode().showDetail
+                page: Button {
                     id: licenseActionBtn
+                    Accessible.id: "NativeInfoPage_Button"
                     text: dccData.systemInfoMode().licenseActionText
                     ColorSelector.family: Palette.CommonColor
                     implicitHeight: 30
                     implicitWidth: licenseActionBtnMetrics.width + 2 * (DS.Style.button.hPadding + DS.Style.control.borderWidth)
                     flat: false
-                    visible: dccData.systemInfoMode().showDetail
                     onClicked: {
-                        dccData.systemInfoWork().showActivatorDialog()
+                        if (visible && enabled && activate.visibleToApp && activate.enabledToApp)
+                            dccData.systemInfoWork().showActivatorDialog()
                     }
                     ToolTip.visible: licenseActionBtn.hovered && licenseActionBtnMetrics.width > licenseActionBtn.availableWidth
                     ToolTip.text: licenseActionBtn.text
@@ -332,6 +357,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SysteminfoSystemInstallationTime"
             name: "systemInstallationTime"
             weight: 70
             visible: dccData.systemInfoMode().showAuthorization()
@@ -345,6 +371,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SysteminfoKernel"
             name: "kernel"
             weight: 80
             parentName: "nativeInfoGrp"
@@ -357,6 +384,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SysteminfoGraphicsPlatform"
             name: "graphicsPlatform"
             weight: 90
             parentName: "nativeInfoGrp"
@@ -370,6 +398,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SysteminfoProcessor"
             id: processorObj
             name: "processor"
             weight: 100
@@ -396,6 +425,7 @@ DccObject {
         }
 
         DccObject {
+            accessibleId: "SysteminfoMemory"
             name: "memory"
             weight: 100
             parentName: "nativeInfoGrp"
@@ -409,6 +439,7 @@ DccObject {
     }
 
     DccObject {
+        accessibleId: "SysteminfoDetailBtn"
         name: "detailBtn"
         weight: 60
         parentName: "systemInfo"
@@ -417,6 +448,7 @@ DccObject {
         page: RowLayout {
 
             Button {
+                Accessible.id: "NativeInfoPage_Button_2"
                 Layout.topMargin: 10
                 implicitWidth: 250
                 implicitHeight: 30

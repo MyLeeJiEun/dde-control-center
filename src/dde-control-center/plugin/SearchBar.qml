@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.15
 
 import org.deepin.dtk 1.0 as D
 import org.deepin.dtk.style 1.0 as DS
+import org.deepin.dcc 1.0
 
 Rectangle {
     id: control
@@ -13,6 +14,8 @@ Rectangle {
     property alias edit: searchEdit
     signal clicked(var model)
 
+    visible: DccApp.searchBarState !== DccApp.SearchBarHidden
+    enabled: DccApp.searchBarState === DccApp.SearchBarVisible
     implicitHeight: 32
     implicitWidth: (parent.width / 2) > 240 ? 240 : (parent.width / 2)
     color: "transparent"
@@ -25,8 +28,15 @@ Rectangle {
         searchEdit.text = ""
         popup.close()
     }
+    onEnabledChanged: {
+        if (!enabled) {
+            searchEdit.text = ""
+            popup.close()
+        }
+    }
 
     SearchEdit {
+        Accessible.id: "SearchBar_SearchEdit"
         id: searchEdit
         function setViewIndex(viewIndex) {
             if (viewIndex < 0) {
@@ -64,7 +74,7 @@ Rectangle {
 
         backgroundColor: nomalPalette
         onTextChanged: {
-            if (text === "") {
+            if (!control.enabled || !control.visible || text === "") {
                 popup.close()
             } else {
                 model.setFilterRegularExpression(text)
@@ -107,6 +117,7 @@ Rectangle {
         padding: 5
         ListView {
             id: view
+            Accessible.id: "SearchBarResultList"
             clip: true
             anchors.fill: parent
             spacing: 0
@@ -123,6 +134,7 @@ Rectangle {
                 // text: model.display
                 checked: ListView.isCurrentItem
                 contentFlow: true
+                Accessible.id: "SearchBarResultList_" + index
                 content: DccLabel {
                     text: model.display ? model.display : ""
                 }
@@ -136,7 +148,9 @@ Rectangle {
                     backgroundType: DccObject.Hover
                 }
             }
-            ScrollBar.vertical: ScrollBar { }
+            ScrollBar.vertical: ScrollBar {
+                Accessible.id: "SearchBarResultListScrollBar"
+            }
         }
         enter: Transition {
             NumberAnimation {

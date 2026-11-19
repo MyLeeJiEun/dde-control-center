@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick 2.15
@@ -42,6 +42,7 @@ Control {
         }
 
         Rectangle {
+            Accessible.id: "CustomAvatarCropper_Rectangle"
             id: imgContainter
             property bool dragActived: false
             width: control.iconSource.length > 0 ? 190 : 120
@@ -52,6 +53,7 @@ Control {
             radius: control.iconSource.length > 0 ? 0 : 18
 
             Image {
+                Accessible.id: "CustomAvatarCropper_Image"
                 id: img2
                 property bool initialAligned: false
                 // Fit strategy: fix height to cropSize, width by aspect ratio
@@ -190,6 +192,7 @@ Control {
 
         Slider {
             id: scaleSlider
+            Accessible.id: "CustomAvatarCropper_Slider"
             from: 1.0
             to: 2.0
             stepSize: 0.5

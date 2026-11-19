@@ -72,6 +72,7 @@ D.ApplicationWindow {
     }
     D.TitleBar {
         id: titleBar
+        Accessible.id: "DccWindowTitleBarMenu"
         icon.name: "preferences-system"
         implicitHeight: 40
         menu: Menu {
@@ -89,6 +90,7 @@ D.ApplicationWindow {
         autoHideOnFullscreen: true
         focus: true
         leftContent: D.ActionButton {
+            Accessible.id: "DccWindow_ActionButton_1"
             id: sidebarButton
             opacity: Window.window.active ? 1 : (D.DTK.themeType === D.ApplicationHelper.DarkType ? 0.6 : 0.4)
             palette.windowText: D.ColorSelector.textColor
@@ -145,12 +147,14 @@ D.ApplicationWindow {
                     verticalCenter: parent.verticalCenter
                 }
                 visible: mainWindow.currentIndex === DccWindow.PageIndex.HomeIndex
+                         && DccApp.searchBarState !== DccApp.SearchBarHidden
                 model: DccApp.searchModel()
                 onClicked: function (model) {
                     DccApp.showPage(model.url)
                 }
             }
             D.ActionButton {
+                Accessible.id: "DccWindow_ActionButton_2"
                 id: breakBut
                 palette.windowText: D.ColorSelector.textColor
                 implicitHeight: 30
@@ -249,6 +253,7 @@ D.ApplicationWindow {
     Component {
         id: rootLayout
         SwipeView {
+            Accessible.id: "DccWindow_SwipeView"
             id: stackView
             hoverEnabled: false
             currentIndex: DccWindow.PageIndex.LoadIndex

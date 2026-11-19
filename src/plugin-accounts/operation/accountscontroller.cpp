@@ -10,6 +10,7 @@
 #include <qlogging.h>
 
 #include <QFileInfo>
+#include <QFile>
 #include <QDir>
 #include <QStandardPaths>
 #include <QPainter>
@@ -50,6 +51,14 @@ AccountsController::AccountsController(QObject *parent)
     m_model = new UserModel(this);
     m_worker = new AccountsWorker(m_model, this);
 
+    connect(m_model, &UserModel::domainUserModifyPasswordEnableChanged,
+            this, &AccountsController::domainUserModifyPasswordEnableChanged);
+
+    connect(m_model, &UserModel::hideUserlistForNonadminChanged, this, [this](bool) {
+        Q_EMIT hideUserlistForNonadminChanged();
+        Q_EMIT userIdListChanged();
+    });
+
     connect(m_model, &UserModel::userAdded, this, [this]() {
         Q_EMIT userIdListChanged();
     });
@@ -68,6 +77,10 @@ AccountsController::AccountsController(QObject *parent)
     });
     connect(m_model, &UserModel::passwordModifyFinished, this, &AccountsController::passwordModifyFinished);
     connect(m_model, &UserModel::userTypeChanged, this, &AccountsController::userTypeChanged);
+    connect(m_model, &UserModel::userTypeChanged, this, [this](const QString &, const int) {
+        // 当前用户被提权/降权会影响可见性，重新过滤列表
+        Q_EMIT userIdListChanged();
+    });
     connect(m_model, &UserModel::fullnameChanged, this, &AccountsController::fullnameChanged);
     connect(m_model, &UserModel::passwordAgeChanged, this, &AccountsController::passwordAgeChanged);
 
@@ -181,8 +194,8 @@ void AccountsController::deleteUserIcon(const QString &id, const QString &iconFi
     const QString local = QUrl(iconFile).toLocalFile();
     if (local.isEmpty())
         return;
-    m_worker->deleteUserIcon(user, local);
-    Q_EMIT avatarChanged(id, user->currentAvatar());
+    if (m_worker->deleteUserIcon(user, local))
+        Q_EMIT customAvatarListChanged(id);
 }
 
 void AccountsController::cleanupTempPreviewFiles(const QStringList &files)
@@ -315,6 +328,11 @@ bool AccountsController::isQuickLoginVisible() const
     return m_model->isQuickLoginVisible();
 }
 
+bool AccountsController::hideUserlistForNonadmin() const
+{
+    return m_model->hideUserlistForNonadmin();
+}
+
 bool AccountsController::autoLogin(const QString &id) const
 {
     User *user = m_model->getUser(id);
@@ -349,6 +367,17 @@ QString AccountsController::getOtherUserAutoLogin() const
         }
     }
     return "";
+}
+
+bool AccountsController::domainUserModifyPasswordEnable() const
+{
+    return m_model->isDomainUserModifyPasswordEnable();
+}
+
+bool AccountsController::isDomainUser(const QString &id) const
+{
+    User *user = m_model->getUser(id);
+    return user ? m_model->isDomainUser(user->name()) : false;
 }
 
 bool AccountsController::isNoPassWordLoginVisable() const
@@ -904,6 +933,11 @@ QVariantMap AccountsController::checkPasswordResult(int code, const QString &msg
     return res;
 }
 
+QVariantMap AccountsController::parseDomainPasswordError(const QString &msg)
+{
+    return m_worker->parseDomainPasswordError(msg);
+}
+
 void AccountsController::showDefender()
 {
     m_worker->showDefender();
@@ -924,6 +958,9 @@ QStringList AccountsController::userIdList() const
     QStringList ids;
     for (const auto user : m_model->userList()) {
         if (user->name() == currentUserName())
+            continue;
+
+        if (!m_model->isUserVisible(user))
             continue;
 
         ids << user->id();

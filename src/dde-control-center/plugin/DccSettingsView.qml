@@ -4,9 +4,11 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import Qt.labs.qmlmodels 1.2
 import QtQuick.Layouts 1.15
+import org.deepin.dtk.style 1.0 as DS
 import "DccUtils.js" as DccUtils
 
 Flickable {
+    Accessible.id: "DccSettingsView_Flickable"
     id: control
     property real spacing: 0
     property bool isGroup: false
@@ -15,8 +17,10 @@ Flickable {
     property bool scrollBarVisible: false
 
     contentHeight: centralItem.height + bottomItem.height - (bottomItem.height > 0 ? bottomItem.anchors.topMargin : 0)
-    
-    ScrollBar.vertical: ScrollBar { }
+    clip: true
+    ScrollBar.vertical: ScrollBar {
+        Accessible.id: "DccSettingsViewScrollBar"
+    }
 
     Component {
         id: groupView
@@ -27,7 +31,34 @@ Flickable {
     }
     Component {
         id: footer
-        DccRowView {}
+        Item {
+            id: footerContainer
+            // Reserve border and focus ring space, plus one logical pixel for antialiasing.
+            readonly property real horizontalDecorationMargin: Math.max(
+                DS.Style.control.borderWidth,
+                DS.Style.control.focusBorderWidth + DS.Style.control.focusBorderPaddings) + 1
+            implicitWidth: footerRow.implicitWidth
+            implicitHeight: footerRow.implicitHeight
+
+            Item {
+                anchors {
+                    fill: parent
+                    leftMargin: -footerContainer.horizontalDecorationMargin
+                    rightMargin: -footerContainer.horizontalDecorationMargin
+                }
+                clip: true
+
+                DccRowView {
+                    id: footerRow
+                    anchors {
+                        fill: parent
+                        leftMargin: footerContainer.horizontalDecorationMargin
+                        rightMargin: footerContainer.horizontalDecorationMargin
+                    }
+                    clip: false
+                }
+            }
+        }
     }
     Item {
         y: control.contentY

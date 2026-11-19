@@ -14,6 +14,7 @@ import org.deepin.dtk.private as P
 import org.deepin.dcc.personalization 1.0
 
 ColumnLayout {
+    property string accessibleId: ""
     id: root
     spacing: 0
     readonly property int imageBorder: 2
@@ -83,6 +84,7 @@ ColumnLayout {
         }
         D.ToolButton {
             id: titleLoolButton
+            Accessible.id: accessibleId !== "" ? (accessibleId + "ToolButton") : "WallpaperSelectView_ToolButton"
             font: D.DTK.fontManager.t7
             visible: layout.lineCount * 2 < root.model.count + root.firstItemVisible ? 1 : 0
             textColor: D.Palette {
@@ -172,6 +174,8 @@ ColumnLayout {
             Loader {
                 active: root.firstItemVisible
                 sourceComponent: Item {
+                    Accessible.id: root.accessibleId !== "" ? (root.accessibleId + "FirstItem") : "WallpaperSelectView_Item_1"
+                    Accessible.role: Accessible.Button
                     width: root.itemWidth
                     height: root.itemHeight
 
@@ -275,6 +279,9 @@ ColumnLayout {
                 }
                 lastMaxCount = maxCount
             }
+            onCountChanged: {
+                root.delegateLoadLimit = Math.max(root.delegateLoadLimit, count)
+            }
 
             delegate: Loader {
                 readonly property int visualIndex: DelegateModel.visibleIndex
@@ -291,6 +298,9 @@ ColumnLayout {
                     hoverEnabled: true
 
                     contentItem: Item {
+                        Accessible.id: root.accessibleId !== "" ? (root.accessibleId + "Item_" + index) : ("WallpaperSelectView_Item_" + index)
+                        Accessible.role: Accessible.ListItem
+                        Accessible.checked: model.url !== undefined && model.url === root.currentItem
                         id: wallpaperItem
                         function requestSetWallpaper(option) {
                             root.wallpaperSelected(model.url, option)
@@ -409,6 +419,7 @@ ColumnLayout {
                             z: 999
                             active: control.hovered && model.deleteAble && !model.selected
                             sourceComponent: D.ActionButton {
+                                Accessible.id: "WallpaperSelectView_ActionButton"
                                 icon.name: "close"
                                 width: 20
                                 height: 20
@@ -470,10 +481,12 @@ ColumnLayout {
         D.Menu {
             id: contextMenu
             MenuItem {
+                Accessible.id: "WallpaperSelectView_MenuItem"
                 text: qsTr("Set lock screen")
                 onTriggered: root.wallpaperSelected(root.contextMenuUrl, PersonalizationExport.Option_Lock)
             }
             MenuItem {
+                Accessible.id: "WallpaperSelectView_MenuItem_2"
                 text: qsTr("Set desktop")
                 onTriggered: root.wallpaperSelected(root.contextMenuUrl, PersonalizationExport.Option_Desktop)
             }
